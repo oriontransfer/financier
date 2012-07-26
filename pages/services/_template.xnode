@@ -1,0 +1,66 @@
+<?r
+	service = attributes['service']
+	
+	extend Utopia::HTML::Strings
+?><form class="basic editor" method="post" action="#" >
+	<?r if service.id ?>
+	<input type="hidden" name="_rev" value="#{service.rev}" />
+	<?r end ?>
+	
+	<fieldset><legend>Service Details</legend>
+		<dl>
+			<dt>Name</dt>
+			<dd><input name="name" type="text" required value="#{h service.name}" /></dd>
+			
+			<dt>Description</dt>
+			<dd><textarea name="description">#{h service.description}</textarea></dd>
+		</dl>
+		
+		<dl>
+			<dt>Domain</dt>
+			<dd><input name="domain" type="text" required value="#{h service.domain}" /></dd>
+		</dl>
+	</fieldset>
+	
+	<fieldset><legend>Billing Details</legend>
+		<dl>
+			<dt>Customer</dt>
+			<dd>
+				<select name="customer">
+					<?r Financier::Customer.all(Financier::DB).each do |customer| ?>
+					<option value="#{customer.id}" #{service.customer == customer ? 'selected' : ''}>#{customer.name}</option>
+					<?r end ?>
+				</select>
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>Start Date</dt>
+			<dd><input name="start_date" type="date" required value="#{h service.start_date}" /></dd>
+			
+			<dt>Billed Until Date</dt>
+			<dd><input name="billed_until_date" type="date" value="#{h service.billed_until_date}" /></dd>
+			
+			<dd>
+				<input type="hidden" name="active" value="false" />
+				<input name="active" type="checkbox" #{service.active ? 'checked' : ''}/> Active
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>Periodic Cost</dt>
+			<dd><input name="periodic_cost" type="currency" required pattern="\d+(\.\d+)? \w{3}" title="{amount} {currency}" value="#{h service.periodic_cost}" /></dd>
+			
+			<dt>Period</dt>
+			<dd><input name="period" type="text" required value="#{h service.period}" /></dd>
+		</dl>
+	</fieldset>
+	
+	<fieldset class="footer">
+		<?r unless service.id ?>
+		<input type="submit" value="Create" />
+		<?r else ?>
+		<input type="submit" value="Update" />
+		<?r end ?>
+	</fieldset>
+</form>

@@ -1,0 +1,10 @@
+<?r
+	response.do_not_cache!
+?>
+<page>
+	<heading>Edit Transaction</heading>
+	
+	#{current.defer do |transaction, state|
+		transaction.tag('template', 'transaction' => request.controller[:transaction])
+	end}
+</page>

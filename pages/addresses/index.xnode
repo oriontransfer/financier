@@ -1,0 +1,48 @@
+<?r
+	response.do_not_cache!
+	extend Utopia::HTML::Strings
+?>
+<page>
+	<heading>Customers</heading>
+	
+	<table class="listing customers" data-model="Customer">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+				</th>
+				<th>Name</th>
+				<th># Invoices</th>
+				<th>Last Invoice</th>
+				<th>Last Payment</th>
+				<th>Balance</th>
+				<th>
+					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				Financier::Customer.all(Financier::DB).each do |customer|
+			?>
+			<tr data-id="#{customer.id}" data-rev="#{customer.rev}">
+				<td class="actions">
+					<a class="button edit" href="edit?id=#{customer.id}"><i class="icon-edit"></i></a>
+				</td>
+				<th>#{h customer.name}</th>
+				<td>#{h customer.invoice_count || 0}</td>
+				<td><?r maybe(customer.invoices(:limit => 1).first) do |invoice| ?>
+					<a href="../invoices?id=#{invoice.id}">#{h invoice.name}</a>
+					<?r end ?></td>
+				<td></td>
+				<td></td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<?r end ?>
+		</tbody>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</page>

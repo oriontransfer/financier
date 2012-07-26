@@ -1,0 +1,76 @@
+<?r
+	account = attributes['account']
+	
+	extend Utopia::HTML::Strings
+?><form class="basic editor" method="post" action="#" >
+	<?r if account.id ?>
+	<input type="hidden" name="_rev" value="#{account.rev}" />
+	<?r end ?>
+	
+	<fieldset><legend>Bank Details</legend>
+		<dl>
+			<dt>Name</dt>
+			<dd><input name="name" type="text" required value="#{h account.name}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Number</dt>
+			<dd><input name="number" type="text" required value="#{h account.number}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Bank Name</dt>
+			<dd><input name="bank_name" type="text" required value="#{h account.bank_name}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Bank Branch</dt>
+			<dd><input name="bank_branch" type="text" required value="#{h account.bank_branch}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Notes</dt>
+			<dd><input name="notes" type="text" value="#{h account.notes}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Sort Code</dt>
+			<dd><input name="sort_code" type="text" value="#{h account.sort_code}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Swift Code</dt>
+			<dd><input name="swift_code" type="text" value="#{h account.swift_code}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Tax Number</dt>
+			<dd><input name="tax_number" type="text" required value="#{h account.tax_number}" /></dd>
+		</dl>
+	</fieldset>
+	
+	<fieldset><legend>Account Details</legend>
+		<dl>
+			<dt>Pseudonym</dt>
+			<dd><input name="pseudonym" type="text" required value="#{h account.pseudonym}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Description</dt>
+			<dd><textarea name="description">#{h account.description}</textarea></dd>
+		</dl>
+		
+		<dd>
+			<input type="hidden" name="active" value="false" />
+			<input name="active" type="checkbox" #{account.active ? 'checked' : ''}/> Active
+		</dd>
+	</fieldset>
+	
+	<fieldset class="footer">
+		<?r unless account.id ?>
+		<input type="submit" value="Create" />
+		<?r else ?>
+		<input type="submit" value="Update" />
+		<?r end ?>
+	</fieldset>
+</form>

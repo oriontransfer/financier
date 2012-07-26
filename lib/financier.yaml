@@ -1,0 +1,99 @@
+-   _id: "_design/financier"
+    language: ruby
+    views:
+        lib:
+            _default: |
+                require 'bigdecimal'
+                require 'bigdecimal/util'
+        service:
+            map: |
+                lambda do |doc| 
+                    emit(doc['_id'], doc['_rev']) if doc['type'] == 'service'
+                end
+        service_by_customer:
+            map: |
+                lambda do |doc| 
+                    emit(doc['customer']) if doc['type'] == 'service'
+                end
+        service_count_by_customer:
+            map: |
+                lambda do |doc| 
+                    emit(doc['customer']) if doc['type'] == 'service' && doc['customer']
+                end
+            reduce: _count
+        customer:
+            map: |
+                lambda do |doc| 
+                    emit(doc['_id'], doc['_rev']) if doc['type'] == 'customer'
+                end
+        customer_by_name:
+            map: |
+                lambda do |doc| 
+                    emit(doc['name']) if doc['type'] == 'customer'
+                end
+        invoice:
+            map: |
+                lambda do |doc| 
+                    emit(doc['_id'], doc['_rev']) if doc['type'] == 'invoice'
+                end
+        invoice_by_customer:
+            map: |
+                lambda do |doc| 
+                    emit(doc['customer']) if doc['type'] == 'invoice' && doc['customer']
+                end
+        invoice_count_by_customer:
+            map: |
+                lambda do |doc| 
+                    emit(doc['customer']) if doc['type'] == 'invoice' && doc['customer']
+                end
+            reduce: _count
+        invoice_by_customer_and_date:
+            map: |
+                lambda do |doc| 
+                    emit([doc['customer'], doc['created_date']]) if doc['type'] == 'invoice'
+                end
+        invoice_by_year:
+            map: |
+                lambda do |doc| 
+                    emit(doc['created_date'].split('-')[0]) if doc['type'] == 'invoice' && doc['created_date']
+                end
+        invoice_count_by_year:
+            map: |
+                lambda do |doc| 
+                    emit(doc['created_date'].split('-')[0]) if doc['type'] == 'invoice' && doc['created_date']
+                end
+            reduce: _count
+        transaction_by_invoice:
+            map: |
+                lambda do |doc| 
+                    emit(doc['invoice']) if doc['type'] == 'transaction' && doc['invoice']
+                end
+        transaction_total_by_invoice:
+            map: |
+                lambda do |doc|
+                    emit([doc['invoice'], doc['total'][1]], doc['total'][0]) if doc['type'] == 'transaction' && doc['total']
+                end
+            reduce: |
+                lambda do |keys, values, reduced|
+                    values.map(&:to_d).inject(&:+)
+                end
+        account:
+            map: |
+                lambda do |doc| 
+                    emit(doc['_id'], doc['_rev']) if doc['type'] == 'account'
+                end
+        transaction_by_account:
+            map: |
+                lambda do |doc| 
+                    emit(doc['invoice']) if doc['type'] == 'transaction' && doc['account']
+                end
+        user:
+            map: |
+                lambda do |doc| 
+                    emit(doc['_id'], doc['_rev']) if doc['type'] == 'user'
+                end
+        user_by_name:
+            map: |
+                lambda do |doc| 
+                    emit(doc['name']) if doc['type'] == 'user' && doc['name']
+                end

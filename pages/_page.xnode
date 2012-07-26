@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<?r 
+			klass = attributes['class'] || ''
+			
+			response.content_type! "text/html; charset=utf-8"
+			response.cache!
+		?>
+		
+		<?r if title = (attributes["title"] || @title) ?>
+			<title>#{title.gsub(/<.*?>/, "")} - Financier</title>
+		<?r else ?>
+			<title>Financier</title>
+		<?r end ?>
+		
+		<link rel="icon" type="image/png" href="/_static/icon.png" />
+		<link rel="stylesheet" href="/_static/site.css" type="text/css" media="screen" />
+		
+		<link rel="stylesheet" href="/_static/font-awesome/css/font-awesome.css" type="text/css" media="screen" />
+		
+		<script src="/_static/jquery-1.7.2.min.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<?r if request.controller[:user] && !klass.include?("login") ?>
+		<div id="header">
+			<a href="/customers/index">Customers</a>
+			<a href="/services/index">Services</a>
+			<a href="/invoices/index">Invoices</a>
+			<a href="/accounts/index">Accounts</a>
+			
+			<a class="action" href="/logout">Logout #{request.controller[:user].name}</a>
+		</div>
+		<?r end ?>
+
+		<div id="page">
+			<content />
+		</div>
+	</body>
+</html>

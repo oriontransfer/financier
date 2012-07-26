@@ -1,0 +1,10 @@
+<?r
+	response.do_not_cache!
+?>
+<page>
+	<heading>Edit Account</heading>
+	
+	#{current.defer do
+		tag('template', 'account' => request.controller[:account])
+	end}
+</page>

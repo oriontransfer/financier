@@ -1,0 +1,51 @@
+<?r
+	extend Utopia::HTML::Strings
+	response.do_not_cache!
+?>
+<page>
+	<heading>Accounts</heading>
+	
+	<table class="listing accounts" data-model="Customer">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+				</th>
+				<th>Name</th>
+				<th>Last Updated</th>
+				<th>Balance</th>
+				<th>
+					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				Financier::Account.all(Financier::DB).each do |account|
+			?>
+			<tr data-id="#{account.id}" data-rev="#{account.rev}">
+				<td class="actions">
+					<a class="button edit" href="edit?id=#{account.id}"><i class="icon-edit"></i></a>
+				</td>
+				<th>
+					#{h account.pseudonym || account.name}
+				</th>
+				<td></td>
+				<td></td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<tr>
+				<td class="description" colspan="5">
+					#{current.defer do
+							tag('label', 'account' => account)
+					end}
+				</td>
+			</tr>
+			<?r end ?>
+		</tbody>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</page>

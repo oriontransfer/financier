@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<?r response.content_type! "text/html; charset=utf-8" ?>
+		<?r response.cache! ?>
+		
+		<?r if title = (attributes["title"] || @title) ?>
+			<title>#{title.gsub(/<.*?>/, "")} - Financier</title>
+		<?r else ?>
+			<title>Financier</title>
+		<?r end ?>
+		
+		<link rel="icon" type="image/png" href="/_static/icon.png" />
+		<link rel="stylesheet" href="/_static/print.css" type="text/css" media="screen, print" />
+		<link rel="stylesheet" href="/_static/A4.css" type="text/css" media="print" />
+	</head>
+
+	<body>
+		<div id="page">
+			<img id="logo" src="/_static/logo-large.png" />
+			
+			<content />
+		</div>
+	</body>
+</html>

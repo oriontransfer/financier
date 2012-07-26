@@ -1,0 +1,10 @@
+<?r
+	response.do_not_cache!
+?>
+<page>
+	<heading>New Invoice</heading>
+
+	#{current.defer do
+		tag('template', 'invoice' => request.controller[:invoice])
+	end}
+</page>

@@ -1,0 +1,163 @@
+/* Copyright (c) 2010 Orion Transfer Ltd. All Rights Reserved. */
+
+body {
+	font-family: "Gill Sans", "Avenir Next Condensed", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	color: #303;
+	
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+#logo {
+	width: 50%;
+}
+
+#page {
+	padding: 20pt;
+}
+
+img {
+	border: none;
+}
+
+p, dl, h3 {
+	margin: 1em;
+}
+
+h3 {
+	border-bottom: 1px solid #ccf;
+}
+
+ul {
+	margin-bottom: 1em;
+}
+
+h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+h1 {
+	border-bottom: 3px solid #bbb;
+	text-shadow: 1px 1px 1px #cacaca;
+}
+
+table.listing {
+	border-collapse: collapse;
+	width: 100%;
+	
+	border: 1px solid #aaa;
+	background-color: rgba(10, 100, 200, 0.02);
+}
+
+table.listing thead th {
+	border-bottom: 1px solid #aaa;
+}
+
+table.listing th, table.listing td {
+	font-weight: normal;
+	padding: 5pt;
+}
+
+table.listing .actions {
+	width: 22pt;
+}
+
+table.listing tbody th {
+	background-color: rgba(10, 100, 200, 0.04);
+}
+
+table.listing tbody td.actions {
+	text-align: center;
+}
+
+table.listing tbody .description {
+	background-color: white;
+	
+	padding-bottom: 1em;
+}
+
+table.listing tbody .description {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+table.listing thead {
+	background: #eee;
+}
+
+table.listing .when, table.listing .number {
+	width: 6em;
+	text-align: center;
+}
+
+table.listing tbody .total,
+table.listing tbody .subtotal,
+table.listing tbody .price,
+table.listing tbody .quantity,
+table.listing tbody .tax_rate {
+	text-align: right;
+	width: 14%;
+	border-left: 1px dotted #ccc;
+}
+
+table.listing tfoot {
+	border-top: 1px solid #ccc;
+	background-color: rgba(0, 80, 200, 0.08);
+}
+
+table.listing tfoot td {
+	text-align: right;
+}
+
+table.detail_select {
+	background-color: white;
+}
+
+a {
+	color: #00f;
+	text-decoration: none;
+}
+
+td ul, td p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+small {
+	font-size: 80%;
+}
+
+/* Print specific layout */
+
+table.company_details {
+	width: 100%;
+	margin: 20pt 0;
+	
+	background-color: rgba(10, 100, 200, 0.04);
+	border: 1px solid #ccc;
+	
+	border-collapse: collapse;
+}
+
+table.company_details th, table.company_details td {
+	vertical-align: top;
+	
+	padding: 5pt;
+}
+
+table.company_details th {
+	width: 15%;
+}
+
+table.company_details td {
+	width: 35%;
+}

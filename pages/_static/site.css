@@ -1,0 +1,363 @@
+/* Copyright (c) 2010 Orion Transfer Ltd. All Rights Reserved. */
+
+body {
+	font-family: "Gill Sans", "Avenir Next Condensed", sans-serif;
+}
+
+h1 {
+	border-bottom: 3px solid #bbb;
+	text-shadow: 1px 1px 1px #cacaca;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	
+	color: #303;
+	
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+
+h3 {
+	border-bottom: 1px solid #ccf;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+#page {
+	padding: 0 50px 50px 50px;
+}
+
+img {
+	border: none;
+}
+
+a {
+	color: #33a;
+}
+
+a:hover {
+	color: #55c;
+}
+
+p, dl, h3 {
+	margin: 1em;
+}
+
+ul {
+	margin-bottom: 1em;
+}
+
+textarea, input, table.detail_select {
+	padding: 2px;
+	margin: 2px;
+}
+
+textarea {
+	width: 80%;
+	height: 60px;
+}
+
+div.toolbar {
+	float: right;
+}
+
+div.toolbar a.button {
+	display: inline-block;
+	
+	padding: 2pt 6pt;
+}
+
+table.listing {
+	border-collapse: collapse;
+	width: 100%;
+	
+	font-size: 11pt;
+	
+	border: 1px solid #aaa;
+	background-color: rgba(10, 100, 200, 0.02);
+}
+
+table.listing thead th {
+	border-bottom: 1px solid #aaa;
+}
+
+table.listing td {
+	padding: 5pt;
+}
+
+table.listing th {
+	padding: 5pt;
+	font-weight: normal;
+}
+
+table.listing .actions {
+	width: 22pt;
+}
+
+table.listing tbody th {
+	background-color: rgba(10, 100, 200, 0.04);
+}
+
+table.listing tbody td.actions {
+	text-align: center;
+}
+
+table.listing tbody .description {
+	background-color: white;
+}
+
+table.listing tbody .description {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+table.listing thead {
+	background: fixed url(/_static/table_background.png);
+}
+
+table.listing .date, table.listing .number {
+	width: 80px;
+	text-align: center;
+}
+
+table.listing .total, table.listing .subtotal, table.listing .price, table.listing .quantity, table.listing .tax_rate, table.listing .credit, table.listing .debit {
+	text-align: right;
+	width: 12%;
+	border-left: 1px dashed #ccc;
+}
+
+table.listing tfoot {
+	border-top: 1px solid #ccc;
+	background-color: rgba(0, 80, 200, 0.08);
+}
+
+table.listing tfoot td {
+	text-align: right;
+}
+
+table.listing tbody tr:hover {
+	background-color: rgba(0, 80, 200, 0.08);
+}
+
+a {
+	color: #00f;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #99f;
+}
+
+#header {
+	font-size: 16pt;
+	
+	padding: 6pt;
+	
+	background: #6db3f2; /* Old browsers */
+	background: -moz-linear-gradient(top, #6db3f2 0%, #54a3ee 50%, #3690f0 51%, #1e69de 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6db3f2), color-stop(50%,#54a3ee), color-stop(51%,#3690f0), color-stop(100%,#1e69de)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
+	
+	padding-left: 10px;
+}
+
+#header a {
+	margin-right: 5px;
+	padding: 2px 6px 2px 6px;
+	
+	color: white;
+	text-decoration: none;
+	
+	text-shadow: 0 1px 1px #339;
+	border-radius: 4pt;
+	
+	border: 1px outset rgba(100, 100, 100, 0.2);
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+#header a:hover {
+	background-color: rgba(240, 240, 255, 0.2);
+}
+
+#header a:active {
+	background-color: rgba(120, 100, 150, 0.2);
+	border: 1px inset rgba(120, 100, 150, 0.2);
+}
+
+#header a.action {
+	margin-top: -2pt;
+	float: right;
+}
+
+#messages {
+	margin: 10px;
+}
+
+.property_list {
+	border: 1px dashed #ccf;
+	padding: 2px;
+	margin: 10px;
+}
+
+.property_list li {
+	display: inline-block;
+	padding: 2px;
+	background-color: #efefef;
+}
+
+td ul, td p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+small {
+	font-size: 8pt;
+}
+
+fieldset {
+	border: none;
+}
+
+.company_account_select .disabled {
+	background-color: #ccc;
+	color: #f00;
+}
+
+/* Font Awesome */
+
+i {
+	color: #222;
+	text-shadow: 0px 1px 1px #fff;
+	
+	font-size: 130%;
+	
+	vertical-align: -20%;
+}
+
+a.button i {
+	color: #999;
+}
+
+a.button:hover i {
+	color: black;
+}
+
+a.button i.icon-minus-sign { color: #900; }
+a.button:hover i.icon-minus-sign { color: #f00; }
+a.button i.icon-plus-sign { color: #090; }
+a.button:hover i.icon-plus-sign { color: #0d0; }
+a.button i.icon-edit { color: #009; }
+a.button:hover i.icon-edit { color: #00f; }
+
+form.basic fieldset {
+	margin: auto;
+	border: none;
+	padding: 10px;
+	
+	min-height: 40px;
+}
+
+form.basic dl {
+	padding: 0px;
+	margin: 0px;
+}
+
+form.basic dt {
+	margin: 0px 0px 0px;
+	padding: 3px 0px 0px;
+	
+	clear: both;
+	font-size: 12pt;
+	display: block;
+	float: left;
+	text-align: right;
+	width: 36%;
+	padding-right: 10px;
+}
+
+form.basic dd {
+	margin: 0px 0px 15px 40%;
+	padding: 0px;
+	font-size: 12pt;
+}
+
+form.basic dd input, form.basic dd textarea {
+	margin: 0px;
+}
+
+form.basic dd div {
+	left: 0px; right: 0px;
+	border: 1px solid orange;
+}
+
+form.basic dd input[type="text"],
+form.basic dd input[type="password"] {
+	width: 40%;
+}
+
+form.basic dd textarea {
+	width: 80%;
+	height: 100px;
+}
+
+form.basic fieldset.footer {
+	text-align: right;
+	padding: 0px 10px 0px 0px;
+	
+	background: none;
+	border: none;
+}
+
+form.basic dd label.error {
+	display: block;
+	color: red;
+}
+
+form.editor {
+}
+
+form.editor fieldset {
+	border: 1px solid #aaa;
+	background-color: rgba(10, 100, 200, 0.02);
+	
+	padding: 0;
+	margin: 10pt 0;
+	
+	position: relative;
+}
+
+form.editor fieldset legend {
+	position: absolute;
+	top: 0; left: 0; right: 0;
+	
+	background: fixed url(/_static/table_background.png);
+	border-bottom: 1px solid #aaa;
+	
+	padding: 5pt;
+	
+	margin-bottom: 15pt;
+}
+
+form.editor fieldset dl {
+	padding-top: 10pt;
+}
+
+form.editor fieldset legend + * {
+	margin-top: 24pt;
+}
+
+form.editor fieldset dl + dl {
+	margin-top: 20pt;
+}
+
+input:required:invalid, input:focus:invalid {
+	background-color: #eef;
+}

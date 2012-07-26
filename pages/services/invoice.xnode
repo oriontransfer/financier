@@ -1,0 +1,79 @@
+<?r
+	extend Utopia::HTML::Strings
+
+	response.do_not_cache!
+	services = request.controller[:services]
+	billing_end_date = request.controller[:billing_end_date]
+	billing_customer = request.controller[:billing_customer]
+?>
+<page>
+	<heading>Create Invoice from Services</heading>
+	
+	<form class="basic editor" method="post" action="#">
+		<?r request[:ids].each do |id| ?>
+			<input type="hidden" name="ids[]" value="#{id}" />
+		<?r end ?>
+		
+		<fieldset><legend>Billing Details</legend>
+			<dl>
+				<dt>End Date</dt>
+				<dd><input name="billing_end_date" type="date" required value="#{h billing_end_date}" /></dd>
+			</dl>
+			
+			<dt>Customer</dt>
+			<dd>
+				<select name="customer">
+					<?r Financier::Customer.all(Financier::DB).each do |customer| ?>
+					<option value="#{customer.id}" #{billing_customer == customer ? 'selected' : ''}>#{customer.name}</option>
+					<?r end ?>
+				</select>
+			</dd>
+		</fieldset>
+		
+		<fieldset class="footer">
+			<input type="submit" name="update" value="Update" />
+		</fieldset>
+		
+		<table class="listing services" data-model="Service">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th></th>
+					<th>Domain</th>
+					<th>Billed Until</th>
+					<th>End Date</th>
+					<th>Periods</th>
+					<th>Cost</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?r 
+					customer = nil
+					services.sort_by(&:customer).each do |service|
+						periods = service.periods_to_date(billing_end_date)
+					
+						if customer != service.customer
+							customer = service.customer
+				?>
+				<tr>
+					<th colspan="7">#{customer.name}</th>
+				</tr>
+				<?r	end ?>
+				<tr data-id="#{service.id}" data-rev="#{service.rev}">
+					<th>#{h service.name}</th>
+					<td>#{service.active ? '&#x2705;' : '&#x274C;'}</td>
+					<td>#{h service.domain}</td>
+					<td>#{h service.billed_until_date}</td>
+					<td>#{h billing_end_date}</td>
+					<td>#{h periods.to_i}</td>
+					<td>#{h Financier::format_resource service.periodic_cost * periods.to_i}</td>
+				</tr>
+				<?r end ?>
+			</tbody>
+		</table>
+		
+		<fieldset class="footer">
+			<input type="submit" name="create" value="Create" />
+		</fieldset>
+	</form>
+</page>

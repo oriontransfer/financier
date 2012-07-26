@@ -1,0 +1,98 @@
+<?r
+	response.do_not_cache!
+	extend Utopia::HTML::Strings
+	
+	invoice = request.controller[:invoice]
+	markdown = Financier.redcarpet
+?>
+<print>
+	<heading>Invoice #{h invoice.number || '-'}: #{h invoice.name}</heading>
+	
+	<?r if invoice.description && !invoice.description.empty? ?>
+	#{markdown.render(invoice.description)}
+	<?r end ?>
+	
+	<table class="listing transactions">
+		<thead>
+			<tr>
+				<th class="name">Name</th>
+				<th class="price">Price</th>
+				<th class="quantity">Quantity</th>
+				<th class="subtotal">Sub-total</th>
+				<th class="tax_rate">Tax</th>
+				<th class="total">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				currencies = Set.new
+				
+				summary = {
+					:subtotal => Latinum::Collection.new(currencies),
+					:tax => Latinum::Collection.new(currencies),
+					:total => Latinum::Collection.new(currencies)
+				}
+				
+				invoice.transactions.each do |transaction|
+					subtotal = transaction.subtotal
+					summary[:subtotal] << subtotal
+					summary[:tax] << subtotal * transaction.tax_rate.to_d
+					summary[:total] << transaction.total
+				
+			?>
+			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+				<th class="name">#{h transaction.name}</th>
+				<td class="price">#{h Financier::format_resource transaction.price}</td>
+				<td class="quantity">#{h Financier::format_quantity transaction}</td>
+				<td class="subtotal">#{h Financier::format_resource subtotal}</td>
+				<td class="tax_rate">#{h Financier::format_tax transaction}</td>
+				<td class="total">
+					#{h Financier::format_resource transaction.total}
+					<?r if transaction.exchange_rate ?>
+					<small class="exchanged">Exchanged at #{h transaction.exchange_rate}</small>
+					<?r end ?>
+				</td>
+			</tr>
+			<?r if transaction.description && transaction.description.size > 0 ?>
+			<tr>
+				<td class="description" colspan="6">#{markdown.render(transaction.description || '')}</td>
+			</tr>
+			<?r end ?>
+			<?r end ?>
+		</tbody>
+		<tfoot>
+			<?r currencies.each do |currency| ?>
+			<tr>
+				<td colspan="3">#{currency} Summary:</td>
+				<td class="subtotal">#{h Financier::format_resource summary[:subtotal][currency]}</td>
+				<td class="tax_rate">#{h Financier::format_resource summary[:tax][currency]}</td>
+				<td class="total">#{h Financier::format_resource summary[:total][currency]}</td>
+			</tr>
+			<?r end ?>
+		</tfoot>
+	</table>
+	
+	<table class="company_details">
+		<tbody>
+			<tr>
+				<th>Company:</th>
+				<td>
+					<span class="address">
+						<span><em>Orion Transfer Ltd</em></span><br/>
+						<span class="line_1">2 Derenzy Place </span><br/>
+						<span class="line_2">Avonhead</span><br/>
+						<span class="city">Christchurch 8042</span><br/>
+						<span class="region">Canterbury, New Zealand</span><br/>
+					</span>
+				</td>
+				<th>Payment Details:</th>
+				<td>
+					#{current.defer do
+						node = lookup_node(Path.create("./accounts/_label"))
+						render_node(node, 'account' => invoice.account) if invoice.account
+					end}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</print>

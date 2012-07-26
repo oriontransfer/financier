@@ -1,0 +1,21 @@
+<div class="account label"><?r
+	account = attributes['account']
+	
+	extend Utopia::HTML::Strings
+	
+	prefix = {
+		:name => "Account Name: ",
+		:number => "Account Number: ",
+		:swift_code => "Swift Code: ",
+		:sort_code => "Sort Code: ",
+		:tax_number => "Tax \#: "
+	}
+	
+	fields = [:bank_name, :bank_branch, :name, :number, :swift_code, :sort_code, :tax_number, :notes]
+	
+	fields.each do |field|
+		value = account.send(field)
+		next if value == nil || value == ''
+?><span class="#{h field}">#{h prefix.fetch(field, '') + value}</span><br/><?r
+	end
+?></div>

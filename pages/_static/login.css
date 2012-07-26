@@ -1,0 +1,81 @@
+
+body {
+	background: #1e5799;
+}
+
+.powered_by {
+	position: absolute;
+	
+	top: 90%;
+	left: 0px;
+	right: 0px;
+	
+	color: #fff;
+	font-size: 0.8em;
+	
+	text-align: center;
+}
+
+a {
+	color: white;
+}
+
+fieldset {
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	right: 25%;
+	
+	background-color: #ccc;
+	border: 8px outset #fff;
+	
+	-moz-box-shadow: black 10px 10px 50px;
+	-webkit-box-shadow: black 10px 10px 50px;
+	
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	
+	padding: 20px;
+}
+
+fieldset h1 {
+	margin-top: 0;
+}
+
+form.login dl {
+	padding: 0px;
+	margin: 0px;
+}
+
+form.login dt {
+	margin: 0px 0px 0px;
+	padding: 5px 0px 0px;
+	
+	clear: both;
+	font-size: 16pt;
+	display: block;
+	float: left;
+	text-align: right;
+	width: 30%;
+	padding-right: 10px;
+}
+
+form.login dd {
+	margin: 0px 0px 15px 32%;
+	padding: 0px;
+	font-size: 12pt;
+}
+
+form.login dd input {
+	margin: 0px;
+	width: 90%;
+	font-size: 16pt;
+}
+
+form .footer input {
+	font-size: 16pt;
+}
+
+form .footer {
+	text-align: right;
+}

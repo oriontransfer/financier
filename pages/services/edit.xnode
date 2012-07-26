@@ -1,0 +1,10 @@
+<?r
+	response.do_not_cache!
+?>
+<page>
+	<heading>Edit Service</heading>
+	
+	#{current.defer do
+		tag('template', 'service' => request.controller[:service])
+	end}
+</page>

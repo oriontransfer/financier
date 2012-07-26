@@ -1,0 +1,10 @@
+<?r
+	service = request.controller[:service]
+?>
+<page>
+	<heading>New Service</heading>
+
+	#{current.defer do
+		tag('template', 'service' => request.controller[:service])
+	end}
+</page>

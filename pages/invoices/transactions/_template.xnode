@@ -1,0 +1,58 @@
+<?r
+	transaction = attributes['transaction']
+	extend Utopia::HTML::Strings
+?><form class="basic editor" method="post" action="#" >
+	<?r if transaction.id ?>
+	<input type="hidden" name="_rev" value="#{transaction.rev}" />
+	<?r end ?>
+	
+	<fieldset><legend>Transaction Details</legend>
+		<dl>
+			<dt>Name</dt>
+			<dd><input name="name" type="text" required value="#{h transaction.name}" /></dd>
+			
+			<dt>Description</dt>
+			<dd><textarea name="description">#{h transaction.description}</textarea></dd>
+			
+			<dt>Start Date</dt>
+			<dd><input name="date" type="date" required value="#{h transaction.date}" /></dd>
+		</dl>
+	</fieldset>
+	
+	<fieldset><legend>Costing</legend>
+		<dl>
+			<dt>Price</dt>
+			<dd><input name="price" type="currency" required pattern="\d+(\.\d+)? \w{3}" title="{amount} {currency}" value="#{h transaction.price}" /></dd>
+			
+			<dt>Quantity</dt>
+			<dd><input name="quantity" type="number" required value="#{h transaction.quantity}" /></dd>
+			
+			<dt>Unit</dt>
+			<dd><input name="unit" type="text" value="#{h transaction.unit}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Tax Code</dt>
+			<dd><input name="tax_code" type="text" value="#{h transaction.tax_code}" /></dd>
+			
+			<dt>Tax Rate</dt>
+			<dd><input name="tax_rate" type="number" value="#{h transaction.tax_rate}" /></dd>
+		</dl>
+		
+		<dl>
+			<dt>Exchange Rate</dt>
+			<dd><input name="exchange_rate" type="number" value="#{h transaction.exchange_rate}" /></dd>
+			
+			<dt>Exchange Name</dt>
+			<dd><input name="exchange_name" type="text" value="#{h transaction.exchange_name}" /></dd>
+		</dl>
+	</fieldset>
+	
+	<fieldset class="footer">
+		<?r unless transaction.id ?>
+		<input type="submit" value="Create" />
+		<?r else ?>
+		<input type="submit" value="Update" />
+		<?r end ?>
+	</fieldset>
+</form>

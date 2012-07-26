@@ -1,0 +1,56 @@
+<?r
+	response.do_not_cache!
+	extend Utopia::HTML::Strings
+	
+	invoice = request.controller[:invoice]
+	markdown = Financier.redcarpet
+?>
+<page>
+	<heading>Invoice #{h invoice.number || '-'}: #{h invoice.name}</heading>
+	
+	<table class="listing invoices" data-model="Invoice">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+				</th>
+				<th>When</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Sub-total</th>
+				<th>Tax</th>
+				<th>Total</th>
+				<th>
+					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				$stderr.puts invoice.transactions.rows.inspect
+				invoice.transactions.each do |transaction|
+			?>
+			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+				<td class="actions">
+					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="icon-edit"></i></a>
+				</td>
+				<td>#{h transaction.date}</td>
+				<th>#{h transaction.name}</th>
+				<td>#{markdown.render(transaction.description || '')}</td>
+				<td>#{h transaction.unit_cost}</td>
+				<td>#{h transaction.count}</td>
+				<td>#{h transaction.unit_cost * BigDecimal(transaction.count, 0)}</td>
+				<td></td>
+				<td></td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<?r end ?>
+		</tbody>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</page>

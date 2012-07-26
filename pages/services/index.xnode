@@ -1,0 +1,77 @@
+<?r
+	extend Utopia::HTML::Strings
+	response.do_not_cache!
+?>
+<page>
+	<div class="toolbar">
+		<a class="button generate-invoice" href="invoice"><i class="icon-cogs"> Generate Invoice</i></a>
+	</div>
+	
+	<heading>Services</heading>
+	
+	<table class="listing services" data-model="Service">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+				</th>
+				<th>Name</th>
+				<th></th>
+				<th>Domain</th>
+				<th>Start Date</th>
+				<th>Billed Until</th>
+				<th>Cost</th>
+				<th>
+					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				customer = nil
+				Financier::Service.by_customer(Financier::DB).each do |service|
+					if customer != service.customer
+						customer = service.customer
+			?>
+			<tr>
+				<th colspan="8">#{customer.name}</th>
+			</tr>
+			<?r
+					end
+			?>
+			<tr data-id="#{service.id}" data-rev="#{service.rev}">
+				<td class="actions">
+					<a class="button edit" href="edit?id=#{service.id}"><i class="icon-edit"></i></a>
+				</td>
+				<th>#{h service.name}</th>
+				<td>#{service.active ? '&#x2705;' : '&#x274C;'}</td>
+				<td>#{h service.domain}</td>
+				<td>#{h service.start_date}</td>
+				<td>#{h service.billed_until_date}</td>
+				<td>#{h service.periodic_cost} / #{h service.period}</td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<?r end ?>
+		</tbody>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+	
+	<script type="text/javascript">
+		jQuery(function($){
+			$('a.button.generate-invoice').on("click", function() {
+				var selected = $('table.listing tr:has(input.selected:checked)'), services = [];
+				
+				selected.each(function(){
+					services.push($(this).data('id'));
+				});
+				
+				window.location.href = this.href + '?' + $.param({ids: services})
+				
+				return false;
+			});
+		});
+	</script>
+</page>

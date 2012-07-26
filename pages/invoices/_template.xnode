@@ -1,0 +1,40 @@
+<?r
+	f = Financier::FormFormatter.new(:object => attributes['invoice'])
+	
+	customers = Financier::Customer.all(Financier::DB)
+	accounts = Financier::Account.all(Financier::DB)
+	
+?><form class="basic editor" method="post" action="#" >
+	<?r if f.object.id ?>
+	<input type="hidden" name="_rev" value="#{f.object.rev}" />
+	<?r end ?>
+	
+	<fieldset><legend>Invoice Details</legend>
+		<dl>
+			#{f.input :title => "Name"}
+			#{f.input :title => "Number"}
+			
+			#{f.textarea :title => "Description"}
+			
+			#{f.input :title => "Created Date", :type => :date, :required => true}
+			#{f.input :title => "Invoiced Date", :type => :date}
+			#{f.input :title => "Due Date", :type => :date}
+		</dl>
+	</fieldset>
+	
+	<fieldset><legend>Billing Details</legend>
+		<dl>
+			#{f.select :title => "Customer", :collection => customers do |customer|
+				f.option :title => customer.name, :selected => (f.object.customer == customer)
+			end}
+			
+			#{f.select :title => "Account", :collection => accounts do |account|
+				f.option :title => account.pseudonym, :selected => (f.object.account == account)
+			end}
+		</dl>
+	</fieldset>
+	
+	<fieldset class="footer">
+		<input type="submit" value="#{f.object.id ? 'Update' : 'Create'}" />
+	</fieldset>
+</form>

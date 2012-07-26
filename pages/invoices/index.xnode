@@ -1,0 +1,69 @@
+<?r
+	response.do_not_cache!
+	extend Utopia::HTML::Strings
+	
+	f = Financier::ViewFormatter.new
+?>
+<page>
+	<heading>Invoices</heading>
+	
+	<table class="listing invoices" data-model="Invoice">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+				</th>
+				<th class="when">When</th>
+				<th class="number">#</th>
+				<th>Name</th>
+				<th>Customer</th>
+				<th class="total">Total</th>
+				<th>
+					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r
+				currencies = Set.new
+			
+				summary = {
+					:total => Latinum::Collection.new(currencies)
+				}
+				
+				Financier::Invoice.all(Financier::DB).each do |invoice|
+					totals = invoice.totals(:group => true, :startkey => [invoice.id], :endkey => [invoice.id, {}])
+			?>
+			<tr data-id="#{invoice.id}" data-rev="#{invoice.rev}">
+				<td class="actions">
+					<a class="button edit" href="edit?id=#{invoice.id}"><i class="icon-edit"></i></a>
+				</td>
+				<td class="when">#{f % invoice.created_date}</td>
+				<td class="number">#{f % invoice.number}</td>
+				<th><a href="show?id=#{invoice.id}">#{f % invoice.name}</a></th>
+				<td>#{f % invoice.customer.name if invoice.customer}</td>
+				<td class="total"><?r 
+					totals.each do |total|
+						summary[:total] << total
+						?>#{f % total}<br/><?r 
+					end 
+				?></td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<?r end ?>
+		</tbody>
+		<tfoot>
+			<?r currencies.each do |currency| ?>
+			<tr>
+				<td colspan="5">#{f % currency} Summary:</td>
+				<td class="total">#{f % summary[:total][currency]}</td>
+				<td></td>
+			</tr>
+			<?r end ?>
+		</tfoot>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</page>
