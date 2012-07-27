@@ -1,66 +1,46 @@
 <?r
-	service = attributes['service']
-	
-	extend Utopia::HTML::Strings
+	f = Financier::FormFormatter.new(:object => attributes['service'])
+
+	customers = Financier::Customer.all(Financier::DB)
+	accounts = Financier::Account.all(Financier::DB)
+
 ?><form class="basic editor" method="post" action="#" >
-	<?r if service.id ?>
-	<input type="hidden" name="_rev" value="#{service.rev}" />
-	<?r end ?>
+	#{f.hidden :field => :_rev if f.object.id}
 	
 	<fieldset><legend>Service Details</legend>
 		<dl>
-			<dt>Name</dt>
-			<dd><input name="name" type="text" required value="#{h service.name}" /></dd>
-			
-			<dt>Description</dt>
-			<dd><textarea name="description">#{h service.description}</textarea></dd>
+			#{f.input :field => :name, :required => true}
+			#{f.textarea :field => :description}
 		</dl>
 		
 		<dl>
-			<dt>Domain</dt>
-			<dd><input name="domain" type="text" required value="#{h service.domain}" /></dd>
+			#{f.input :field => :domain}
 		</dl>
 	</fieldset>
 	
 	<fieldset><legend>Billing Details</legend>
 		<dl>
-			<dt>Customer</dt>
-			<dd>
-				<select name="customer">
-					<?r Financier::Customer.all(Financier::DB).each do |customer| ?>
-					<option value="#{customer.id}" #{service.customer == customer ? 'selected' : ''}>#{customer.name}</option>
-					<?r end ?>
-				</select>
-			</dd>
+			#{f.select :field => :customer, :collection => customers do |customer|
+				f.option :title => customer.name, :selected => (f.object.customer == customer)
+			end}
 		</dl>
 		
 		<dl>
-			<dt>Start Date</dt>
-			<dd><input name="start_date" type="date" required value="#{h service.start_date}" /></dd>
+			#{f.input :field => :start_date, :type => 'date', :required => true}
 			
-			<dt>Billed Until Date</dt>
-			<dd><input name="billed_until_date" type="date" value="#{h service.billed_until_date}" /></dd>
+			#{f.input :field => :billed_until_date, :type => 'date'}
 			
-			<dd>
-				<input type="hidden" name="active" value="false" />
-				<input name="active" type="checkbox" #{service.active ? 'checked' : ''}/> Active
-			</dd>
+			#{f.checkbox :field => :active}
 		</dl>
 		
 		<dl>
-			<dt>Periodic Cost</dt>
-			<dd><input name="periodic_cost" type="currency" required pattern="\d+(\.\d+)? \w{3}" title="{amount} {currency}" value="#{h service.periodic_cost}" /></dd>
+			#{f.input :field => :periodic_cost, :type => 'currency', :required => true}
 			
-			<dt>Period</dt>
-			<dd><input name="period" type="text" required value="#{h service.period}" /></dd>
+			#{f.input :field => :period, :required => true}
 		</dl>
 	</fieldset>
 	
 	<fieldset class="footer">
-		<?r unless service.id ?>
-		<input type="submit" value="Create" />
-		<?r else ?>
-		<input type="submit" value="Update" />
-		<?r end ?>
+		#{f.submit}
 	</fieldset>
 </form>

@@ -1,5 +1,5 @@
 
-include Utopia::Controller::Direct
+include Direct
 
 def on_new(path, request)
 	transaction = request.controller[:transaction] = Financier::Invoice::Transaction.create(Financier::DB, :date => Date.today, :quantity => 1)

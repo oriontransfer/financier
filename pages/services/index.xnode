@@ -1,6 +1,5 @@
 <?r
-	extend Utopia::HTML::Strings
-	response.do_not_cache!
+	f = Financier::ViewFormatter.new
 ?>
 <page>
 	<div class="toolbar">
@@ -27,7 +26,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?r 
+			<?r
 				customer = nil
 				Financier::Service.by_customer(Financier::DB).each do |service|
 					if customer != service.customer
@@ -43,12 +42,12 @@
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{service.id}"><i class="icon-edit"></i></a>
 				</td>
-				<th>#{h service.name}</th>
+				<th>#{f.text service.name}</th>
 				<td>#{service.active ? '&#x2705;' : '&#x274C;'}</td>
-				<td>#{h service.domain}</td>
-				<td>#{h service.start_date}</td>
-				<td>#{h service.billed_until_date}</td>
-				<td>#{h service.periodic_cost} / #{h service.period}</td>
+				<td>#{f.text service.domain}</td>
+				<td>#{f.text service.start_date}</td>
+				<td>#{f.text service.billed_until_date}</td>
+				<td>#{f.text service.periodic_cost} / #{f.text service.period}</td>
 				<th class="actions">
 					<input type="checkbox" class="selected" />
 				</th>
@@ -68,7 +67,7 @@
 					services.push($(this).data('id'));
 				});
 				
-				window.location.href = this.href + '?' + $.param({ids: services})
+				window.location.href = this.href + '?' + $.param({services: services})
 				
 				return false;
 			});

@@ -1,6 +1,5 @@
 <?r
-	response.do_not_cache!
-	extend Utopia::HTML::Strings
+	f = Financier::ViewFormatter.new
 ?>
 <page>
 	<heading>Customers</heading>
@@ -29,10 +28,10 @@
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{customer.id}"><i class="icon-edit"></i></a>
 				</td>
-				<th>#{h customer.name}</th>
-				<td>#{h customer.invoice_count || 0}</td>
-				<td><?r maybe(customer.invoices(:limit => 1).first) do |invoice| ?>
-					<a href="../invoices/show?id=#{invoice.id}">#{h invoice.name}</a>
+				<th>#{f.text customer.name}</th>
+				<td>#{f.text customer.invoice_count || 0}</td>
+				<td><?r customer.invoices(:limit => 1).first.maybe? do |invoice| ?>
+					<a href="../invoices/show?id=#{invoice.id}">#{f.text invoice.name}</a>
 					<?r end ?></td>
 				<td></td>
 				<td></td>

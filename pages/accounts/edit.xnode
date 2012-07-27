@@ -1,6 +1,3 @@
-<?r
-	response.do_not_cache!
-?>
 <page>
 	<heading>Edit Account</heading>
 	

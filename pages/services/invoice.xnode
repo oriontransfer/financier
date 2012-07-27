@@ -1,37 +1,30 @@
 <?r
-	extend Utopia::HTML::Strings
-
-	response.do_not_cache!
+	customers = Financier::Customer.all(Financier::DB)
+	
 	services = request.controller[:services]
 	billing_end_date = request.controller[:billing_end_date]
 	billing_customer = request.controller[:billing_customer]
+	
+	f = Financier::FormFormatter.new
 ?>
 <page>
 	<heading>Create Invoice from Services</heading>
 	
 	<form class="basic editor" method="post" action="#">
-		<?r request[:ids].each do |id| ?>
-			<input type="hidden" name="ids[]" value="#{id}" />
+		<?r request[:services].each do |id| ?>
+			#{f.hidden :field => :'services[]', :value => id}
 		<?r end ?>
 		
 		<fieldset><legend>Billing Details</legend>
-			<dl>
-				<dt>End Date</dt>
-				<dd><input name="billing_end_date" type="date" required value="#{h billing_end_date}" /></dd>
-			</dl>
+			#{f.input :field => :billing_end_date, :type => :date, :value => billing_end_date}
 			
-			<dt>Customer</dt>
-			<dd>
-				<select name="customer">
-					<?r Financier::Customer.all(Financier::DB).each do |customer| ?>
-					<option value="#{customer.id}" #{billing_customer == customer ? 'selected' : ''}>#{customer.name}</option>
-					<?r end ?>
-				</select>
-			</dd>
+			#{f.select :field => :billing_customer, :collection => customers do |customer|
+				f.option :title => customer.name, :selected => (billing_customer == customer)
+			end}
 		</fieldset>
 		
 		<fieldset class="footer">
-			<input type="submit" name="update" value="Update" />
+			#{f.submit :field => :update}
 		</fieldset>
 		
 		<table class="listing services" data-model="Service">
@@ -60,20 +53,20 @@
 				</tr>
 				<?r	end ?>
 				<tr data-id="#{service.id}" data-rev="#{service.rev}">
-					<th>#{h service.name}</th>
+					<th>#{f.text service.name}</th>
 					<td>#{service.active ? '&#x2705;' : '&#x274C;'}</td>
-					<td>#{h service.domain}</td>
-					<td>#{h service.billed_until_date}</td>
-					<td>#{h billing_end_date}</td>
-					<td>#{h periods.to_i}</td>
-					<td>#{h Financier::format_resource service.periodic_cost * periods.to_i}</td>
+					<td>#{f.text service.domain}</td>
+					<td>#{f.text service.billed_until_date}</td>
+					<td>#{f.text billing_end_date}</td>
+					<td>#{f.text periods.to_i}</td>
+					<td>#{f.text (service.periodic_cost * periods.to_i)}</td>
 				</tr>
 				<?r end ?>
 			</tbody>
 		</table>
 		
 		<fieldset class="footer">
-			<input type="submit" name="create" value="Create" />
+			#{f.submit :field => :create}
 		</fieldset>
 	</form>
 </page>

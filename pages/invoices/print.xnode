@@ -1,15 +1,13 @@
 <?r
-	response.do_not_cache!
-	extend Utopia::HTML::Strings
-	
 	invoice = request.controller[:invoice]
-	markdown = Financier.redcarpet
+	
+	f = Financier::ViewFormatter.new
 ?>
 <print>
-	<heading>Invoice #{h invoice.number || '-'}: #{h invoice.name}</heading>
+	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
 	
 	<?r if invoice.description && !invoice.description.empty? ?>
-	#{markdown.render(invoice.description)}
+	#{f.markdown invoice.description}
 	<?r end ?>
 	
 	<table class="listing transactions">
@@ -41,21 +39,21 @@
 				
 			?>
 			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
-				<th class="name">#{h transaction.name}</th>
-				<td class="price">#{h Financier::format_resource transaction.price}</td>
-				<td class="quantity">#{h Financier::format_quantity transaction}</td>
-				<td class="subtotal">#{h Financier::format_resource subtotal}</td>
-				<td class="tax_rate">#{h Financier::format_tax transaction}</td>
+				<th class="name">#{f.text transaction.name}</th>
+				<td class="price">#{f.text transaction.price}</td>
+				<td class="quantity">#{f.quantity transaction}</td>
+				<td class="subtotal">#{f.text subtotal}</td>
+				<td class="tax_rate">#{f.tax transaction}</td>
 				<td class="total">
-					#{h Financier::format_resource transaction.total}
-					<?r if transaction.exchange_rate ?>
-					<small class="exchanged">Exchanged at #{h transaction.exchange_rate}</small>
+					#{f.text transaction.total}
+					<?r if transaction.exchange_rate? ?>
+					<small class="exchanged">Exchanged at #{f.text transaction.exchange_rate}</small>
 					<?r end ?>
 				</td>
 			</tr>
-			<?r if transaction.description && transaction.description.size > 0 ?>
+			<?r if transaction.description? ?>
 			<tr>
-				<td class="description" colspan="6">#{markdown.render(transaction.description || '')}</td>
+				<td class="description" colspan="6">#{f.markdown transaction.description}</td>
 			</tr>
 			<?r end ?>
 			<?r end ?>
@@ -64,9 +62,9 @@
 			<?r currencies.each do |currency| ?>
 			<tr>
 				<td colspan="3">#{currency} Summary:</td>
-				<td class="subtotal">#{h Financier::format_resource summary[:subtotal][currency]}</td>
-				<td class="tax_rate">#{h Financier::format_resource summary[:tax][currency]}</td>
-				<td class="total">#{h Financier::format_resource summary[:total][currency]}</td>
+				<td class="subtotal">#{f.text summary[:subtotal][currency]}</td>
+				<td class="tax_rate">#{f.text summary[:tax][currency]}</td>
+				<td class="total">#{f.text summary[:total][currency]}</td>
 			</tr>
 			<?r end ?>
 		</tfoot>

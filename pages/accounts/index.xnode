@@ -1,6 +1,5 @@
 <?r
-	extend Utopia::HTML::Strings
-	response.do_not_cache!
+	f = Financier::ViewFormatter.new
 ?>
 <page>
 	<heading>Accounts</heading>
@@ -28,7 +27,7 @@
 					<a class="button edit" href="edit?id=#{account.id}"><i class="icon-edit"></i></a>
 				</td>
 				<th>
-					#{h account.pseudonym || account.name}
+					#{f.text account.pseudonym || account.name}
 				</th>
 				<td></td>
 				<td></td>

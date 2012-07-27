@@ -5,36 +5,34 @@
 	accounts = Financier::Account.all(Financier::DB)
 	
 ?><form class="basic editor" method="post" action="#" >
-	<?r if f.object.id ?>
-	<input type="hidden" name="_rev" value="#{f.object.rev}" />
-	<?r end ?>
+	#{f.hidden :field => :_rev if f.object.id}
 	
 	<fieldset><legend>Invoice Details</legend>
 		<dl>
-			#{f.input :title => "Name"}
-			#{f.input :title => "Number"}
+			#{f.input :field => :name}
+			#{f.input :field => :number}
 			
-			#{f.textarea :title => "Description"}
+			#{f.textarea :field => :description}
 			
-			#{f.input :title => "Created Date", :type => :date, :required => true}
-			#{f.input :title => "Invoiced Date", :type => :date}
-			#{f.input :title => "Due Date", :type => :date}
+			#{f.input :field => :created_date, :type => :date, :required => true}
+			#{f.input :field => :invoiced_date, :type => :date}
+			#{f.input :field => :due_date, :type => :date}
 		</dl>
 	</fieldset>
 	
 	<fieldset><legend>Billing Details</legend>
 		<dl>
-			#{f.select :title => "Customer", :collection => customers do |customer|
+			#{f.select :field => :customer, :collection => customers do |customer|
 				f.option :title => customer.name, :selected => (f.object.customer == customer)
 			end}
 			
-			#{f.select :title => "Account", :collection => accounts do |account|
+			#{f.select :field => :account, :collection => accounts do |account|
 				f.option :title => account.pseudonym, :selected => (f.object.account == account)
 			end}
 		</dl>
 	</fieldset>
 	
 	<fieldset class="footer">
-		<input type="submit" value="#{f.object.id ? 'Update' : 'Create'}" />
+		#{f.submit}
 	</fieldset>
 </form>

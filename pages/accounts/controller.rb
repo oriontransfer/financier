@@ -1,5 +1,5 @@
 
-include Utopia::Controller::Direct
+include Direct
 
 def on_delete(path, request)
 	fail!(:forbidden) unless request.post?

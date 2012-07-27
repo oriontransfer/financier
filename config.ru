@@ -9,7 +9,6 @@ require 'utopia/middleware/all'
 require 'utopia/tags/all'
 
 require 'utopia/session/encrypted_cookie'
-require 'utopia/html/strings'
 
 # Financier
 require 'financier'
@@ -20,8 +19,6 @@ require 'rack/contrib'
 # Utopia relies heavily on accurately caching resources
 gem 'rack-cache'
 require 'rack/cache'
-
-require 'utopia/controller/direct'
 
 if UTOPIA_ENV == :development
 	use Rack::ShowExceptions

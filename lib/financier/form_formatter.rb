@@ -3,15 +3,23 @@ require 'financier/view_formatter'
 
 module Financier
 	class FormFormatter < ViewFormatter
+		def resource(object)
+			object.to_s
+		end
+		
 		def object
 			@options[:object]
 		end
 		
-		def name_for(options = {})
-			options[:name] || options[:title].downcase.gsub(/\s+/, '_').to_sym
+		def name_for(options)
+			options[:field] || title_for(options).downcase.gsub(/\s+/, '_').to_sym
 		end
 		
-		def value_for(options = {})
+		def title_for(options)
+			options[:title] || options[:field].to_s.to_title
+		end
+		
+		def value_for(options)
 			value = options[:value]
 			
 			if options[:object]
@@ -32,6 +40,10 @@ module Financier
 				buffer << "selected"
 			end
 			
+			if options[:type] == 'currency'
+				buffer << 'pattern="\d+(\.\d+)? \w{3}"'
+			end
+			
 			buffer.join(' ')
 		end
 	
@@ -39,7 +51,7 @@ module Financier
 			options = @options.merge(options)
 			
 			<<-EOF
-			<dt>#{options[:title]}</dt>
+			<dt>#{title_for(options)}</dt>
 			<dd><input type="#{options[:type] || 'text'}" name="#{name_for(options)}" value="#{value_for(options)}" #{attributes_for(options)}/></dd>
 			EOF
 		end
@@ -48,35 +60,36 @@ module Financier
 			options = @options.merge(options)
 			
 			<<-EOF
-			<dt>#{options[:title]}</dt>
+			<dt>#{title_for(options)}</dt>
 			<dd><textarea name="#{name_for(options)}" #{attributes_for(options)}>#{value_for(options)}</textarea></dd>
 			EOF
 		end
 	
 		def checkbox(options)
 			options = @options.merge(options)
-			checked = options[:object].send(options[:name]) ? 'checked' : ''
+			name = name_for(options)
+			
+			checked = options[:object].send(name) ? 'checked' : ''
 		
 			<<-EOF
-			<dt>#{options[:title]}</dt>
-			<dd><input type="hidden" name="#{options[:name]}" value="false" />
-				<input type="#{options[:type] || 'text'}" name="#{name_for(options)}" value="true" #{checked} #{attributes_for(options)}/>
+			<dd><input type="hidden" name="#{name_for(options)}" value="false" />
+				<input type="#{options[:type] || 'checkbox'}" name="#{name}" value="true" #{checked} #{attributes_for(options)}/> #{title_for(options)}
 			</dd>
 			EOF
 		end
 		
 		def option(options = {})
-			options[:name] ||= 'id'
+			options[:field] ||= 'id'
 			options[:object] ||= @select_item
 			
 			<<-EOF
-				<option value="#{value_for(options)}" #{attributes_for(options)}>#{options[:title].to_html}</option>
+				<option value="#{value_for(options)}" #{attributes_for(options)}>#{title_for(options).to_html}</option>
 			EOF
 		end
 		
 		def select(options = {})
 			options = @options.merge(options)
-			collection = options[:collection] || options[:object].send(options[:name])
+			collection = options[:collection] || options[:object].send(options[:field])
 			
 			buffer = []
 			
@@ -87,7 +100,7 @@ module Financier
 			end
 			
 			<<-EOF
-			<dt>#{options[:title]}</dt>
+			<dt>#{title_for(options)}</dt>
 			<dd><select name="#{name_for(options)}" #{attributes_for(options)}>
 					#{buffer.join('')}
 				</select>
@@ -98,16 +111,21 @@ module Financier
 		def submit(options = {})
 			options = @options.merge(options)
 			
+			unless options[:field]
+				options[:title] ||= self.object.saved? ? 'Update' : 'Create'
+			end
+			
 			<<-EOF
-			<input type="#{options[:type] || 'submit'}" name="#{name_for(options)}" value="#{options[:title]}" />
+			<input type="#{options[:type] || 'submit'}" name="#{name_for(options)}" value="#{title_for(options)}" />
 			EOF
 		end
+		
 		
 		def hidden(options = {})
 			options = @options.merge(options)
 			
 			<<-EOF
-			<input type="#{options[:type] || 'hidden'}" name="#{name_for(options)}" value="#{value_for(options)}" />
+			<input type="#{options[:type] || 'hidden'}" name="#{name_for(options)}" value="#{title_for(options)}" />
 			EOF
 		end
 	end

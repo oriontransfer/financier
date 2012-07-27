@@ -5,7 +5,7 @@
 			klass = attributes['class'] || ''
 			
 			response.content_type! "text/html; charset=utf-8"
-			response.cache!
+			response.do_not_cache!
 		?>
 		
 		<?r if title = (attributes["title"] || @title) ?>

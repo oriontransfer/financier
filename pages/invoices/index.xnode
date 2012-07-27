@@ -1,7 +1,4 @@
 <?r
-	response.do_not_cache!
-	extend Utopia::HTML::Strings
-	
 	f = Financier::ViewFormatter.new
 ?>
 <page>
@@ -38,14 +35,14 @@
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{invoice.id}"><i class="icon-edit"></i></a>
 				</td>
-				<td class="when">#{f % invoice.created_date}</td>
-				<td class="number">#{f % invoice.number}</td>
-				<th><a href="show?id=#{invoice.id}">#{f % invoice.name}</a></th>
-				<td>#{f % invoice.customer.name if invoice.customer}</td>
+				<td class="when">#{f.text invoice.created_date}</td>
+				<td class="number">#{f.text invoice.number}</td>
+				<th><a href="show?id=#{invoice.id}">#{f.text invoice.name}</a></th>
+				<td>#{f.text invoice.customer.name if invoice.customer}</td>
 				<td class="total"><?r 
 					totals.each do |total|
 						summary[:total] << total
-						?>#{f % total}<br/><?r 
+						?>#{f.text total}<br/><?r 
 					end 
 				?></td>
 				<th class="actions">
@@ -57,8 +54,8 @@
 		<tfoot>
 			<?r currencies.each do |currency| ?>
 			<tr>
-				<td colspan="5">#{f % currency} Summary:</td>
-				<td class="total">#{f % summary[:total][currency]}</td>
+				<td colspan="5">#{f.text currency} Summary:</td>
+				<td class="total">#{f.text summary[:total][currency]}</td>
 				<td></td>
 			</tr>
 			<?r end ?>

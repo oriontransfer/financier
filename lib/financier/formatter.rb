@@ -30,9 +30,7 @@ module Financier
 			end
 		end
 		
-		def % object
-			format(object)
-		end
+		alias text format
 		
 		def [] key
 			@options[key]

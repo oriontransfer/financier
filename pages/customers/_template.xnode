@@ -1,16 +1,11 @@
 <?r
-	customer = attributes['customer']
-	
-	extend Utopia::HTML::Strings
+	f = Financier::FormFormatter.new(:object => attributes['customer'])
 ?><form class="basic editor" method="post" action="#" >
-	<?r if customer.id ?>
-	<input type="hidden" name="_rev" value="#{customer.rev}" />
-	<?r end ?>
+	#{f.hidden :field => :_rev if f.object.id}
 	
 	<fieldset><legend>Customer Details</legend>
 		<dl>
-			<dt>Name</dt>
-			<dd><input name="name" type="text" required value="#{h customer.name}" /></dd>
+			#{f.input :field => :name}
 		</dl>
 	</fieldset>
 	
@@ -18,10 +13,8 @@
 	</fieldset>
 	
 	<fieldset class="footer">
-		<?r unless customer.id ?>
-		<input type="submit" value="Create" />
-		<?r else ?>
-		<input type="submit" value="Update" />
-		<?r end ?>
+		<fieldset class="footer">
+			#{f.submit}
+		</fieldset>
 	</fieldset>
 </form>

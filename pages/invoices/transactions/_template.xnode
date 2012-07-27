@@ -1,58 +1,35 @@
 <?r
-	transaction = attributes['transaction']
-	extend Utopia::HTML::Strings
+	f = Financier::FormFormatter.new(:object => attributes['transaction'])
 ?><form class="basic editor" method="post" action="#" >
-	<?r if transaction.id ?>
-	<input type="hidden" name="_rev" value="#{transaction.rev}" />
-	<?r end ?>
+	#{f.hidden :field => :_rev if f.object.id}
 	
 	<fieldset><legend>Transaction Details</legend>
 		<dl>
-			<dt>Name</dt>
-			<dd><input name="name" type="text" required value="#{h transaction.name}" /></dd>
-			
-			<dt>Description</dt>
-			<dd><textarea name="description">#{h transaction.description}</textarea></dd>
-			
-			<dt>Start Date</dt>
-			<dd><input name="date" type="date" required value="#{h transaction.date}" /></dd>
+			#{f.input :field => :name, :required => true}
+			#{f.textarea :field => :description}
+			#{f.input :field => :date, :type => :date, :required => true}
 		</dl>
 	</fieldset>
 	
 	<fieldset><legend>Costing</legend>
 		<dl>
-			<dt>Price</dt>
-			<dd><input name="price" type="currency" required pattern="\d+(\.\d+)? \w{3}" title="{amount} {currency}" value="#{h transaction.price}" /></dd>
-			
-			<dt>Quantity</dt>
-			<dd><input name="quantity" type="number" required value="#{h transaction.quantity}" /></dd>
-			
-			<dt>Unit</dt>
-			<dd><input name="unit" type="text" value="#{h transaction.unit}" /></dd>
+			#{f.input :field => :price, :type => :currency, :required => true}
+			#{f.input :field => :quantity, :type => :number, :required => true}
+			#{f.input :field => :unit}
 		</dl>
 		
 		<dl>
-			<dt>Tax Code</dt>
-			<dd><input name="tax_code" type="text" value="#{h transaction.tax_code}" /></dd>
-			
-			<dt>Tax Rate</dt>
-			<dd><input name="tax_rate" type="number" value="#{h transaction.tax_rate}" /></dd>
+			#{f.input :field => :tax_code}
+			#{f.input :field => :tax_rate, :type => :number}
 		</dl>
 		
 		<dl>
-			<dt>Exchange Rate</dt>
-			<dd><input name="exchange_rate" type="number" value="#{h transaction.exchange_rate}" /></dd>
-			
-			<dt>Exchange Name</dt>
-			<dd><input name="exchange_name" type="text" value="#{h transaction.exchange_name}" /></dd>
+			#{f.input :field => :exchange_rate, :type => :number}
+			#{f.input :field => :exchange_name}
 		</dl>
 	</fieldset>
 	
 	<fieldset class="footer">
-		<?r unless transaction.id ?>
-		<input type="submit" value="Create" />
-		<?r else ?>
-		<input type="submit" value="Update" />
-		<?r end ?>
+		#{f.submit}
 	</fieldset>
 </form>

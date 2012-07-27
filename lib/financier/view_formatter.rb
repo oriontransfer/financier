@@ -20,7 +20,7 @@ module Financier
 		end
 
 		def quantity(transaction)
-			if transaction.unit
+			if transaction.unit?
 				"#{transaction.quantity.to_s('F')} #{transaction.unit}"
 			else
 				transaction.quantity.to_s('F')

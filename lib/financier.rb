@@ -12,6 +12,8 @@ require 'financier/view_formatter'
 require 'financier/form_formatter'
 require 'financier/user'
 
+require 'utopia/extensions/maybe'
+
 # Setup initial admin user:
 admin_user = Financier::User.by_name(Financier::DB, :key => "admin")
 

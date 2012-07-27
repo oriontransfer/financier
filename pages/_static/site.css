@@ -271,8 +271,8 @@ form.basic dl {
 }
 
 form.basic dt {
-	margin: 0px 0px 0px;
-	padding: 3px 0px 0px;
+	margin: 0;
+	padding: 1px 0 0 0;
 	
 	clear: both;
 	font-size: 12pt;
@@ -280,7 +280,6 @@ form.basic dt {
 	float: left;
 	text-align: right;
 	width: 36%;
-	padding-right: 10px;
 }
 
 form.basic dd {
