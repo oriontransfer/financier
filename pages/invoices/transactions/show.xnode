@@ -6,7 +6,7 @@
 <page>
 	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
 	
-	<table class="listing invoices" data-model="Invoice">
+	<table class="listing transactions" data-model="Transaction">
 		<thead>
 			<tr>
 				<th>

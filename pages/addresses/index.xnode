@@ -4,17 +4,16 @@
 <page>
 	<heading>Customers</heading>
 	
-	<table class="listing customers" data-model="Customer">
+	<table class="listing customers" data-model="Address">
 		<thead>
 			<tr>
 				<th>
 					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
 				</th>
-				<th>Name</th>
-				<th># Invoices</th>
-				<th>Last Invoice</th>
-				<th>Last Payment</th>
-				<th>Balance</th>
+				<th>For</th>
+				<th></th>
+				<th>Purpose</th>
+				<th>Updated</th>
 				<th>
 					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
 				</th>
@@ -22,22 +21,26 @@
 		</thead>
 		<tbody>
 			<?r 
-				Financier::Customer.all(Financier::DB).each do |customer|
+				Financier::Address.all(Financier::DB).each do |address|
 			?>
-			<tr data-id="#{customer.id}" data-rev="#{customer.rev}">
+			<tr data-id="#{address.id}" data-rev="#{address.rev}">
 				<td class="actions">
-					<a class="button edit" href="edit?id=#{customer.id}"><i class="icon-edit"></i></a>
+					<a class="button edit" href="edit?id=#{address.id}"><i class="icon-edit"></i></a>
 				</td>
-				<th>#{f.text customer.name}</th>
-				<td>#{f.text customer.invoice_count || 0}</td>
-				<td><?r customer.invoices(:limit => 1).first.maybe? do |invoice| ?>
-					<a href="../invoices?id=#{invoice.id}">#{f.text invoice.name}</a>
-					<?r end ?></td>
-				<td></td>
-				<td></td>
+				<th>#{f.text address.for.name}</th>
+				<td class="actions"><a class="button print" href="print?id=#{address.id}"><i class="icon-print"></i></a></td>
+				<td>#{f.text address.purpose}</td>
+				<td>#{f.text address.updated_date}</td>
 				<th class="actions">
 					<input type="checkbox" class="selected" />
 				</th>
+			</tr>
+			<tr>
+				<td class="description" colspan="6">
+					#{current.defer do
+							tag('label', 'address' => address)
+					end}
+				</td>
 			</tr>
 			<?r end ?>
 		</tbody>

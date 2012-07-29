@@ -11,11 +11,11 @@
 	
 	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
 	
-	<?r if invoice.description && !invoice.description.empty? ?>
+	<?r if invoice.description? ?>
 	#{f.markdown invoice.description}
 	<?r end ?>
 	
-	<table class="listing invoices" data-model="Invoice">
+	<table class="listing transactions" data-model="Transaction">
 		<thead>
 			<tr>
 				<th>

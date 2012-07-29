@@ -231,6 +231,15 @@ fieldset {
 	color: #f00;
 }
 
+/* Addresses */
+
+.address.label .phone,
+.address.label .email {
+	float: right;
+	clear: right;
+	padding-bottom: 2pt;
+}
+
 /* Font Awesome */
 
 i {
@@ -283,18 +292,13 @@ form.basic dt {
 }
 
 form.basic dd {
-	margin: 0px 0px 15px 40%;
+	margin: 0px 15px 15px 40%;
 	padding: 0px;
 	font-size: 12pt;
 }
 
 form.basic dd input, form.basic dd textarea {
 	margin: 0px;
-}
-
-form.basic dd div {
-	left: 0px; right: 0px;
-	border: 1px solid orange;
 }
 
 form.basic dd input[type="text"],
@@ -359,4 +363,24 @@ form.editor fieldset dl + dl {
 
 input:required:invalid, input:focus:invalid {
 	background-color: #eef;
+}
+
+form.editor dd table {
+	background-color: white;
+	border: 1px solid black;
+	width: 100%;
+	
+	font-size: 80%;
+}
+
+form.editor dd table td {
+	padding: 5pt 10pt 5pt 10pt;
+}
+
+form.editor dd table td.handle {
+	width: 5em;
+}
+
+form.editor dd table td.item {
+	
 }

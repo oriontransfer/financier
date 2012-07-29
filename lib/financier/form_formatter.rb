@@ -3,6 +3,8 @@ require 'financier/view_formatter'
 
 module Financier
 	class FormFormatter < ViewFormatter
+		Trenni = Utopia::Trenni
+		
 		def resource(object)
 			object.to_s
 		end
@@ -78,7 +80,7 @@ module Financier
 			EOF
 		end
 		
-		def option(options = {})
+		def item(options = {})
 			options[:field] ||= 'id'
 			options[:object] ||= @select_item
 			
@@ -87,25 +89,101 @@ module Financier
 			EOF
 		end
 		
-		def select(options = {})
-			options = @options.merge(options)
-			collection = options[:collection] || options[:object].send(options[:field])
-			
+		alias option item
+		
+		def items_for(options)
 			buffer = []
 			
-			collection.each do |item|
+			if options[:optional]
+				buffer << self.item(:value => '', :title => '')
+			end
+			
+			options[:collection].each do |item|
 				@select_item = item
-				
 				buffer << (yield item)
 			end
 			
+			return buffer.join('')
+		end
+		
+		def item_group(options = {}, &block)
+			options = @options.merge(options)
+			
 			<<-EOF
-			<dt>#{title_for(options)}</dt>
-			<dd><select name="#{name_for(options)}" #{attributes_for(options)}>
-					#{buffer.join('')}
-				</select>
-			</dd>
+			<optgroup label="#{title_for(options)}">#{items_for(options, &block)}</optgroup>
 			EOF
+		end
+		
+		alias option_group item_group
+		
+		class Select
+			def initialize(formatter, options)
+				@formatter = formatter
+				@object = formatter.object
+				@field = options[:field]
+			end
+			
+			def attributes_for(options)
+				buffer = []
+				
+				if options[:selected]
+					buffer << "checked"
+				end
+				
+				return buffer.join(' ')
+			end
+			
+			def item(options = {}, &block)
+				if block_given?
+					buffer = Trenni::buffer(block.binding)
+
+					buffer.push <<-EOF
+						<tr>
+							<td class="handle"><input type="radio" name="#{@field}" value="#{@formatter.value_for(options)}" #{attributes_for(options)}/></td>
+							<td class="item">
+					EOF
+
+					block.call
+
+					buffer.push <<-EOF
+							</td>
+						</tr>
+					EOF
+				else
+					<<-EOF
+					<tr>
+						<td class="handle"><input type="radio" name="#{@field}" value="#{@formatter.value_for(options)}" #{attributes_for(options)}/></td>
+						<td class="item">#{@formatter.title_for(options)}</td>
+					</tr>
+					EOF
+				end
+			end
+		end
+		
+		def select(options = {}, &block)
+			options = @options.merge(options)
+			
+			if options[:type] == :radio
+				buffer = Trenni::buffer(block.binding)
+				
+				buffer.push <<-EOF
+				<dt>#{title_for(options)}</dt>
+				<dd>
+					<table>
+				EOF
+				
+				yield Select.new(self, options)
+				
+				buffer.push <<-EOF
+					</table>
+				</dd>
+				EOF
+			else
+				<<-EOF
+				<dt>#{title_for(options)}</dt>
+				<dd><select name="#{name_for(options)}" #{attributes_for(options)}>#{items_for(options, &block)}</select></dd>
+				EOF
+			end
 		end
 		
 		def submit(options = {})
@@ -125,7 +203,7 @@ module Financier
 			options = @options.merge(options)
 			
 			<<-EOF
-			<input type="#{options[:type] || 'hidden'}" name="#{name_for(options)}" value="#{title_for(options)}" />
+			<input type="#{options[:type] || 'hidden'}" name="#{name_for(options)}" value="#{value_for(options)}" />
 			EOF
 		end
 	end

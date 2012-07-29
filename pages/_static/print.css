@@ -82,7 +82,7 @@ table.listing tbody td.actions {
 table.listing tbody .description {
 	background-color: white;
 	
-	padding-bottom: 1em;
+	padding: 0.5em 0;
 }
 
 table.listing tbody .description {
@@ -138,26 +138,73 @@ small {
 
 /* Print specific layout */
 
-table.company_details {
-	width: 100%;
-	margin: 20pt 0;
+/* Shipping Label */
+
+.shipping {
+	border: 4pt solid black;
+	border-radius: 10pt;
 	
-	background-color: rgba(10, 100, 200, 0.04);
-	border: 1px solid #ccc;
-	
-	border-collapse: collapse;
+	margin: 10pt;
 }
 
-table.company_details th, table.company_details td {
-	vertical-align: top;
+.shipping .address.label {
+	font-size: 40pt;
+	padding: 10pt;
+}
+
+.shipping .title {
+	margin: 0;
 	
-	padding: 5pt;
+	color: white;
+	background: black;
+	
+	border-top-left-radius: 10pt;
+	border-top-right-radius: 10pt;
+	
+	margin-left: -2pt;
+	margin-top: -2pt;
+	margin-right: -2pt;
+	
+	padding: 10pt;
+	
+	font-size: 30pt;
+	font-weight: bold;
 }
 
-table.company_details th {
-	width: 15%;
+.shipping .address.label .phone,
+.shipping .address.label .email {
+	font-size: 50%;
+	float: right;
+	clear: right;
+	padding-bottom: 10pt;
 }
 
-table.company_details td {
-	width: 35%;
+/* Invoice */
+
+section.columns {
+	margin: 10pt 0;
+	padding: 0;
+	
+	overflow: auto;
+}
+
+section.columns section {
+	width: 50%;
+	float: left;
+	
+	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+	
+	padding: 10pt;
+}
+
+section.columns section header {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+section.columns .address.label .phone,
+section.columns .address.label .email {
+	float: right;
+	clear: right;
+	padding-bottom: 2pt;
 }

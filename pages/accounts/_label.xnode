@@ -6,10 +6,12 @@
 		:number => "Account Number: ",
 		:swift_code => "Swift Code: ",
 		:sort_code => "Sort Code: ",
-		:tax_number => "Tax \#: "
+		:tax_number => "Tax \#: ",
+		:bank_name => "Bank: ",
+		:bank_branch => "Branch: "
 	}
 	
-	fields = [:bank_name, :bank_branch, :name, :number, :swift_code, :sort_code, :tax_number, :notes]
+	fields = [:name, :number, :bank_name, :bank_branch, :swift_code, :sort_code, :tax_number, :notes]
 	
 	fields.each do |field|
 		value = account.send(field)

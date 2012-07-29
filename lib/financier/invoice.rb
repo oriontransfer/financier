@@ -61,21 +61,24 @@ module Financier
 		property :status
 		property :description
 		
-		#property :company, BelongsTo[Company]
-		#property :payment_acount, BelongsTo[BankAccount]
-		
-		property :customer, BelongsTo[Customer]
-		
 		property :created_date, Attribute[Date]
 		property :updated_date, Attribute[Date]
 		property :invoiced_date, Optional[Attribute[Date]]
 		property :due_date, Optional[Attribute[Date]]
 		
-		property :billing_address, Optional[HasOne[Address]]
-		property :shipping_address, Optional[HasOne[Address]]
+		# The company issuing the invoice:
+		property :company, BelongsTo[Company]
+		# The address for the company, typically used as a return address:
 		property :company_address, Optional[HasOne[Address]]
-		
+		# The account that payment should be made to:
 		property :account, Optional[BelongsTo[Account]]
+		
+		# The customer who is being billed:
+		property :customer, BelongsTo[Customer]
+		# The address where the invoice will be sent:
+		property :billing_address, Optional[HasOne[Address]]
+		# The address where the items should be shipped:
+		property :shipping_address, Optional[HasOne[Address]]
 		
 		relationship :totals, 'financier/transaction_total_by_invoice', {} do |database, row|
 			Latinum::Resource.new(row['value'], row['key'][1])

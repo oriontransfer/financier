@@ -1,0 +1,29 @@
+<?r
+	f = Financier::FormFormatter.new(:object => attributes['invoice'])
+	
+	accounts = f.object.company.accounts rescue []
+	addresses = f.object.company.addresses rescue []
+	
+?><dl>
+	<?r f.select(:field => :account, :type => :radio) do |select| ?>
+		#{select.item :title => 'No Account', :selected => !f.object.account?}
+		<?r accounts.each do |account| ?>
+			<?r select.item :value => account.id, :selected => f.object.account == account do ?>
+				#{current.defer do
+					tag('/accounts/_label', 'account' => account)
+				end}
+			<?r end ?>
+		<?r end ?>
+	<?r end ?>
+	
+	<?r f.select(:field => :company_address, :type => :radio) do |select| ?>
+		#{select.item :title => 'No Address', :selected => !f.object.company_address?}
+		<?r addresses.each do |address| ?>
+			<?r select.item :value => address.id, :selected => f.object.company_address == address do ?>
+				#{current.defer do
+					tag('/addresses/_label', 'address' => address)
+				end}
+			<?r end ?>
+		<?r end ?>
+	<?r end ?>
+</dl>

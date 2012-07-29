@@ -13,6 +13,8 @@
 		<link rel="icon" type="image/png" href="/_static/icon.png" />
 		<link rel="stylesheet" href="/_static/print.css" type="text/css" media="screen, print" />
 		<link rel="stylesheet" href="/_static/A4.css" type="text/css" media="print" />
+		
+		<link rel="stylesheet" href="/_static/font-awesome/css/font-awesome.css" type="text/css" media="screen, print" />
 	</head>
 
 	<body>

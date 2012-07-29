@@ -1,0 +1,39 @@
+<?r
+	f = Financier::ViewFormatter.new
+?>
+<page>
+	<heading>Companies</heading>
+	
+	<table class="listing companys" data-model="Account">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+				</th>
+				<th>Name</th>
+				<th>Role</th>
+				<th>
+					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				request.controller[:companies].each do |company|
+			?>
+			<tr data-id="#{company.id}" data-rev="#{company.rev}">
+				<td class="actions">
+					<a class="button edit" href="edit?id=#{company.id}"><i class="icon-edit"></i></a>
+				</td>
+				<th>#{f.text company.name}</th>
+				<td>#{f.text company.role.to_title}</td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<?r end ?>
+		</tbody>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</page>

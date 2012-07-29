@@ -11,6 +11,6 @@ body {
 	width: 156.25%;
 }
 
-a:link:after {
+a[href^='http:']:link:after {
 	content: " (" attr(href) ") ";
 }

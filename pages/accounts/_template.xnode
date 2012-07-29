@@ -1,7 +1,10 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes['account'])
+	
+	companies = Financier::Company.all(Financier::DB)
+	
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :_rev if f.object.id}
+	#{f.hidden :field => :rev if f.object.id}
 		
 	<fieldset><legend>Bank Details</legend>
 		<dl>
@@ -26,6 +29,12 @@
 	</fieldset>
 	
 	<fieldset><legend>Account Details</legend>
+		<dl>
+			#{f.select :field => :company, :optional => true, :collection => companies do |company|
+				f.option :title => company.name, :selected => (f.object.company == company)
+			end}
+		</dl>
+		
 		<dl>
 			#{f.input :field => :pseudonym, :required => true}
 			

@@ -11,21 +11,30 @@ module Financier
 		property :attention
 		property :unit
 		property :street
+		property :suburb
 		property :city
 		property :region
 		property :postcode
 		property :country
-	end
-	
-	class CompanyAddress < Address
-		include Relaxo::Model
 		
-		property :company, Optional[BelongsTo[Company]]
-	end
-	
-	class CustomerAddress < Address
-		include Relaxo::Model
+		property :phone
+		property :email
 		
-		property :customer, Optional[BelongsTo[Customer]]
+		property :purpose
+		property :for, Polymorphic[Company, Customer]
+		
+		property :created_date, Attribute[Date]
+		property :updated_date, Attribute[Date]
+		property :last_used_date, Optional[Attribute[Date]]
+		
+		def after_create
+			self.created_date = Date.today
+		end
+		
+		def before_save
+			self.updated_date = Date.today
+		end
+		
+		view :all, 'financier/address', Address
 	end
 end

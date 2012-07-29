@@ -2,10 +2,14 @@
 	f = Financier::FormFormatter.new(:object => attributes['invoice'])
 	
 	customers = Financier::Customer.all(Financier::DB)
+	companies = Financier::Company.all(Financier::DB)
+	
 	accounts = Financier::Account.all(Financier::DB)
+	addresses = Financier::Address.all(Financier::DB)
 	
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :_rev if f.object.id}
+	#{f.hidden :field => :id}
+	#{f.hidden :field => :rev if f.object.id}
 	
 	<fieldset><legend>Invoice Details</legend>
 		<dl>
@@ -20,19 +24,65 @@
 		</dl>
 	</fieldset>
 	
-	<fieldset><legend>Billing Details</legend>
-		<dl>
-			#{f.select :field => :customer, :collection => customers do |customer|
+	<fieldset><legend>Customer Details</legend>
+		<dl class="customer">
+			#{f.select :field => :customer, :optional => true, :collection => customers do |customer|
 				f.option :title => customer.name, :selected => (f.object.customer == customer)
 			end}
-			
-			#{f.select :field => :account, :collection => accounts do |account|
-				f.option :title => account.pseudonym, :selected => (f.object.account == account)
+		</dl>
+		
+		#{current.defer do
+			tag('_template/customer', 'invoice' => f.object)
+		end}
+	</fieldset>
+	
+	<fieldset><legend>Company Details</legend>
+		<dl class="company">
+			#{f.select :field => :company, :optional => true, :collection => companies do |company|
+				f.option :title => company.name, :selected => (f.object.company == company)
 			end}
 		</dl>
+		
+		#{current.defer do
+			tag('_template/company', 'invoice' => f.object)
+		end}
 	</fieldset>
 	
 	<fieldset class="footer">
 		#{f.submit}
 	</fieldset>
+	
+	<script type="text/javascript">
+		jQuery(function($){
+			$('form dl.customer select').change(function() {
+				var form = $(this).closest('form');
+				var cur = $(this).parent().parent().next();
+
+				$.ajax({
+					url: '_template/customer',
+					cache: false,
+					data: $(form).serialize(),
+					dataType: "html",
+					success: function(data) {
+						$(cur).replaceWith(data);
+					}
+				});
+			});
+			
+			$('form dl.company select').change(function() {
+				var form = $(this).closest('form');
+				var cur = $(this).closest('dl').next();
+
+				$.ajax({
+					url: '_template/company',
+					cache: false,
+					data: $(form).serialize(),
+					dataType: "html",
+					success: function(data) {
+						$(cur).replaceWith(data);
+					}
+				});
+			});
+		});
+	</script>
 </form>

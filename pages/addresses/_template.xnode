@@ -1,17 +1,44 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes['address'])
-?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :_rev if f.object.id}
 	
-	<fieldset><legend>Customer Details</legend>
+	customers = Financier::Customer.all(Financier::DB)
+	companies = Financier::Company.all(Financier::DB)
+	
+?><form class="basic editor" method="post" action="#" >
+	#{f.hidden :field => :rev if f.object.id}
+	
+	<fieldset><legend>Address Details</legend>
 		<dl>
 			#{f.input :field => :attention}
 			#{f.input :field => :unit}
 			#{f.input :field => :street, :required => true}
+			#{f.input :field => :suburb}
 			#{f.input :field => :city, :required => true}
 			#{f.input :field => :region}
 			#{f.input :field => :postcode, :required => true}
 			#{f.input :field => :country, :required => true}
+		</dl>
+		
+		<dl>
+			#{f.input :field => :phone}
+			#{f.input :field => :email}
+		</dl>
+		
+		<dl>
+			<dt>For</dt>
+			<dd>
+				<select name="for">
+					#{f.item_group :title => "Customers", :collection => customers do |customer|
+						f.item :title => customer.name, :selected => (f.object.for == customer)
+					end}
+				
+					#{f.option_group :title => "Companies", :collection => companies do |company|
+						f.option :title => company.name, :selected =>  (f.object.for == company)
+					end}
+				</select>
+			</dd>
+			
+			#{f.input :field => :purpose}
 		</dl>
 	</fieldset>
 	

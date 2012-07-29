@@ -5,6 +5,26 @@
             _default: |
                 require 'bigdecimal'
                 require 'bigdecimal/util'
+        company:
+            map: |
+                lambda do |doc| 
+                    emit(doc['_id'], doc['_rev']) if doc['type'] == 'company'
+                end
+        address:
+            map: |
+                lambda do |doc| 
+                    emit(doc['_id'], doc['_rev']) if doc['type'] == 'address'
+                end
+        address_by_customer:
+            map: |
+                lambda do |doc| 
+                    emit(doc['for'][1]) if doc['type'] == 'address' && doc['for'] && doc['for'][0] == 'customer'
+                end
+        address_by_company:
+            map: |
+                lambda do |doc| 
+                    emit(doc['for'][1]) if doc['type'] == 'address' && doc['for'] && doc['for'][0] == 'company'
+                end
         service:
             map: |
                 lambda do |doc| 
@@ -81,6 +101,11 @@
             map: |
                 lambda do |doc| 
                     emit(doc['_id'], doc['_rev']) if doc['type'] == 'account'
+                end
+        account_by_company:
+            map: |
+                lambda do |doc|
+                    emit(doc['company']) if doc['type'] == 'account' && doc['company']
                 end
         transaction_by_account:
             map: |

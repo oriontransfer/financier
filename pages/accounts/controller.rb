@@ -8,7 +8,7 @@ def on_delete(path, request)
 	
 	documents.each do |document|
 		Financier::DB.session do |session|
-			account = Financier::Customer::fetch(session, document['id'])
+			account = Financier::Account::fetch(session, document['id'])
 			
 			if account.rev == document['rev']
 				account.delete

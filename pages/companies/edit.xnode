@@ -1,0 +1,7 @@
+<page>
+	<heading>Edit Company</heading>
+	
+	#{current.defer do
+		tag('template', 'customer' => request.controller[:company])
+	end}
+</page>

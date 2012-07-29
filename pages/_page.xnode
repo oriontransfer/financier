@@ -25,7 +25,9 @@
 	<body>
 		<?r if request.controller[:user] && !klass.include?("login") ?>
 		<div id="header">
+			<a href="/companies/index">Companies</a>
 			<a href="/customers/index">Customers</a>
+			<a href="/addresses/index">Addresses</a>
 			<a href="/services/index">Services</a>
 			<a href="/invoices/index">Invoices</a>
 			<a href="/accounts/index">Accounts</a>

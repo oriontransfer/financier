@@ -1,0 +1,48 @@
+<div class="address label"><?r
+	address = attributes['address']
+	
+	fields = []
+	
+	fields += [:attention, :unit, :street, :suburb]
+	
+	if address.phone?
+		?><div class="phone"><i class="icon-phone"></i> #{address.phone}</div><?r
+	end
+
+	if address.email?
+		?><div class="email"><i class="icon-envelope-alt"></i> <a href="mailto:#{address.email.to_html}">#{address.email}</a></div><?r
+	end
+	
+	postcode_line = lambda do
+		if address.region?
+		?><span class="region">#{address.region}</span> <span class="postcode">#{address.postcode}</span><br/><?r
+		elsif address.city?
+		?><span class="city">#{address.city}</span> <span class="postcode">#{address.postcode}</span><br/><?r
+		else
+		?><span class="postcode">#{address.postcode}</span><br/><?r
+		end
+	end
+	
+	unless address.postcode?
+		fields += [:city, :region, :country]
+	else
+		if address.region?
+			fields << :city
+		end
+		
+		fields << postcode_line
+	end
+	
+	fields << :country
+	
+	fields.each do |field|
+		if field.respond_to? :call
+			field.call
+		else
+			value = address.send(field)
+			next if value == nil || value.empty?
+			?><span class="#{field.to_s}">#{value.to_html}</span><br/><?r
+		end
+	end
+	
+?></div>

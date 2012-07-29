@@ -4,11 +4,41 @@
 	f = Financier::ViewFormatter.new
 ?>
 <print>
-	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
+	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}
+		<?r if invoice.invoiced_date? ?>
+		(#{invoice.invoiced_date})
+		<?r end ?>
+	</heading>
 	
-	<?r if invoice.description && !invoice.description.empty? ?>
+	<?r if invoice.description? ?>
 	#{f.markdown invoice.description}
 	<?r end ?>
+	
+	<?r if invoice.billing_address? || invoice.shipping_address? ?>
+	<section class="columns addresses">
+		<?r if invoice.billing_address? ?>
+		<section class="billing_address">
+			<header>Billing Address:</header>
+			
+			#{current.defer do
+				tag('/addresses/_label', 'address' => invoice.billing_address)
+			end}
+		</section>
+		<?r end ?>
+		
+		<?r if invoice.shipping_address? ?>
+		<section class="shipping_address">
+			<header>Shipping Address:</header>
+			
+			#{current.defer do
+				tag('/addresses/_label', 'address' => invoice.shipping_address) 
+			end}
+		</section>
+		<?r end ?>
+	</section>
+	<?r end ?>
+	
+	<h2>Items</h2>
 	
 	<table class="listing transactions">
 		<thead>
@@ -70,27 +100,27 @@
 		</tfoot>
 	</table>
 	
-	<table class="company_details">
-		<tbody>
-			<tr>
-				<th>Company:</th>
-				<td>
-					<span class="address">
-						<span><em>Orion Transfer Ltd</em></span><br/>
-						<span class="line_1">2 Derenzy Place </span><br/>
-						<span class="line_2">Avonhead</span><br/>
-						<span class="city">Christchurch 8042</span><br/>
-						<span class="region">Canterbury, New Zealand</span><br/>
-					</span>
-				</td>
-				<th>Payment Details:</th>
-				<td>
-					#{current.defer do
-						node = lookup_node(Path.create("./accounts/_label"))
-						render_node(node, 'account' => invoice.account) if invoice.account
-					end}
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<?r if invoice.due_date? ?>
+	<p style="text-align: right">Payment due on #{invoice.due_date}.</p>
+	<?r end ?>
+	
+	<section class="columns company">
+		<section class="contact_us">
+			<header>Contact Us:</header>
+			
+			#{current.defer do
+				tag('/addresses/_label', 'address' => invoice.company_address) if invoice.company_address
+			end}
+		</section>
+		
+		<section class="shipping_address">
+			<header>Please Pay:</header>
+			
+			#{current.defer do
+				tag('/accounts/_label', 'account' => invoice.account) if invoice.account
+			end}
+		</section>
+	</section>
+	
+	<h3 style="text-align: center">Thank you for your business!</h3>
 </print>

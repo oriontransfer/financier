@@ -5,7 +5,7 @@
 	accounts = Financier::Account.all(Financier::DB)
 
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :_rev if f.object.id}
+	#{f.hidden :field => :rev if f.object.id}
 	
 	<fieldset><legend>Service Details</legend>
 		<dl>

@@ -1,0 +1,16 @@
+<?r
+	address = request.controller[:address]
+	
+	f = Financier::ViewFormatter.new
+	
+	@title = "Shipping Label"
+?>
+<print>
+	<div class="shipping">
+		<div class="title">Ship To</div>
+			
+		#{current.defer do
+			tag('label', 'address' => address, 'print' => true)
+		end}
+	</div>
+</print>

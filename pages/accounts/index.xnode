@@ -4,7 +4,7 @@
 <page>
 	<heading>Accounts</heading>
 	
-	<table class="listing accounts" data-model="Customer">
+	<table class="listing accounts" data-model="Account">
 		<thead>
 			<tr>
 				<th>

@@ -46,5 +46,13 @@ module Financier
 		property :tax_number
 		
 		property :notes
+		
+		def bank_string
+			name = [self.bank_name, self.bank_branch]
+			
+			name.delete_if{|item| item == nil || item.empty?}
+			
+			return name.join(', ')
+		end
 	end
 end
