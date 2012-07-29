@@ -2,9 +2,9 @@
 	f = Financier::ViewFormatter.new
 ?>
 <page>
-	<heading>Customers</heading>
+	<heading>Addresses</heading>
 	
-	<table class="listing customers" data-model="Address">
+	<table class="listing addresses" data-model="Address">
 		<thead>
 			<tr>
 				<th>
