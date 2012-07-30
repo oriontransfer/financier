@@ -9,10 +9,8 @@
 			<h1>Financier Login</h1>
 			
 			<dl>
-				#{f.input :title => "Username", :name => 'name'}
-				#{f.input :title => "Password", :type => 'password'}
-				
-				#{f.hidden :name => "login_digest"}
+				#{f.input :title => "Username", :field => 'name'}
+				#{f.input :title => "Password", :type => :password, :field => 'password'}
 			</dl>
 			
 			<div class="footer">
@@ -20,9 +18,6 @@
 			</div>
 		</fieldset>
 	</form>
-	
-	<script type="text/javascript" src="/_static/jquery.sha1.js" ></script>
-	<script type="text/javascript" src="/_static/login.js" ></script>
 	
 	<div class="powered_by">Powered by <a href="http://www.oriontransfer.co.nz/">Orion Transfer</a></div>
 </page>

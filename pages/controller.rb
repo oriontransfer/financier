@@ -1,51 +1,14 @@
 
-require 'digest'
-
-def on_login_salt(path, request)
-	sleep(0.5 + rand * 0.5)
-	
-	name = request[:name].to_s
-	
-	user = Financier::User.by_name(Financier::DB, :key => name).first
-	
-	if user == nil
-		fail! :forbidden
-	else
-		salt = SecureRandom.hex
-		request.session[:login_salt] = salt
-		
-		$stderr.puts "Responding with login_salt #{user.password_salt},#{salt} for user name = #{name}"
-		
-		respond! :code => :success, :content => "#{user.password_salt},#{salt}"
-	end
-end
-
 def on_login(path, request)
 	if request.post?
-		name = request[:name]
-		password = request[:password]
-		login_digest = request[:login_digest]
-		login_salt = request.session[:login_salt]
+		user = Financier::User.by_name(Financier::DB, :key => request[:name].to_s).first
 		
-		success = false
-		
-		user = Financier::User.by_name(Financier::DB, :key => name).first
-		
-		if user && login_digest
-			success = user.digest_authenticate(login_digest, login_salt)
-		elsif user && password
-			success = user.plaintext_authenticate(password)
-		end
-		
-		# If no login method was successful, nullify the user
-		user = nil unless success
-		
-		if user
+		if user && user.password == request[:password]
 			request.session[:user] = user.id
-		
+			
 			redirect! "/customers/index"
 		else
-			LOG.debug("User #{name} (#{password.inspect} / #{login_digest.inspect}) was not logged in.")
+			LOG.debug("User authentication failed: #{YAML::dump(request.params)} for user #{YAML::dump(user)}.")
 			fail! :unauthorized
 		end
 	end
