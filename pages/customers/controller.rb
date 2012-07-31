@@ -20,25 +20,34 @@ def on_delete(path, request)
 end
 
 def on_new(path, request)
-	customer = request.controller[:customer] = Financier::Customer.create(Financier::DB)
+	@customer = Financier::Customer.create(Financier::DB)
 	
 	if request.post?
-		customer.assign(request.params)
+		@customer.assign(request.params)
 		
-		customer.save
+		@customer.save
 		
 		redirect! "index"
 	end
 end
 
 def on_edit(path, request)
-	customer = request.controller[:customer] = Financier::Customer.fetch(Financier::DB, request[:id])
+	@customer = Financier::Customer.fetch(Financier::DB, request[:id])
 	
 	if request.post?
-		customer.assign(request.params)
+		@customer.assign(request.params)
 		
-		customer.save
+		@customer.save
 		
 		redirect! "index"
 	end
+end
+
+def on_show(path, request)
+	@customer = Financier::Customer.fetch(Financier::DB, request[:id])
+	
+	@transactions = []
+	@transactions += @customer.invoices.to_a
+	@transactions += @customer.account_transactions.to_a
+	@transactions.sort_by! &:date
 end

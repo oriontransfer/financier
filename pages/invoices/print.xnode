@@ -1,5 +1,5 @@
 <?r
-	invoice = request.controller[:invoice]
+	invoice = attributes['invoice']
 	
 	f = Financier::ViewFormatter.new
 ?>

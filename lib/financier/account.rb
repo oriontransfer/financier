@@ -15,12 +15,18 @@ module Financier
 			property :name
 			property :description
 			
-			property :record
-			
 			property :amount, Attribute[Latinum::Resource]
 			property :timestamp, Attribute[DateTime]
 			
-			property :customer, BelongsTo[Customer]
+			def date
+				self.timestamp.to_date
+			end
+			
+			def totals
+				[self.amount]
+			end
+			
+			property :for, Polymorphic[Customer, Company]
 			property :account, BelongsTo[Account]
 		end
 		

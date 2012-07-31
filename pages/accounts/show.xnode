@@ -1,0 +1,73 @@
+<?r
+	account = attributes['account']
+	
+	f = Financier::ViewFormatter.new
+?>
+<page>
+	<div class="toolbar">
+		<a class="button" href="edit?id=#{account.id}&amp;_return=#{request.url}"><i class="icon-edit"> Edit</i></a>
+	</div>
+	
+	<heading>Account #{f.text account.pseudonym}</heading>
+	
+	<?r if account.description? ?>
+	#{f.markdown account.description}
+	<?r end ?>
+	
+	<table class="listing transactions" data-model="Transaction">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="transactions/new?account_id=#{account.id}"><i class="icon-plus-sign"></i></a>
+				</th>
+				<th class="name">Name</th>
+				<th class="for">For</th>
+				<th class="date">Date</th>
+				<th class="price">Amount</th>
+				<th class="actions">
+					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				currencies = Set.new
+				balance = Latinum::Collection.new(currencies)
+				
+				account.transactions.sort_by(&:timestamp).each do |transaction|
+					balance << transaction.amount
+			?>
+			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+				<td class="actions">
+					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="icon-edit"></i></a>
+				</td>
+				<th class="name">#{f.text transaction.name}</th>
+				<td class="for"><?r if transaction.for? ?>
+					#{f.text transaction.for.name}
+				<?r end ?></td>
+				<td class="date">#{f.text transaction.timestamp.to_date}</td>
+				<td class="price">#{f.text transaction.amount}</td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<?r if transaction.description? ?>
+			<tr>
+				<td class="description" colspan="6">#{f.markdown transaction.description}</td>
+			</tr>
+			<?r end ?>
+			<?r end ?>
+		</tbody>
+		<tfoot>
+			<?r currencies.each do |currency| ?>
+			<tr>
+				<td colspan="4">#{currency} Summary:</td>
+				<td class="total">#{f.text balance[currency]}</td>
+				<td></td>
+			</tr>
+			<?r end ?>
+		</tfoot>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</page>

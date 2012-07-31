@@ -124,6 +124,10 @@ table.listing .date, table.listing .number {
 	text-align: center;
 }
 
+table.listing .for {
+	text-align: center;
+}
+
 table.listing .total, table.listing .subtotal, table.listing .price, table.listing .quantity, table.listing .tax_rate, table.listing .credit, table.listing .debit {
 	text-align: right;
 	width: 12%;
@@ -313,7 +317,7 @@ form.basic dd textarea {
 
 form.basic fieldset.footer {
 	text-align: right;
-	padding: 0px 10px 0px 0px;
+	padding: 0 10px 0px 0px;
 	
 	background: none;
 	border: none;

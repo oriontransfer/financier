@@ -1,5 +1,5 @@
 <?r
-	address = request.controller[:address]
+	address = attributes['address']
 	
 	f = Financier::ViewFormatter.new
 	

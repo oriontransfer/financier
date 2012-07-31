@@ -28,7 +28,7 @@
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{customer.id}"><i class="icon-edit"></i></a>
 				</td>
-				<th>#{f.text customer.name}</th>
+				<th><a href="show?id=#{customer.id}">#{f.text customer.name}</a></th>
 				<td>#{f.text customer.invoice_count || 0}</td>
 				<td><?r customer.invoices(:limit => 1).first.maybe? do |invoice| ?>
 					<a href="../invoices/show?id=#{invoice.id}">#{f.text invoice.name}</a>

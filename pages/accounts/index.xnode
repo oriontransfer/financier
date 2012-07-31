@@ -2,6 +2,10 @@
 	f = Financier::ViewFormatter.new
 ?>
 <page>
+	<div class="toolbar">
+		<a class="button" href="import"><i class="icon-upload-alt"> Import</i></a>
+	</div>
+	
 	<heading>Accounts</heading>
 	
 	<table class="listing accounts" data-model="Account">
@@ -27,7 +31,7 @@
 					<a class="button edit" href="edit?id=#{account.id}"><i class="icon-edit"></i></a>
 				</td>
 				<th>
-					#{f.text account.pseudonym || account.name}
+					<a href="show?id=#{account.id}">#{f.text account.pseudonym || account.name}</a>
 				</th>
 				<td></td>
 				<td></td>

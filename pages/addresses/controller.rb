@@ -20,12 +20,12 @@ def on_delete(path, request)
 end
 
 def on_new(path, request)
-	address = request.controller[:address] = Financier::Address.create(Financier::DB)
+	@address = Financier::Address.create(Financier::DB)
 	
 	if request.post?
-		address.assign(request.params)
+		@address.assign(request.params)
 		
-		address.save
+		@address.save
 		
 		redirect! "index"
 	end

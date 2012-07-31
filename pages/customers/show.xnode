@@ -1,0 +1,49 @@
+<?r
+	customer = attributes['customer']
+	transactions = attributes['transactions']
+	
+	f = Financier::ViewFormatter.new
+?><page>
+	<heading>Customer: #{customer.name}</heading>
+	
+	<table class="listing summary">
+		<thead>
+			<tr>
+				<th class="when">Date</th>
+				<th>What</th>
+				<th class="total">Amount</th>
+				<th class="total">Balance</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r
+				currencies = Set.new
+				balance = Latinum::Collection.new(currencies)
+				
+				transactions.each do |transaction|
+					totals = transaction.totals.to_a
+					
+					if Financier::Invoice === transaction
+						totals.collect! {|total| - total}
+					end
+					
+					balance << totals
+			?>
+			<tr>
+				<td class="when">#{f.text transaction.date}</td>
+				<td class="what">#{f.text transaction.name}</td>
+				<td class="total"><?r totals.each do |total| ?>#{f.text total}<br/><?r end ?></td>
+				<td class="total"><?r balance.names.each do |name| ?>#{f.text balance[name] }<?r end ?></td>
+			</tr>
+			<?r end ?>
+		</tbody>
+		<tfoot>
+			<?r currencies.each do |currency| ?>
+			<tr>
+				<td colspan="3">#{f.text currency} Summary:</td>
+				<td class="total">#{f.text balance[currency]}</td>
+			</tr>
+			<?r end ?>
+		</tfoot>
+	</table>
+</page>

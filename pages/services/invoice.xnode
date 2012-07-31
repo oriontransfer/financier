@@ -1,9 +1,9 @@
 <?r
 	customers = Financier::Customer.all(Financier::DB)
 	
-	services = request.controller[:services]
-	billing_end_date = request.controller[:billing_end_date]
-	billing_customer = request.controller[:billing_customer]
+	services = attributes['services']
+	billing_end_date = attributes['billing_end_date']
+	billing_customer = attributes['billing_customer']
 	
 	f = Financier::FormFormatter.new
 ?>
@@ -16,11 +16,13 @@
 		<?r end ?>
 		
 		<fieldset><legend>Billing Details</legend>
-			#{f.input :field => :billing_end_date, :type => :date, :value => billing_end_date}
+			<dl>
+				#{f.input :field => :billing_end_date, :type => :date, :value => billing_end_date}
 			
-			#{f.select :field => :billing_customer, :collection => customers do |customer|
-				f.option :title => customer.name, :selected => (billing_customer == customer)
-			end}
+				#{f.select :field => :billing_customer, :collection => customers do |customer|
+					f.option :title => customer.name, :selected => (billing_customer == customer)
+				end}
+			</dl>
 		</fieldset>
 		
 		<fieldset class="footer">

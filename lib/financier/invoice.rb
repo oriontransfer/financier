@@ -66,6 +66,10 @@ module Financier
 		property :invoiced_date, Optional[Attribute[Date]]
 		property :due_date, Optional[Attribute[Date]]
 		
+		def date
+			self.invoiced_date || self.created_date
+		end
+		
 		# The company issuing the invoice:
 		property :company, BelongsTo[Company]
 		# The address for the company, typically used as a return address:
@@ -80,7 +84,7 @@ module Financier
 		# The address where the items should be shipped:
 		property :shipping_address, Optional[HasOne[Address]]
 		
-		relationship :totals, 'financier/transaction_total_by_invoice', {} do |database, row|
+		relationship :totals, 'financier/transaction_total_by_invoice', {:group => true, :startkey => [:self], :endkey => [:self, {}]} do |database, row|
 			Latinum::Resource.new(row['value'], row['key'][1])
 		end
 		

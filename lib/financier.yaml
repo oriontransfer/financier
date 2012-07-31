@@ -3,6 +3,7 @@
     views:
         lib:
             _default: |
+                require 'date'
                 require 'bigdecimal'
                 require 'bigdecimal/util'
         company:
@@ -110,7 +111,26 @@
         transaction_by_account:
             map: |
                 lambda do |doc| 
-                    emit(doc['invoice']) if doc['type'] == 'transaction' && doc['account']
+                    emit(doc['account']) if doc['type'] == 'transaction' && doc['account']
+                end
+        transaction_total_by_account_and_date:
+            map: |
+                lambda do |doc|
+                    if doc['type'] == 'transaction' && doc['account']
+                        timestamp = DateTime.parse(doc['timestamp'])
+                        emit([doc['account'], timestamp.year, timestamp.month, doc['amount'][1]], doc['amount'][0])
+                    end
+                end
+            reduce: |
+                lambda do |keys, values, reduced|
+                    values.map(&:to_d).inject(&:+)
+                end
+        account_transaction_by_customer:
+            map: |
+                lambda do |doc|
+                    if doc['type'] == 'transaction' && doc['for'] && doc['for'][0] == 'customer'
+                        emit(doc['for'][1])
+                    end
                 end
         user:
             map: |

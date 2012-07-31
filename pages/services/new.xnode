@@ -1,6 +1,3 @@
-<?r
-	service = request.controller[:service]
-?>
 <page>
 	<heading>New Service</heading>
 

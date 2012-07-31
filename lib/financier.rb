@@ -14,6 +14,11 @@ require 'financier/user'
 
 require 'utopia/extensions/maybe'
 
+require 'ofx'
+require 'qif'
+
+Relaxo::Client.debug = true
+
 # Setup initial admin user:
 admin_user = Financier::User.by_name(Financier::DB, :key => "admin")
 

@@ -22,25 +22,24 @@ def on_delete(path, request)
 end
 
 def on_new(path, request)
-	invoice = request.controller[:invoice] = Financier::Invoice.create(Financier::DB, :created_date => Date.today)
+	@invoice = Financier::Invoice.create(Financier::DB, :created_date => Date.today)
 	
 	if request.post?
-		invoice.assign(request.params)
+		@invoice.assign(request.params)
 		
-		invoice.save
+		@invoice.save
 		
 		redirect! "index"
 	end
 end
 
 def on_edit(path, request)
-	invoice = request.controller[:invoice] = Financier::Invoice.fetch(Financier::DB, request[:id])
+	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
 	
 	if request.post?
-		invoice.assign(request.params)
-		invoice.updated_date = Date.today
-		
-		invoice.save
+		@invoice.assign(request.params)
+		@invoice.updated_date = Date.today
+		@invoice.save
 		
 		redirect! request[:_return] || "index"
 	end
