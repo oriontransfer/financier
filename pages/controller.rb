@@ -26,10 +26,10 @@ end
 
 def process!(path, request)
 	if request.session[:user]
-		request.controller[:user] = Financier::User.fetch(Financier::DB, request.session[:user])
+		request.controller[:user] = Financier::User.fetch(Financier::DB, request.session[:user]) rescue nil
 	end
 	
-	if request.session[:user] || public_path?(path)
+	if request.controller[:user] || public_path?(path)
 		passthrough(path, request)
 	else
 		respond_with :redirect => "/login"
