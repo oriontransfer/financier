@@ -1,10 +1,7 @@
 
-require 'financier/database'
-
-require 'digest'
 require 'bcrypt'
-require 'securerandom'
 
+require 'financier/database'
 require 'relaxo/model/properties/bcrypt'
 
 module Financier
