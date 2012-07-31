@@ -21,6 +21,8 @@ You need to have CouchDB running and create a database, e.g. `$company-financier
 
 	relaxo $company-financier lib/financier.yaml
 
+Update the file `site.yaml` to reflect the `database-uri` as chosen above.
+
 Finally to start the server:
 
 	thin start -p 3000
