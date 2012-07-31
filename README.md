@@ -12,14 +12,20 @@ Installation
 
 Install the ruby gem as follows:
 
-	git clone .../financier
+	git clone https://github.com/ioquatix/financier.git
 	cd financier
 	
 	bundle install
-	
+
+You need to have CouchDB running and create a database, e.g. `$company-financier`. To load the default design document into CouchDB, use `relaxo`:
+
+	relaxo $company-financier lib/financier.yaml
+
+Finally to start the server:
+
 	thin start -p 3000
 
-You can now open <http://localhost:3000> in your browser.
+You can now open <http://localhost:3000> in your browser. The default username and password is `admin`/`admin`.
 
 License
 -------
