@@ -13,7 +13,6 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 
 module Financier
-	DB = Relaxo.connect('oriontransfer-financier')
 	BANK = Latinum::Bank.new(Latinum::Currencies::Global)
 	
 	# This needs to be refactored into a configuration file!?

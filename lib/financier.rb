@@ -19,6 +19,11 @@ require 'qif'
 
 Relaxo::Client.debug = true
 
+$site_config = YAML::load_file('site.yaml')
+
+# Configure the database connection:
+Financier::DB = Relaxo.connect($site_config['database-uri'])
+
 # Setup initial admin user:
 admin_user = Financier::User.by_name(Financier::DB, :key => "admin")
 
