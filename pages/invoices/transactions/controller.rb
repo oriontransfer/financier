@@ -25,3 +25,7 @@ def on_edit(path, request)
 		redirect! "../show?id=#{transaction.invoice.id}"
 	end
 end
+
+def on_move(path, request)
+	on_edit(path, request)
+end

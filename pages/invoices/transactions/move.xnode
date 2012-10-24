@@ -1,0 +1,24 @@
+<page>
+	<heading>Move Transaction</heading>
+	
+	<?r
+		f = Financier::FormFormatter.new(:object => request.controller['transaction'])
+		
+		invoices = Financier::Invoice.all(Financier::DB).sort_by(&:created_date)
+		
+	?><form class="basic editor" method="post" action="#" >
+		#{f.hidden :field => :rev if f.object.id}
+	
+		<fieldset><legend>Invoice</legend>
+			<dl>
+				#{f.select :field => :invoice, :collection => invoices do |invoice|
+					f.option :title => "#{invoice.customer.name}: #{invoice.name}", :selected => (f.object.invoice == invoice)
+				end}
+			</dl>
+		</fieldset>
+
+		<fieldset class="footer">
+			#{f.submit}
+		</fieldset>
+	</form>
+</page>
