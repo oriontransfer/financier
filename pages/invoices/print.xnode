@@ -43,6 +43,7 @@
 	<table class="listing transactions">
 		<thead>
 			<tr>
+				<th class="when">When</th>
 				<th class="name">Name</th>
 				<th class="price">Price</th>
 				<th class="quantity">Quantity</th>
@@ -61,7 +62,7 @@
 					:total => Latinum::Collection.new(currencies)
 				}
 				
-				invoice.transactions.each do |transaction|
+				invoice.transactions.sort_by(&:date).each do |transaction|
 					subtotal = transaction.subtotal
 					summary[:subtotal] << subtotal
 					summary[:tax] << subtotal * transaction.tax_rate.to_d
@@ -69,6 +70,7 @@
 				
 			?>
 			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+				<td class="when">#{f.text transaction.date}</td>
 				<th class="name">#{f.text transaction.name}</th>
 				<td class="price">#{f.text transaction.price}</td>
 				<td class="quantity">#{f.quantity transaction}</td>
@@ -83,7 +85,7 @@
 			</tr>
 			<?r if transaction.description? ?>
 			<tr>
-				<td class="description" colspan="6">#{f.markdown transaction.description}</td>
+				<td class="description" colspan="7">#{f.markdown transaction.description}</td>
 			</tr>
 			<?r end ?>
 			<?r end ?>
@@ -91,7 +93,7 @@
 		<tfoot>
 			<?r currencies.each do |currency| ?>
 			<tr>
-				<td colspan="3">#{currency} Summary:</td>
+				<td colspan="4">#{currency} Summary:</td>
 				<td class="subtotal">#{f.text summary[:subtotal][currency]}</td>
 				<td class="tax_rate">#{f.text summary[:tax][currency]}</td>
 				<td class="total">#{f.text summary[:total][currency]}</td>
@@ -121,6 +123,4 @@
 			end}
 		</section>
 	</section>
-	
-	<h3 style="text-align: center">Thank you for your business!</h3>
 </print>

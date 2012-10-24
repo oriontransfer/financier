@@ -99,13 +99,20 @@ table.listing .when, table.listing .number {
 	text-align: center;
 }
 
+table.listing .total,
+table.listing .subtotal,
+table.listing .price,
+table.listing .quantity,
+table.listing .tax_rate {
+	text-align: right;
+	width: 14%;
+}
+
 table.listing tbody .total,
 table.listing tbody .subtotal,
 table.listing tbody .price,
 table.listing tbody .quantity,
 table.listing tbody .tax_rate {
-	text-align: right;
-	width: 14%;
 	border-left: 1px dotted #ccc;
 }
 

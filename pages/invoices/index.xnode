@@ -28,7 +28,7 @@
 					:total => Latinum::Collection.new(currencies)
 				}
 				
-				Financier::Invoice.all(Financier::DB).each do |invoice|
+				Financier::Invoice.all(Financier::DB).sort_by(&:created_date).each do |invoice|
 					totals = invoice.totals(:group => true, :startkey => [invoice.id], :endkey => [invoice.id, {}])
 			?>
 			<tr data-id="#{invoice.id}" data-rev="#{invoice.rev}">
