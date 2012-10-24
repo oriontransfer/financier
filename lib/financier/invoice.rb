@@ -107,11 +107,11 @@ module Financier
 		view :count_by_customer, 'financier/invoice_count_by_customer'
 		
 		def self.create_invoice_for_services(database, services, date)
-			database.session(Invoice) do |session|
-				invoice = Invoice.create(session, :name => "Services")
+			database.transaction(Invoice) do |txn|
+				invoice = Invoice.create(txn, :name => "Services")
 				
 				services.each do |service|
-					service = service.attach(session)
+					service = service.attach(txn)
 					
 					# Round down the number of periods:
 					periods = service.periods_to_date(date).to_i
@@ -119,7 +119,7 @@ module Financier
 					$stderr.puts "Periods for service #{service.name}: #{periods.inspect}"
 					
 					if periods >= 1
-						transaction = Transaction.create(session,
+						transaction = Transaction.create(txn,
 							:service => service,
 							:name => service.name,
 							:price => service.periodic_cost,

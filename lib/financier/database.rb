@@ -1,6 +1,6 @@
 
 require 'relaxo'
-require 'relaxo/session'
+require 'relaxo/transaction'
 require 'relaxo/model'
 require 'relaxo/model/properties/bigdecimal'
 
