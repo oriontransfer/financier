@@ -1,7 +1,11 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes['invoice'])
 	
-	addresses = f.object.customer.addresses
+	if f.object.customer
+		addresses = f.object.customer.addresses
+	else
+		addresses = []
+	end
 ?><dl>
 	<?r f.select(:field => :billing_address, :type => :radio) do |select| ?>
 		#{select.item :title => 'No Address', :selected => !f.object.billing_address?}
