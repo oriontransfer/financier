@@ -10,7 +10,7 @@ def on_new(path, request)
 		
 		@transaction.save
 		
-		redirect! "../show?id=#{transaction.invoice.id}"
+		redirect! "../show?id=#{@transaction.invoice.id}"
 	end
 end
 
@@ -22,7 +22,7 @@ def on_edit(path, request)
 		
 		@transaction.save
 		
-		redirect! "../show?id=#{transaction.invoice.id}"
+		redirect! "../show?id=#{@transaction.invoice.id}"
 	end
 end
 
