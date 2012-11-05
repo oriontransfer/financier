@@ -7,8 +7,8 @@ def on_delete(path, request)
 	documents = request[:documents].values
 	
 	documents.each do |document|
-		Financier::DB.session do |session|
-			account = Financier::Account::fetch(session, document['id'])
+		Financier::DB.transaction do |db|
+			account = Financier::Account::fetch(db, document['id'])
 			
 			if account.rev == document['rev']
 				account.delete
@@ -50,7 +50,7 @@ def on_show(path, request)
 end
 
 def import_ofx(path)
-	Financier::DB.session do |session|
+	Financier::DB.transaction do |db|
 		OFX(path) do |parser|
 			#puts YAML::dump(parser.account)
 			#puts YAML::dump(parser.account.balance)
@@ -60,7 +60,7 @@ def import_ofx(path)
 			parser.account.transactions.each do |record|
 				puts YAML::dump(record)
 			
-				transaction = Financier::Account::Transaction.create(session)
+				transaction = Financier::Account::Transaction.create(db)
 				transaction.amount = Latinum::Resource.new(record.amount, account.currency)
 				transaction.name = record.memo
 				transaction.timestamp = record.posted_at
@@ -75,9 +75,9 @@ end
 def import_qif(path)
 	qif = Qif::Reader.new(open(path))
 	
-	Financier::DB.session do |session|
+	Financier::DB.transaction do |db|
 		qif.each do |record|
-			transaction = Financier::Account::Transaction.create(session)
+			transaction = Financier::Account::Transaction.create(db)
 			transaction.amount = Latinum::Resource.new(record.amount, @default_currency)
 			transaction.name = record.memo
 			transaction.timestamp = record.date.to_datetime

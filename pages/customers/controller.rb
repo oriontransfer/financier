@@ -5,8 +5,8 @@ def on_delete(path, request)
 	documents = request[:documents].values
 	
 	documents.each do |document|
-		Financier::DB.session do |session|
-			customer = Financier::Customer::fetch(session, document['id'])
+		Financier::DB.transaction do |db|
+			customer = Financier::Customer::fetch(db, document['id'])
 			
 			if customer.rev == document['rev']
 				customer.delete

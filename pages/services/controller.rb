@@ -7,8 +7,8 @@ def on_delete(path, request)
 	documents = request[:documents].values
 	
 	documents.each do |document|
-		Financier::DB.session do |session|
-			service = Financier::Service::fetch(session, document['id'])
+		Financier::DB.transaction do |db|
+			service = Financier::Service::fetch(db, document['id'])
 			
 			if service.rev == document['rev']
 				service.delete
@@ -59,8 +59,8 @@ def on_invoice(path, request)
 	if request.post? && request[:create]
 		invoice = nil
 
-		Financier::DB.session do |session|
-			invoice = Financier::Invoice.create_invoice_for_services(session, @services, @billing_end_date)
+		Financier::DB.transaction do |db|
+			invoice = Financier::Invoice.create_invoice_for_services(db, @services, @billing_end_date)
 
 			invoice.customer = @billing_customer
 
