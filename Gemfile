@@ -1,9 +1,11 @@
 source "http://rubygems.org"
 
-gem "utopia", "~> 0.10.0"
+gem "utopia", "~> 0.12.1"
+
 gem "relaxo", "~> 0.4.0"
 gem "relaxo-model", "~> 0.3.9"
 gem "relaxo-query-server", "~> 0.1.2"
+
 gem "periodical", "~> 0.1.1"
 gem "latinum", "~> 0.2.4"
 
