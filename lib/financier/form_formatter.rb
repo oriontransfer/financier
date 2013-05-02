@@ -3,8 +3,6 @@ require 'financier/view_formatter'
 
 module Financier
 	class FormFormatter < ViewFormatter
-		Trenni = Utopia::Trenni
-		
 		def resource(object)
 			object.to_s
 		end

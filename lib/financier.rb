@@ -1,6 +1,6 @@
 
 require 'utopia'
-require 'utopia/trenni'
+require 'trenni'
 
 require 'yaml'
 
