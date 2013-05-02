@@ -133,7 +133,7 @@ module Financier
 			
 			def item(options = {}, &block)
 				if block_given?
-					buffer = Trenni::buffer(block.binding)
+					buffer = Trenni::Template::buffer(block.binding)
 
 					buffer.push <<-EOF
 						<tr>
@@ -162,7 +162,7 @@ module Financier
 			options = @options.merge(options)
 			
 			if options[:type] == :radio
-				buffer = Trenni::buffer(block.binding)
+				buffer = Trenni::Template::buffer(block.binding)
 				
 				buffer.push <<-EOF
 				<dt>#{title_for(options)}</dt>
