@@ -1,4 +1,6 @@
 <?r
+	response.do_not_cache!
+	
 	invoice = attributes['invoice']
 	
 	f = Financier::ViewFormatter.new
