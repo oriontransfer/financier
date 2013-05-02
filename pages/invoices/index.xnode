@@ -37,7 +37,7 @@
 				</td>
 				<td class="when">#{f.text invoice.created_date}</td>
 				<td class="number">#{f.text invoice.number}</td>
-				<th><a href="show?id=#{invoice.id}">#{f.text invoice.name}</a></th>
+				<th><a href="show?id=#{invoice.id}">#{f.text invoice.title} #{f.text invoice.name}</a></th>
 				<td>#{f.text invoice.customer.name if invoice.customer}</td>
 				<td class="total"><?r 
 					totals.each do |total|

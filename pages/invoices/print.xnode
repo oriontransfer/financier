@@ -4,7 +4,7 @@
 	f = Financier::ViewFormatter.new
 ?>
 <print>
-	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}
+	<heading>#{f.text invoice.title} #{f.text invoice.number || '-'}: #{f.text invoice.name}
 		<?r if invoice.invoiced_date? ?>
 		(#{invoice.invoiced_date})
 		<?r end ?>

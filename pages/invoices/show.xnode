@@ -9,7 +9,7 @@
 		<a class="button" href="print?id=#{invoice.id}"><i class="icon-print"> Print</i></a>
 	</div>
 	
-	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
+	<heading>#{f.text invoice.title} #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
 	
 	<?r if invoice.description? ?>
 	#{f.markdown invoice.description}

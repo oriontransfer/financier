@@ -70,6 +70,18 @@ module Financier
 			self.invoiced_date || self.created_date
 		end
 		
+		def quotation?
+			not (self.invoiced_date && self.invoiced_date >= Date.today)
+		end
+		
+		def title
+			if quotation?
+				"Quotation"
+			else
+				"Invoice"
+			end
+		end
+		
 		# The company issuing the invoice:
 		property :company, BelongsTo[Company]
 		# The address for the company, typically used as a return address:
