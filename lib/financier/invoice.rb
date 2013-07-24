@@ -71,7 +71,7 @@ module Financier
 		end
 		
 		def quotation?
-			not (self.invoiced_date && self.invoiced_date >= Date.today)
+			not (self.invoiced_date && self.invoiced_date <= Date.today)
 		end
 		
 		def title
