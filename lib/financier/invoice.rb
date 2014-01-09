@@ -78,7 +78,7 @@ module Financier
 			if quotation?
 				"Quotation"
 			else
-				"Invoice"
+				"Tax Invoice"
 			end
 		end
 		
