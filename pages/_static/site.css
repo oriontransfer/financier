@@ -388,3 +388,7 @@ form.editor dd table td.handle {
 form.editor dd table td.item {
 	
 }
+
+.account.label.inactive {
+	color: red;
+}
