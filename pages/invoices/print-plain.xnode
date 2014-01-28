@@ -1,0 +1,122 @@
+<?r
+	response.do_not_cache!
+	
+	invoice = attributes['invoice']
+	
+	f = Financier::ViewFormatter.new
+?>
+<print>
+	<heading>#{f.text invoice.title} #{f.text invoice.number || '-'} 
+		<?r if invoice.invoiced_date? ?>
+		(#{invoice.invoiced_date})
+		<?r end ?>
+	</heading>
+	
+	<?r if invoice.billing_address? || invoice.shipping_address? ?>
+	<section class="columns addresses">
+		<?r if invoice.billing_address? ?>
+		<section class="billing_address">
+			<header>Billing Address:</header>
+			
+			#{current.defer do
+				tag('/addresses/_label', 'address' => invoice.billing_address)
+			end}
+		</section>
+		<?r end ?>
+		
+		<?r if invoice.shipping_address? ?>
+		<section class="shipping_address">
+			<header>Shipping Address:</header>
+			
+			#{current.defer do
+				tag('/addresses/_label', 'address' => invoice.shipping_address) 
+			end}
+		</section>
+		<?r end ?>
+	</section>
+	<?r end ?>
+	
+	<h2>Items</h2>
+	
+	<table class="listing transactions">
+		<thead>
+			<tr>
+				<th class="name">Name</th>
+				<th class="price">Price</th>
+				<th class="quantity">Quantity</th>
+				<th class="subtotal">Sub-total</th>
+				<th class="tax_rate">Tax</th>
+				<th class="total">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				currencies = Set.new
+				
+				summary = {
+					:subtotal => Latinum::Collection.new(currencies),
+					:tax => Latinum::Collection.new(currencies),
+					:total => Latinum::Collection.new(currencies)
+				}
+				
+				invoice.transactions.sort_by(&:date).each do |transaction|
+					subtotal = transaction.subtotal
+					summary[:subtotal] << subtotal
+					summary[:tax] << subtotal * transaction.tax_rate.to_d
+					summary[:total] << transaction.total
+				
+			?>
+			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+				<th class="name">#{f.text transaction.name}</th>
+				<td class="price">#{f.text transaction.price}</td>
+				<td class="quantity">#{f.quantity transaction}</td>
+				<td class="subtotal">#{f.text subtotal}</td>
+				<td class="tax_rate">#{f.tax transaction}</td>
+				<td class="total">
+					#{f.text transaction.total}
+					<?r if transaction.exchange_rate? ?>
+					<small class="exchanged">Exchanged at #{f.text transaction.exchange_rate}</small>
+					<?r end ?>
+				</td>
+			</tr>
+			<?r if transaction.description? ?>
+			<tr>
+				<td class="description" colspan="7">#{f.markdown transaction.description}</td>
+			</tr>
+			<?r end ?>
+			<?r end ?>
+		</tbody>
+		<tfoot>
+			<?r currencies.each do |currency| ?>
+			<tr>
+				<td colspan="3">#{currency} Summary:</td>
+				<td class="subtotal">#{f.text summary[:subtotal][currency]}</td>
+				<td class="tax_rate">#{f.text summary[:tax][currency]}</td>
+				<td class="total">#{f.text summary[:total][currency]}</td>
+			</tr>
+			<?r end ?>
+		</tfoot>
+	</table>
+	
+	<?r if invoice.due_date? ?>
+	<p style="text-align: right">Payment due on #{invoice.due_date}.</p>
+	<?r end ?>
+	
+	<section class="columns company">
+		<section class="contact_us">
+			<header>Contact Us:</header>
+			
+			#{current.defer do
+				tag('/addresses/_label', 'address' => invoice.company_address) if invoice.company_address
+			end}
+		</section>
+		
+		<section class="shipping_address">
+			<header>Please Pay:</header>
+			
+			#{current.defer do
+				tag('/accounts/_label', 'account' => invoice.account) if invoice.account
+			end}
+		</section>
+	</section>
+</print>
