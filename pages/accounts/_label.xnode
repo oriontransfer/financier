@@ -6,7 +6,7 @@
 		:number => "Account Number: ",
 		:swift_code => "Swift Code: ",
 		:sort_code => "Sort Code: ",
-		:tax_number => "Tax \#: ",
+		:tax_number => "",
 		:bank_name => "Bank: ",
 		:bank_branch => "Branch: "
 	}
