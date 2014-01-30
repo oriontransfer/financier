@@ -22,7 +22,8 @@ body {
 }
 
 #page {
-	padding: 20pt;
+	position: relative;
+	margin: 20pt;
 }
 
 img {
@@ -46,8 +47,39 @@ h3, h4, h5, h6 {
 }
 
 h1 {
-	border-bottom: 3px solid #bbb;
 	text-shadow: 1px 1px 1px #cacaca;
+	margin: 0;
+	
+	text-transform: uppercase;
+}
+
+section.header {
+	position: absolute;
+	right: 0;
+	left: 60%;
+	top: 0;
+	
+	padding: 10pt;
+	text-align: right;
+	
+	font-size: 150%;
+}
+
+section.header ul {
+	font-size: 14pt;
+}
+
+section.header ul li {
+	margin: 4pt;
+}
+
+hr {
+	border: 2px solid rgb(10, 100, 200);
+	margin: 20pt;
+}
+
+section.header ul {
+	list-style: none;
 }
 
 table.listing {

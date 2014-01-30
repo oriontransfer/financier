@@ -2,15 +2,36 @@
 	response.do_not_cache!
 	
 	invoice = attributes['invoice']
+	LOG.debug("invoice.title #{invoice.title}")
 	
 	f = Financier::ViewFormatter.new
+	
+	@title = "#{invoice.title} #{invoice.number}"
 ?>
 <print>
-	<heading>#{f.text invoice.title} #{f.text invoice.number || '-'} 
-		<?r if invoice.invoiced_date? ?>
-		(#{invoice.invoiced_date})
-		<?r end ?>
-	</heading>
+	<section class="header">
+		<heading>#{f.text invoice.title}</heading>
+		
+		<ul>
+			<?r if invoice.number?>
+			<li>Invoice # #{f.text invoice.number}</li>
+			<?r end ?>
+			
+			<?r if invoice.invoiced_date? ?>
+			<li>Issued #{f.text invoice.invoiced_date}</li>
+			<?r end ?>
+			
+			<?r if invoice.due_date? ?>
+			<li>Due #{invoice.due_date}</li>
+			<?r end ?>
+			
+			<?r if invoice.account &&  invoice.account.tax_number ?>
+			<li>#{f.text invoice.account.tax_number}</li>
+			<?r end ?>
+		</ul>
+	</section>
+	
+	<hr />
 	
 	<?r if invoice.billing_address? || invoice.shipping_address? ?>
 	<section class="columns addresses">
@@ -97,10 +118,6 @@
 			<?r end ?>
 		</tfoot>
 	</table>
-	
-	<?r if invoice.due_date? ?>
-	<p style="text-align: right">Payment due on #{invoice.due_date}.</p>
-	<?r end ?>
 	
 	<section class="columns company">
 		<section class="contact_us">

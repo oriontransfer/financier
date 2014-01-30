@@ -49,8 +49,3 @@ def on_show(path, request)
 	request.controller[:invoice] = Financier::Invoice.fetch(Financier::DB, request[:id])
 end
 
-def on_print(path, request)
-	request.controller[:invoice] = Financier::Invoice.fetch(Financier::DB, request[:id])
-end
-
-alias_method :on_print_plain, :on_print

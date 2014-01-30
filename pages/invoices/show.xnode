@@ -6,7 +6,7 @@
 <page>
 	<div class="toolbar">
 		<a class="button" href="edit?id=#{invoice.id}&amp;_return=#{request.url}"><i class="icon-edit"> Edit</i></a>
-		<a class="button" href="print?id=#{invoice.id}"><i class="icon-print"> Print</i></a>
+		<a class="button" href="print/full?id=#{invoice.id}"><i class="icon-print"> Print</i></a>
 	</div>
 	
 	<heading>#{f.text invoice.title} #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
