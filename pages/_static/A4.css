@@ -6,9 +6,12 @@ body {
 			((1.0/scale) * (1.0 - scale)) / 2.0 = percentage translation
 			((1.0/0.64) * (1.0 - 0.64)) / 2.0 = 0.28125
 	*/
+/*
 	-webkit-transform: scale(0.64, 0.64) translate(-28.125%, -28.125%);
 	
 	width: 156.25%;
+*/
+	font-size: 75%;
 }
 
 a[href^='http:']:link:after {

@@ -61,12 +61,6 @@ section.header {
 	
 	padding: 10pt;
 	text-align: right;
-	
-	font-size: 150%;
-}
-
-section.header ul {
-	font-size: 14pt;
 }
 
 section.header ul li {
