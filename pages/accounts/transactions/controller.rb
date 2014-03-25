@@ -2,8 +2,8 @@
 include Direct
 
 def on_new(path, request)
-	@transaction = Financier::Account::Transaction.create(Financier::DB)
-	@transaction.assign(:account => request[:account_id])
+	@transaction = Financier::Account::Transaction.create(Financier::DB, timestamp: Time.now)
+	@transaction.assign(account: request[:account_id])
 	
 	if request.post?
 		@transaction.assign(request.params)
