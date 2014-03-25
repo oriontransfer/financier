@@ -126,7 +126,7 @@ module Financier
 					service = service.attach(txn)
 					
 					# Round down the number of periods:
-					periods = service.periods_to_date(date).to_i
+					periods = service.periods_to_date(date)
 					
 					$stderr.puts "Periods for service #{service.name}: #{periods.inspect}"
 					

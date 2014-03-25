@@ -60,8 +60,8 @@
 					<td>#{f.text service.domain}</td>
 					<td>#{f.text service.billed_until_date}</td>
 					<td>#{f.text billing_end_date}</td>
-					<td>#{f.text periods.to_i}</td>
-					<td>#{f.text (service.periodic_cost * periods.to_i)}</td>
+					<td>#{f.text periods}</td>
+					<td>#{f.text (service.periodic_cost * periods)}</td>
 				</tr>
 				<?r end ?>
 			</tbody>
