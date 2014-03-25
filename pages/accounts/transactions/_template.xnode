@@ -11,6 +11,7 @@
 		<dl>
 			#{f.input :field => :name, :required => true}
 			#{f.input :field => :timestamp, :type => :datetime, :required => true}
+			#{f.input :field => :amount, :type => :currency, :required => true}
 			#{f.textarea :field => :description}
 		</dl>
 	</fieldset>
