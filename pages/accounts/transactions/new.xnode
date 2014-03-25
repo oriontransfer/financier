@@ -1,0 +1,7 @@
+<page>
+	<heading>New Transaction</heading>
+	
+	#{current.defer do
+		tag('template', 'transaction' => request.controller[:transaction])
+	end}
+</page>
