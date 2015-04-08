@@ -17,8 +17,6 @@ require 'financier/view_formatter'
 require 'financier/form_formatter'
 require 'financier/user'
 
-require 'utopia/extensions/maybe'
-
 require 'ofx'
 require 'qif'
 

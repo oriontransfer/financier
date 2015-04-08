@@ -1,11 +1,9 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     bcrypt-ruby (3.0.1)
-    daemons (1.2.2)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
-    eventmachine (1.0.7)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     json (1.8.2)
@@ -20,6 +18,8 @@ GEM
     ofx (0.3.2)
       nokogiri
     periodical (0.1.1)
+    puma (2.11.1)
+      rack (>= 1.1, < 2.0)
     qif (1.1.2)
     rack (1.6.0)
     rack-cache (1.2)
@@ -28,8 +28,8 @@ GEM
     relaxo (0.4.4)
       json (~> 1.8)
       rest-client
-    relaxo-model (0.4.1)
-      relaxo (~> 0.4.0)
+    relaxo-model (0.3.9)
+      relaxo
     relaxo-query-server (0.1.4)
       json (~> 1.8)
       relaxo (~> 0.4.4)
@@ -38,10 +38,6 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    thin (1.6.3)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0)
-      rack (~> 1.0)
     trenni (1.4.1)
     unf (0.1.4)
       unf_ext
@@ -61,10 +57,10 @@ DEPENDENCIES
   latinum (~> 0.2.4)
   ofx (~> 0.3.1)
   periodical (~> 0.1.1)
+  puma
   qif (~> 1.1.1)
   redcarpet (~> 2.1.1)
-  relaxo (~> 0.4.4)
-  relaxo-model (~> 0.4.1)
-  relaxo-query-server (~> 0.1.4)
-  thin
+  relaxo (~> 0.4.0)
+  relaxo-model (~> 0.3.9)
+  relaxo-query-server (~> 0.1.2)
   utopia (~> 1.0.7)
