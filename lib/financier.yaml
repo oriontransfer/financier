@@ -1,11 +1,6 @@
 -   _id: "_design/financier"
     language: ruby
     views:
-        lib:
-            _default: |
-                require 'date'
-                require 'bigdecimal'
-                require 'bigdecimal/util'
         company:
             map: |
                 lambda do |doc| 
@@ -95,6 +90,9 @@
                     emit([doc['invoice'], doc['total'][1]], doc['total'][0]) if doc['type'] == 'transaction' && doc['total']
                 end
             reduce: |
+                require 'bigdecimal'
+                require 'bigdecimal/util'
+                
                 lambda do |keys, values, reduced|
                     values.map(&:to_d).inject(&:+)
                 end
@@ -115,6 +113,8 @@
                 end
         transaction_total_by_account_and_date:
             map: |
+                require 'date'
+                
                 lambda do |doc|
                     if doc['type'] == 'transaction' && doc['account']
                         timestamp = DateTime.parse(doc['timestamp'])
@@ -122,6 +122,9 @@
                     end
                 end
             reduce: |
+                require 'bigdecimal'
+                require 'bigdecimal/util'
+                
                 lambda do |keys, values, reduced|
                     values.map(&:to_d).inject(&:+)
                 end

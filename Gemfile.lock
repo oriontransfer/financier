@@ -42,16 +42,16 @@ GEM
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
       rack (~> 1.0)
-    trenni (1.3.0)
+    trenni (1.4.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.6)
-    utopia (0.12.6)
+    utopia (1.0.7)
       mail (~> 2.6.1)
       mime-types (~> 2.0)
       rack (~> 1.5)
       rack-cache (~> 1.2.0)
-      trenni (~> 1.3.0)
+      trenni (~> 1.4.1)
 
 PLATFORMS
   ruby
@@ -67,4 +67,4 @@ DEPENDENCIES
   relaxo-model (~> 0.4.1)
   relaxo-query-server (~> 0.1.4)
   thin
-  utopia (~> 0.12.1)
+  utopia (~> 1.0.7)
