@@ -16,7 +16,7 @@ module Financier
 		end
 
 		def resource(resource)
-			BANK.format(resource).to_html
+			Trenni::Strings::to_html BANK.format(resource)
 		end
 
 		def quantity(transaction)

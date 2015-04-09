@@ -83,7 +83,7 @@ module Financier
 			options[:object] ||= @select_item
 			
 			<<-EOF
-				<option value="#{value_for(options)}" #{attributes_for(options)}>#{title_for(options).to_html}</option>
+				<option value="#{Strings::to_html value_for(options)}" #{attributes_for(options)}>#{title_for(options)}</option>
 			EOF
 		end
 		

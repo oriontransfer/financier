@@ -1,11 +1,9 @@
 
-include Direct
-
-def on_full(path, request)
-	request.controller[:invoice] = Financier::Invoice.fetch(Financier::DB, request[:id])
+on 'full' do |request, path|
+	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
 end
 
-def on_plain(path, request)
-	request.controller[:invoice] = Financier::Invoice.fetch(Financier::DB, request[:id])
+on 'plain' do |request, path|
+	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
 end
 

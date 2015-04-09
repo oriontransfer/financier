@@ -1,5 +1,5 @@
 
-def on_company(path, request)
+on 'company' do |request, path|
 	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
 	
 	if request[:company]
@@ -7,7 +7,7 @@ def on_company(path, request)
 	end
 end
 
-def on_customer(path, request)
+on 'customer' do |request, path|
 	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
 	
 	if request[:customer]

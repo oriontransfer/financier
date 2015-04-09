@@ -1,5 +1,5 @@
 
-def on_delete(path, request)
+on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request[:documents].values
@@ -19,7 +19,7 @@ def on_delete(path, request)
 	respond! 200
 end
 
-def on_new(path, request)
+on 'new' do |request, path|
 	@customer = Financier::Customer.create(Financier::DB)
 	
 	if request.post?
@@ -31,7 +31,7 @@ def on_new(path, request)
 	end
 end
 
-def on_edit(path, request)
+on 'edit' do |request, path|
 	@customer = Financier::Customer.fetch(Financier::DB, request[:id])
 	
 	if request.post?
@@ -43,7 +43,7 @@ def on_edit(path, request)
 	end
 end
 
-def on_show(path, request)
+on 'show' do |request, path|
 	@customer = Financier::Customer.fetch(Financier::DB, request[:id])
 	
 	@transactions = []

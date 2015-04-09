@@ -10,7 +10,7 @@
 	end
 
 	if address.email?
-		?><div class="email"><i class="icon-envelope-alt"></i> <a href="mailto:#{address.email.to_html}">#{address.email}</a></div><?r
+		?><div class="email"><i class="icon-envelope-alt"></i> <a href="mailto:#{Strings::to_html address.email}">#{address.email}</a></div><?r
 	end
 	
 	postcode_line = lambda do
@@ -41,7 +41,7 @@
 		else
 			value = address.send(field)
 			next if value == nil || value.empty?
-			?><span class="#{field.to_s}">#{value.to_html}</span><br/><?r
+			?><span class="#{Strings::to_html field.to_s}">#{value}</span><br/><?r
 		end
 	end
 	

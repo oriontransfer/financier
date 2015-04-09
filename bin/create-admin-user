@@ -1,0 +1,13 @@
+
+# Setup initial admin user:
+admin_user = Financier::User.by_name(Financier::DB, :key => "admin")
+
+unless admin_user.first
+	admin_user = Financier::User.create(Financier::DB, :name => "admin")
+	admin_user.assign(:password => "admin")
+	admin_user.save
+	
+	$stderr.puts "Creating admin user with id: #{admin_user.id}."
+else
+	$stderr.puts "User accounts functioning normally."
+end

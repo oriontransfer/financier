@@ -1,7 +1,7 @@
 
 require 'json'
 
-def on_delete(path, request)
+on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request[:documents].values
@@ -21,7 +21,7 @@ def on_delete(path, request)
 	respond! 200
 end
 
-def on_new(path, request)
+on 'new' do |request, path|
 	@service = Financier::Service.create(Financier::DB, :start_date => Date.today, :period => 7)
 	
 	if request.post?
@@ -33,7 +33,7 @@ def on_new(path, request)
 	end
 end
 
-def on_edit(path, request)
+on 'edit' do |request, path|
 	@service = Financier::Service.fetch(Financier::DB, request[:id])
 	
 	if request.post?
@@ -45,7 +45,7 @@ def on_edit(path, request)
 	end
 end
 
-def on_invoice(path, request)
+on 'invoice' do |request, path|
 	@services = request[:services].map{|id| Financier::Service.fetch(Financier::DB, id)}
 	
 	@billing_end_date = Date.parse(request[:billing_end_date]) rescue Date.today

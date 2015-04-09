@@ -23,7 +23,7 @@ module Financier
 				@formatters[object.class].call(object, options)
 			else
 				if object
-					object.to_s.to_html
+					Trenni::Strings::to_html object.to_s
 				else
 					options[:blank] || ""
 				end

@@ -1,7 +1,5 @@
 
-include Direct
-
-def on_delete(path, request)
+on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request[:documents].values
@@ -21,7 +19,7 @@ def on_delete(path, request)
 	respond! 200
 end
 
-def on_new(path, request)
+on 'new' do |request, path|
 	@invoice = Financier::Invoice.create(Financier::DB, :created_date => Date.today)
 	
 	if request.post?
@@ -33,7 +31,7 @@ def on_new(path, request)
 	end
 end
 
-def on_edit(path, request)
+on 'edit' do |request, path|
 	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
 	
 	if request.post?
@@ -45,7 +43,6 @@ def on_edit(path, request)
 	end
 end
 
-def on_show(path, request)
-	request.controller[:invoice] = Financier::Invoice.fetch(Financier::DB, request[:id])
+on 'show' do |request, path|
+	@invoice =  Financier::Invoice.fetch(Financier::DB, request[:id])
 end
-

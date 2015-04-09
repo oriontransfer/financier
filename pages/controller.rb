@@ -1,5 +1,5 @@
 
-def on_login(path, request)
+on 'login' do |request, path|
 	if request.post?
 		user = Financier::User.by_name(Financier::DB, :key => request[:name].to_s).first
 		
@@ -14,24 +14,22 @@ def on_login(path, request)
 	end
 end
 
-def on_logout(path, request)
+on 'logout' do |request, path|
 	request.session[:user] = nil
 	
 	redirect! "/login"
 end
 
 def public_path? path
-	path.starts_with?(Path["/_static"]) || path.starts_with?(Path["/login"])
+	path.start_with?(Path["/_static"]) || path.start_with?(Path["/login"])
 end
 
-def process!(path, request)
+on '**' do |request, path|
 	if request.session[:user]
-		request.controller[:user] = Financier::User.fetch(Financier::DB, request.session[:user]) rescue nil
+		@user = Financier::User.fetch(Financier::DB, request.session[:user]) rescue nil
 	end
 	
-	if request.controller[:user] || public_path?(path)
-		passthrough(path, request)
-	else
-		respond_with :redirect => "/login"
+	unless @user or public_path?(path)
+		redirect! "/login"
 	end
 end

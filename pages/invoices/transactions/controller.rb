@@ -1,7 +1,5 @@
 
-include Direct
-
-def on_new(path, request)
+on 'new' do |request, path|
 	@transaction = Financier::Invoice::Transaction.create(Financier::DB, :date => Date.today, :quantity => 1)
 	@transaction.assign(:invoice => request[:invoice_id])
 	
@@ -14,7 +12,7 @@ def on_new(path, request)
 	end
 end
 
-def on_edit(path, request)
+on 'edit' do |request, path|
 	@transaction = Financier::Invoice::Transaction.fetch(Financier::DB, request[:id])
 	
 	if request.post?
@@ -26,6 +24,6 @@ def on_edit(path, request)
 	end
 end
 
-def on_move(path, request)
+on 'move' do |request, path|
 	on_edit(path, request)
 end
