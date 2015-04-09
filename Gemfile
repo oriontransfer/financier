@@ -16,7 +16,7 @@ gem "ofx", "~> 0.3.1"
 gem "qif", "~> 1.1.1"
 
 gem "redcarpet", "~> 3.0"
-gem "bcrypt-ruby", "~> 3.0"
+gem "bcrypt", "~> 3.0"
 
 group :development do
 	gem "puma"
