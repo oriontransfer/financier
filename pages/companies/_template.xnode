@@ -8,7 +8,7 @@
 			#{f.input :field => :name, :required => true}
 			
 			#{f.select :field => :role, :collection => ['primary', 'supplier'] do |item|
-				f.item :title => item.to_title, :value => item, :selected => (f.object.role == item)
+				f.item :title => Strings::to_title(item), :value => item, :selected => (f.object.role == item)
 			end}
 		</dl>
 	</fieldset>

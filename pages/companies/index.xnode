@@ -26,7 +26,7 @@
 					<a class="button edit" href="edit?id=#{company.id}"><i class="icon-edit"></i></a>
 				</td>
 				<th>#{f.text company.name}</th>
-				<td>#{f.text company.role.to_title}</td>
+				<td>#{f.text Strings::to_title(company.role)}</td>
 				<th class="actions">
 					<input type="checkbox" class="selected" />
 				</th>

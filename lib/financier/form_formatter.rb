@@ -16,7 +16,7 @@ module Financier
 		end
 		
 		def title_for(options)
-			options[:title] || options[:field].to_s.to_title
+			options[:title] || Trenni::Strings::to_title(options[:field].to_s)
 		end
 		
 		def value_for(options)
@@ -83,7 +83,7 @@ module Financier
 			options[:object] ||= @select_item
 			
 			<<-EOF
-				<option value="#{Strings::to_html value_for(options)}" #{attributes_for(options)}>#{title_for(options)}</option>
+				<option value="#{Trenni::Strings::to_html value_for(options)}" #{attributes_for(options)}>#{title_for(options)}</option>
 			EOF
 		end
 		
