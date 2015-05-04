@@ -8,7 +8,7 @@ on 'login' do |request, path|
 			
 			redirect! "/customers/index"
 		else
-			LOG.debug("User authentication failed: #{YAML::dump(request.params)} for user #{YAML::dump(user)}.")
+			$stderr.puts "User authentication failed: #{YAML::dump(request.params)} for user #{YAML::dump(user)}."
 			fail! :unauthorized
 		end
 	end

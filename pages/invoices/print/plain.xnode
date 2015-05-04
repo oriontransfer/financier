@@ -2,7 +2,6 @@
 	response.do_not_cache!
 	
 	invoice = attributes['invoice']
-	LOG.debug("invoice.title #{invoice.title}")
 	
 	f = Financier::ViewFormatter.new
 	
