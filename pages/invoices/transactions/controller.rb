@@ -25,5 +25,13 @@ on 'edit' do |request, path|
 end
 
 on 'move' do |request, path|
-	on_edit(path, request)
+	@transaction = Financier::Invoice::Transaction.fetch(Financier::DB, request[:id])
+	
+	if request.post?
+		@transaction.assign(request.params)
+		
+		@transaction.save
+		
+		redirect! "../show?id=#{@transaction.invoice.id}"
+	end
 end
