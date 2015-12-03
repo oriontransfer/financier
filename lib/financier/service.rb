@@ -47,20 +47,23 @@ module Financier
 			(Periodical::Duration.new(self.billed_until_date, date) / self.period).ceil
 		end
 		
-		def bill_until_date(date)
+		# As we charge whole units, e.g. one whole year, given a date which means that something should be billed, compute the date which the paid amount covers. i.e. if billing monthly on the 1st, and date is the 20th, this would give the first of the next month.
+		def next_billed_date(date)
 			# We bill partial periods in advance if possible:
 			count = self.periods_to_date(date)
 			
 			# Calculate the date of the last period billed:
-			next_billed_date = self.period.advance(self.billed_until_date, count)
-			
-			self.billed_until_date = next_billed_date
+			self.period.advance(self.billed_until_date, count)
+		end
+		
+		def bill_until_date(date)
+			self.billed_until_date = self.next_billed_date(date)
 			self.billed_dates << date
 		end
 		
 		def billing_description(to_date = nil)
 			if to_date
-				"From #{self.billed_until_date} to #{to_date} for #{self.domain}. #{self.description}"
+				"From #{self.billed_until_date} to #{self.next_billed_date(to_date)} for #{self.domain}. #{self.description}"
 			else
 				"From #{self.billed_until_date} for #{self.domain}. #{self.description}"
 			end.strip
