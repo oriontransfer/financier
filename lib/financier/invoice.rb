@@ -119,6 +119,8 @@ module Financier
 		view :count_by_customer, 'financier/invoice_count_by_customer'
 		
 		def self.create_invoice_for_services(database, services, date)
+			today = Date.today
+			
 			database.transaction(Invoice) do |txn|
 				invoice = Invoice.create(txn, :name => "Services")
 				
@@ -136,8 +138,8 @@ module Financier
 							:name => service.name,
 							:price => service.periodic_cost,
 							:quantity => periods.to_d,
-							:date => date,
-							:description => service.billing_description,
+							:date => today,
+							:description => service.billing_description(date),
 							:invoice => invoice
 						)
 						

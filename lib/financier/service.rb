@@ -58,8 +58,12 @@ module Financier
 			self.billed_dates << date
 		end
 		
-		def billing_description
-			"From #{self.billed_until_date} for #{self.domain}. #{self.description}"
+		def billing_description(to_date = nil)
+			if to_date
+				"From #{self.billed_until_date} to #{to_date} for #{self.domain}. #{self.description}"
+			else
+				"From #{self.billed_until_date} for #{self.domain}. #{self.description}"
+			end.strip
 		end
 	end
 end
