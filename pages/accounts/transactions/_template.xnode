@@ -21,6 +21,8 @@
 			<dt>For</dt>
 			<dd>
 				<select name="for">
+					<option value=""#{f.object.for == nil ? ' selected' : ''}>None</option>
+					
 					#{f.item_group :title => "Customers", :collection => customers do |customer|
 						f.item :title => customer.name, :selected => (f.object.for == customer)
 					end}
