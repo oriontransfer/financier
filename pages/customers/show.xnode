@@ -36,7 +36,7 @@
 				<td class="when">#{f.text transaction.date}</td>
 				<td class="what">#{f.text transaction.name}</td>
 				<td class="total">#{f.text total}<br/></td>
-				<td class="total">#{f.text balance[total.name] }<?r end ?></td>
+				<td class="total">#{f.text balance[total.name] }</td>
 			</tr>
 			<?r 
 					end
