@@ -19,6 +19,11 @@ require 'financier/user'
 
 require 'ofx'
 require 'qif'
+require 'csv'
+
+CSV::Converters[:blank_to_nil] = lambda do |field|
+	field && field.empty? ? nil : field
+end
 
 site_config = YAML::load_file('site.yaml')
 

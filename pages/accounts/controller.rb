@@ -86,6 +86,28 @@ def import_qif(path)
 	end
 end
 
+def import_csv(path)
+	Financier::DB.transaction do |db|
+		CSV.foreach(path, :headers => true, :header_converters => :symbol, :converters => [:blank_to_nil]) do |row|
+			transaction = Financier::Account::Transaction.create(db)
+			
+			currency = row[:currency] || @default_currency
+			
+			if credit = row[:credit]
+				transaction.amount = Latinum::Resource.new(credit, currency)
+			elsif debit = row[:debit]
+				transaction.amount = -Latinum::Resource.new(debit, currency)
+			end
+			
+			transaction.name = row[:reference]
+			transaction.timestamp = Date.parse(row[:date])
+			transaction.account = @account
+		
+			transaction.save
+		end
+	end
+end
+
 on 'import' do |request, path|
 	if request[:account]
 		@account = Financier::Account.fetch(Financier::DB, request[:account])
@@ -103,6 +125,8 @@ on 'import' do |request, path|
 			import_ofx(upload[:tempfile])
 		when /\.qif/i
 			import_qif(upload[:tempfile])
+		when /\.csv/i
+			import_csv(upload[:tempfile])
 		end
 		
 		redirect! "show?id=#{@account.id}"
