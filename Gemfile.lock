@@ -27,7 +27,7 @@ GEM
     relaxo (0.4.4)
       json (~> 1.8)
       rest-client
-    relaxo-model (0.4.2)
+    relaxo-model (0.4.3)
       relaxo (~> 0.4.0)
     relaxo-query-server (0.1.5)
       json (~> 1.8)
@@ -60,7 +60,7 @@ DEPENDENCIES
   qif (~> 1.1.1)
   redcarpet (~> 3.0)
   relaxo (~> 0.4.0)
-  relaxo-model (~> 0.4.2)
+  relaxo-model (~> 0.4.3)
   relaxo-query-server (~> 0.1.2)
   utopia (~> 1.0.7)
 
