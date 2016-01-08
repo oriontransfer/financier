@@ -2,35 +2,34 @@ GEM
   remote: https://rubygems.org/
   specs:
     bcrypt (3.1.10)
-    domain_name (0.5.23)
+    domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    json (1.8.2)
+    json (1.8.3)
     latinum (0.4.0)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (2.4.3)
-    mini_portile (0.6.2)
-    netrc (0.10.3)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    mime-types (2.99)
+    mini_portile2 (2.0.0)
+    netrc (0.11.0)
+    nokogiri (1.6.7.1)
+      mini_portile2 (~> 2.0.0.rc2)
     ofx (0.3.2)
       nokogiri
     periodical (0.2.0)
-    puma (2.11.1)
-      rack (>= 1.1, < 2.0)
+    puma (2.15.3)
     qif (1.1.2)
-    rack (1.6.0)
+    rack (1.6.4)
     rack-cache (1.2)
       rack (>= 0.4)
-    redcarpet (3.2.3)
+    redcarpet (3.3.4)
     relaxo (0.4.4)
       json (~> 1.8)
       rest-client
     relaxo-model (0.3.9)
       relaxo
-    relaxo-query-server (0.1.4)
+    relaxo-query-server (0.1.5)
       json (~> 1.8)
       relaxo (~> 0.4.4)
       rest-client
@@ -38,11 +37,11 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    trenni (1.4.1)
+    trenni (1.4.3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.6)
-    utopia (1.0.7)
+    unf_ext (0.0.7.1)
+    utopia (1.0.11)
       mail (~> 2.6.1)
       mime-types (~> 2.0)
       rack (~> 1.5)
@@ -64,3 +63,6 @@ DEPENDENCIES
   relaxo-model (~> 0.3.9)
   relaxo-query-server (~> 0.1.2)
   utopia (~> 1.0.7)
+
+BUNDLED WITH
+   1.10.6
