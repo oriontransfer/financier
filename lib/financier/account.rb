@@ -26,7 +26,7 @@ module Financier
 				[self.amount]
 			end
 			
-			property :for, Polymorphic[Customer, Company]
+			property :for, Optional[BelongsTo[Customer, Company]]
 			property :account, BelongsTo[Account]
 		end
 		
