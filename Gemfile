@@ -6,7 +6,7 @@ gem "utopia", "~> 1.0.7"
 # gem "utopia-tags-google-analytics"
 
 gem "relaxo", "~> 0.4.0"
-gem "relaxo-model", "~> 0.3.9"
+gem "relaxo-model", "~> 0.4.2"
 gem "relaxo-query-server", "~> 0.1.2"
 
 gem "periodical", "~> 0.2.0"
