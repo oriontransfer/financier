@@ -28,14 +28,20 @@
 					end
 					
 					balance << totals
+					
+					# For each currency associated with this invoice, put an entry into the table:
+					totals.each do |total|
 			?>
 			<tr>
 				<td class="when">#{f.text transaction.date}</td>
 				<td class="what">#{f.text transaction.name}</td>
-				<td class="total"><?r totals.each do |total| ?>#{f.text total}<br/><?r end ?></td>
-				<td class="total"><?r balance.names.each do |name| ?>#{f.text balance[name] }<?r end ?></td>
+				<td class="total">#{f.text total}<br/></td>
+				<td class="total">#{f.text balance[total.name] }<?r end ?></td>
 			</tr>
-			<?r end ?>
+			<?r 
+					end
+				end
+			?>
 		</tbody>
 		<tfoot>
 			<?r currencies.each do |currency| ?>
