@@ -36,7 +36,7 @@
 				<td class="when">#{f.text transaction.date}</td>
 				<?r if transaction.kind_of? Financier::Invoice ?>
 				<td class="what"><a href="../invoices/show?id=#{transaction.id}">#{f.text transaction.detailed_name}</a></td>
-				<?r if transaction.kind_of? Financier::Account::Transaction ?>
+				<?r elsif transaction.kind_of? Financier::Account::Transaction ?>
 				<td class="what"><a href="../accounts/transactions/edit?id=#{transaction.id}">#{f.text transaction.detailed_name}</a></td>
 				<?r else ?>
 				<td class="what">#{f.text transaction.detailed_name}</td>
