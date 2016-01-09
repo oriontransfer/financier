@@ -34,7 +34,11 @@
 			?>
 			<tr>
 				<td class="when">#{f.text transaction.date}</td>
+				<?r if transaction.kind_of? Financier::Invoice ?>
+				<td class="what"><a href="../invoices/show?id=#{transaction.id}">#{f.text transaction.detailed_name}</a></td>
+				<?r else ?>
 				<td class="what">#{f.text transaction.detailed_name}</td>
+				<?r end ?>
 				<td class="total">#{f.text total}<br/></td>
 				<td class="total">#{f.text balance[total.name] }</td>
 			</tr>
