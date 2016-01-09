@@ -61,6 +61,10 @@ module Financier
 		property :status
 		property :description
 		
+		def detailed_name
+			"#{self.number} - #{self.name}: #{self.description} [#{self.status}]"
+		end
+		
 		property :created_date, Attribute[Date]
 		property :updated_date, Attribute[Date]
 		property :invoiced_date, Optional[Attribute[Date]]
