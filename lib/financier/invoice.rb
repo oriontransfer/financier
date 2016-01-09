@@ -62,7 +62,7 @@ module Financier
 		property :description
 		
 		def detailed_name
-			"#{self.number} - #{title} #{self.name}"
+			"#{self.number} - #{title} for #{self.name}"
 		end
 		
 		property :created_date, Attribute[Date]
