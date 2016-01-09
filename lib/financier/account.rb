@@ -27,7 +27,7 @@ module Financier
 			end
 			
 			def detailed_name
-				"#{self.name}: #{self.description} (#{self.account.name})"
+				"#{self.name} (#{self.account.name})"
 			end
 			
 			property :for, Optional[BelongsTo[Customer, Company]]
