@@ -30,7 +30,7 @@ GEM
     relaxo (0.4.4)
       json (~> 1.8)
       rest-client
-    relaxo-model (0.4.3)
+    relaxo-model (0.4.4)
       relaxo (~> 0.4.0)
     relaxo-query-server (0.1.5)
       json (~> 1.8)
@@ -44,7 +44,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    utopia (1.5.0)
+    utopia (1.5.1)
       concurrent-ruby (~> 1.0.0)
       http-accept (~> 1.4.0)
       mail (~> 2.6.3)
@@ -67,7 +67,7 @@ DEPENDENCIES
   rake
   redcarpet (~> 3.0)
   relaxo (~> 0.4.0)
-  relaxo-model (~> 0.4.3)
+  relaxo-model (~> 0.4.4)
   relaxo-query-server (~> 0.1.2)
   utopia (~> 1.5.0)
 
