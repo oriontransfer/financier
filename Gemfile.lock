@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     bcrypt (3.1.11)
+    coderay (1.1.1)
     concurrent-ruby (1.0.1)
     domain_name (0.5.20160309)
       unf (>= 0.0.5, < 1.0.0)
@@ -12,6 +13,7 @@ GEM
     latinum (1.0.0)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     netrc (0.11.0)
@@ -20,11 +22,17 @@ GEM
     ofx (0.3.2)
       nokogiri
     periodical (1.0.0)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     puma (3.1.0)
     qif (1.1.2)
     rack (1.6.4)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-test (0.6.3)
+      rack (>= 1.0)
     rake (11.1.0)
     redcarpet (3.3.4)
     relaxo (0.4.4)
@@ -40,6 +48,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    slop (3.6.0)
     trenni (1.5.1)
     unf (0.1.4)
       unf_ext
@@ -62,8 +71,10 @@ DEPENDENCIES
   latinum (~> 1.0.0)
   ofx (~> 0.3.1)
   periodical (~> 1.0.0)
+  pry
   puma
   qif (~> 1.1.1)
+  rack-test
   rake
   redcarpet (~> 3.0)
   relaxo (~> 0.4.0)
