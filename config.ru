@@ -8,51 +8,54 @@ Encoding.default_internal = Encoding::UTF_8
 RACK_ENV = ENV.fetch('RACK_ENV', :development).to_sym unless defined?(RACK_ENV)
 
 # Allow loading library code from lib directory:
-$LOAD_PATH << File.expand_path("../lib", __FILE__)
+$LOAD_PATH << File.expand_path("lib", __dir__)
 
 require 'utopia'
-require 'utopia/session/encrypted_cookie'
-require 'financier'
 require 'rack/cache'
 
 if RACK_ENV == :production
-	use Utopia::ExceptionHandler, "/errors/exception"
-	use Utopia::MailExceptions
-elsif RACK_ENV == :development
-	use Rack::ShowExceptions
+	# Handle exceptions in production with a error page and send an email notification:
+	use Utopia::Exceptions::Handler
+	use Utopia::Exceptions::Mailer
+else
+	# We want to propate exceptions up when running tests:
+	use Rack::ShowExceptions unless RACK_ENV == :test
+	
+	# Serve the public directory in a similar way to the web server:
+	use Utopia::Static, root: 'public'
 end
 
 use Rack::Sendfile
 
 if RACK_ENV == :production
+	# Cache dynamically generated content where possible:
 	use Rack::Cache,
 		metastore: "file:#{Utopia::default_root("cache/meta")}",
 		entitystore: "file:#{Utopia::default_root("cache/body")}",
 		verbose: RACK_ENV == :development
 end
 
-use Rack::ContentLength
+use Utopia::ContentLength
 
-use Utopia::Redirector,
-	patterns: [
-		Utopia::Redirector::DIRECTORY_INDEX
-	],
-	strings: {
-		'/' => '/welcome/index',
-	},
-	errors: {
-		404 => "/errors/file-not-found"
-	}
+use Utopia::Redirection::Rewrite,
+	'/' => '/welcome/index'
 
-use Utopia::Session::EncryptedCookie,
-	:expire_after => 3600,
-	:secret => '84d06d02a00dae1ac7762fa859f428ea01f48773'
+use Utopia::Redirection::DirectoryIndex
+
+use Utopia::Redirection::Errors,
+	404 => '/errors/file-not-found'
+
+use Utopia::Localization,
+	:default_locale => 'en',
+	:locales => ['en', 'de', 'ja', 'zh'],
+	:nonlocalized => ['/_static/', '/_cache/']
 
 use Utopia::Controller,
 	cache_controllers: (RACK_ENV == :production)
 
 use Utopia::Static
 
+# Serve dynamic content
 use Utopia::Content,
 	cache_templates: (RACK_ENV == :production),
 	tags: {

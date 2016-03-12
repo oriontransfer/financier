@@ -1,28 +1,31 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bcrypt (3.1.10)
-    domain_name (0.5.25)
+    bcrypt (3.1.11)
+    concurrent-ruby (1.0.1)
+    domain_name (0.5.20160309)
       unf (>= 0.0.5, < 1.0.0)
+    http-accept (1.4.0)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     json (1.8.3)
-    latinum (0.4.0)
+    latinum (1.0.0)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (2.99)
+    mime-types (2.99.1)
     mini_portile2 (2.0.0)
     netrc (0.11.0)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     ofx (0.3.2)
       nokogiri
-    periodical (0.2.0)
-    puma (2.15.3)
+    periodical (1.0.0)
+    puma (3.1.0)
     qif (1.1.2)
     rack (1.6.4)
     rack-cache (1.2)
       rack (>= 0.4)
+    rake (11.1.0)
     redcarpet (3.3.4)
     relaxo (0.4.4)
       json (~> 1.8)
@@ -37,32 +40,36 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    trenni (1.4.3)
+    trenni (1.5.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.1)
-    utopia (1.0.11)
-      mail (~> 2.6.1)
+    unf_ext (0.0.7.2)
+    utopia (1.5.0)
+      concurrent-ruby (~> 1.0.0)
+      http-accept (~> 1.4.0)
+      mail (~> 2.6.3)
       mime-types (~> 2.0)
-      rack (~> 1.5)
+      rack (~> 1.6)
       rack-cache (~> 1.2.0)
-      trenni (~> 1.4.1)
+      trenni (~> 1.5.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bcrypt (~> 3.0)
-  latinum (~> 0.4.0)
+  bundler
+  latinum (~> 1.0.0)
   ofx (~> 0.3.1)
-  periodical (~> 0.2.0)
+  periodical (~> 1.0.0)
   puma
   qif (~> 1.1.1)
+  rake
   redcarpet (~> 3.0)
   relaxo (~> 0.4.0)
   relaxo-model (~> 0.4.3)
   relaxo-query-server (~> 0.1.2)
-  utopia (~> 1.0.7)
+  utopia (~> 1.5.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
