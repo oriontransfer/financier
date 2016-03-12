@@ -1,14 +1,8 @@
-Financier
-=========
+# Financier
 
-* Author: Samuel G. D. Williams (<http://www.oriontransfer.co.nz>)
-* Copyright (C) 2012 Samuel G. D. Williams.
-* Released under the MIT license.
+Financier is a comprehensive business management platform built on top of [Utopia](https://github.com/ioquatix/utopia) and [Relaxo](https://github.com/ioquatix/relaxo).
 
-Financier is a comprehensive business management platform.
-
-Installation
-------------
+# Installation
 
 Install the ruby gem as follows:
 
@@ -25,14 +19,13 @@ Update the file `site.yaml` to reflect the `database-uri` as chosen above.
 
 Finally to start the server:
 
-	thin start -p 3000
+	rake server
 
-You can now open <http://localhost:3000> in your browser. The default username and password is `admin`/`admin`.
+You can now open <http://localhost:9292> in your browser. The default username and password is `admin`/`admin`.
 
-License
--------
+# License
 
-Copyright (c) 2010, 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
+Copyright, 2016, by [Samuel G. D. Williams](http://www.codeotaku.com/samuel-williams).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
