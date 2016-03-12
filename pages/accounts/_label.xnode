@@ -1,4 +1,4 @@
-<?r account = attributes['account'] ?>
+<?r account = attributes[:account] ?>
 <div class="account label #{account.active ? 'active' : 'inactive'}"><?r
 	prefix = {
 		:name => "Account Name: ",

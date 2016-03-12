@@ -1,5 +1,5 @@
 <?r
-	f = Financier::FormFormatter.new(:object => attributes['invoice'])
+	f = Financier::FormFormatter.new(:object => attributes[:invoice])
 	
 	customers = Financier::Customer.all(Financier::DB)
 	companies = Financier::Company.all(Financier::DB)
@@ -31,9 +31,7 @@
 			end}
 		</dl>
 		
-		#{current.defer do
-			tag('_template/customer', 'invoice' => f.object)
-		end}
+		#{partial '_template/customer', invoice: f.object}
 	</fieldset>
 	
 	<fieldset><legend>Company Details</legend>
@@ -43,9 +41,7 @@
 			end}
 		</dl>
 		
-		#{current.defer do
-			tag('_template/company', 'invoice' => f.object)
-		end}
+		#{partial '_template/company', invoice: f.object}
 	</fieldset>
 	
 	<fieldset class="footer">

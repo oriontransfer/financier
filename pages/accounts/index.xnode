@@ -41,9 +41,7 @@
 			</tr>
 			<tr>
 				<td class="description" colspan="5">
-					#{current.defer do
-							tag('label', 'account' => account)
-					end}
+					#{partial 'label', account: account}
 				</td>
 			</tr>
 			<?r end ?>

@@ -1,7 +1,5 @@
 <page>
 	<heading>Edit Address</heading>
 	
-	#{current.defer do
-		tag('template', 'address' => request.controller[:address])
-	end}
+	#{partial 'template', address: controller[:address]}
 </page>

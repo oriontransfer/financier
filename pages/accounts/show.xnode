@@ -1,5 +1,5 @@
 <?r
-	account = attributes['account']
+	account = attributes[:account]
 	
 	f = Financier::ViewFormatter.new
 ?>

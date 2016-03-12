@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<?r 
-			klass = attributes['class'] || ''
+			klass = attributes[:class] || ''
 			
 			response.content_type! "text/html; charset=utf-8"
 			response.do_not_cache!
 		?>
 		
-		<?r if title = (attributes["title"] || @title) ?>
+		<?r if title = (attributes[:title] || @title) ?>
 			<title>#{title.gsub(/<.*?>/, "")} - Financier</title>
 		<?r else ?>
 			<title>Financier</title>
@@ -23,7 +23,7 @@
 	</head>
 
 	<body>
-		<?r if request.controller[:user] && !klass.include?("login") ?>
+		<?r if controller[:user] && !klass.include?("login") ?>
 		<div id="header">
 			<a href="/companies/index">Companies</a>
 			<a href="/customers/index">Customers</a>
@@ -32,7 +32,7 @@
 			<a href="/invoices/index">Invoices</a>
 			<a href="/accounts/index">Accounts</a>
 			
-			<a class="action" href="/logout">Logout #{request.controller[:user].name}</a>
+			<a class="action" href="/logout">Logout #{controller[:user].name}</a>
 		</div>
 		<?r end ?>
 

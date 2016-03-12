@@ -1,7 +1,5 @@
 <page>
 	<heading>New Account</heading>
 	
-	#{current.defer do
-		tag('template', 'account' => request.controller[:account])
-	end}
+	#{partial 'template', account: controller[:account]}
 </page>

@@ -1,7 +1,7 @@
 <?r
 	response.do_not_cache!
 	
-	invoice = attributes['invoice']
+	invoice = attributes[:invoice]
 	
 	f = Financier::ViewFormatter.new
 	
@@ -38,9 +38,7 @@
 		<section class="billing_address">
 			<header>Billing Address:</header>
 			
-			#{current.defer do
-				tag('/addresses/_label', 'address' => invoice.billing_address)
-			end}
+			#{partial '/addresses/_label', address: invoice.billing_address}
 		</section>
 		<?r end ?>
 		
@@ -48,9 +46,7 @@
 		<section class="shipping_address">
 			<header>Shipping Address:</header>
 			
-			#{current.defer do
-				tag('/addresses/_label', 'address' => invoice.shipping_address) 
-			end}
+			#{partial '/addresses/_label', address: invoice.shipping_address}
 		</section>
 		<?r end ?>
 	</section>

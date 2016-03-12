@@ -1,5 +1,5 @@
 <?r
-	address = attributes['address']
+	address = attributes[:address]
 	
 	f = Financier::ViewFormatter.new
 	
@@ -9,8 +9,6 @@
 	<div class="shipping">
 		<div class="title">Ship To</div>
 			
-		#{current.defer do
-			tag('label', 'address' => address, 'print' => true)
-		end}
+		#{partial 'label', address: address, print: true}
 	</div>
 </print>

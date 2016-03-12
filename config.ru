@@ -11,7 +11,11 @@ RACK_ENV = ENV.fetch('RACK_ENV', :development).to_sym unless defined?(RACK_ENV)
 $LOAD_PATH << File.expand_path("lib", __dir__)
 
 require 'utopia'
+require 'utopia/session/encrypted_cookie'
 require 'rack/cache'
+
+require 'financier'
+
 
 if RACK_ENV == :production
 	# Handle exceptions in production with a error page and send an email notification:
@@ -45,10 +49,9 @@ use Utopia::Redirection::DirectoryIndex
 use Utopia::Redirection::Errors,
 	404 => '/errors/file-not-found'
 
-use Utopia::Localization,
-	:default_locale => 'en',
-	:locales => ['en', 'de', 'ja', 'zh'],
-	:nonlocalized => ['/_static/', '/_cache/']
+use Utopia::Session::EncryptedCookie,
+		:expire_after => 3600,
+		:secret => '84d06d02a00dae1ac7762fa859f428ea01f48773'
 
 use Utopia::Controller,
 	cache_controllers: (RACK_ENV == :production)

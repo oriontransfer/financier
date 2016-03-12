@@ -37,9 +37,7 @@
 			</tr>
 			<tr>
 				<td class="description" colspan="6">
-					#{current.defer do
-							tag('label', 'address' => address)
-					end}
+					#{partial 'label', address: address}
 				</td>
 			</tr>
 			<?r end ?>

@@ -1,6 +1,6 @@
 <?r
-	customer = attributes['customer']
-	transactions = attributes['transactions']
+	customer = attributes[:customer]
+	transactions = attributes[:transactions]
 	
 	f = Financier::ViewFormatter.new
 ?><page>

@@ -1,5 +1,5 @@
 <div class="address label"><?r
-	address = attributes['address']
+	address = attributes[:address]
 	
 	fields = []
 	

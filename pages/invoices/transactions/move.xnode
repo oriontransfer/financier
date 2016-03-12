@@ -2,7 +2,7 @@
 	<heading>Move Transaction</heading>
 	
 	<?r
-		f = Financier::FormFormatter.new(:object => request.controller['transaction'])
+		f = Financier::FormFormatter.new(:object => controller[:transaction])
 		
 		invoices = Financier::Invoice.all(Financier::DB).sort_by(&:created_date)
 		

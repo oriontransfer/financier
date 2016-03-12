@@ -1,5 +1,5 @@
 <?r
-	f = Financier::FormFormatter.new(:object => attributes['account'])
+	f = Financier::FormFormatter.new(:object => attributes[:account])
 	
 	companies = Financier::Company.all(Financier::DB)
 	

@@ -19,7 +19,7 @@
 		</thead>
 		<tbody>
 			<?r 
-				request.controller[:companies].each do |company|
+				controller[:companies].each do |company|
 			?>
 			<tr data-id="#{company.id}" data-rev="#{company.rev}">
 				<td class="actions">

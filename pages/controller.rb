@@ -20,8 +20,14 @@ on 'logout' do |request, path|
 	redirect! "/login"
 end
 
+PUBLIC = Set.new [
+	'_static',
+	'login',
+	'errors',
+]
+
 def public_path? path
-	path.start_with?(Path["/_static"]) || path.start_with?(Path["/login"])
+	PUBLIC.include? path[0]
 end
 
 on '**' do |request, path|

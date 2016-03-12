@@ -1,7 +1,5 @@
 <page>
 	<heading>Edit Invoice</heading>
 
-	#{current.defer do
-		tag('template', 'invoice' => request.controller[:invoice])
-	end}
+	#{partial 'template', invoice: controller[:invoice]}
 </page>

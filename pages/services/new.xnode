@@ -1,7 +1,5 @@
 <page>
 	<heading>New Service</heading>
 
-	#{current.defer do
-		tag('template', 'service' => request.controller[:service])
-	end}
+	#{partial 'template', service: controller[:service]}
 </page>

@@ -1,5 +1,5 @@
 <?r
-	f = Financier::FormFormatter.new(:object => attributes['invoice'])
+	f = Financier::FormFormatter.new(:object => attributes[:invoice])
 	
 	if f.object.customer
 		addresses = f.object.customer.addresses
@@ -11,9 +11,7 @@
 		#{select.item :title => 'No Address', :selected => !f.object.billing_address?}
 		<?r addresses.each do |address| ?>
 			<?r select.item :value => address.id, :selected => f.object.billing_address == address do ?>
-				#{current.defer do
-					tag('/addresses/_label', 'address' => address)
-				end}
+				#{partial '/addresses/_label', address: address}
 			<?r end ?>
 		<?r end ?>
 	<?r end ?>
@@ -22,9 +20,7 @@
 		#{select.item :title => 'No Address', :selected => !f.object.shipping_address?}
 		<?r addresses.each do |address| ?>
 			<?r select.item :value => address.id, :selected => f.object.shipping_address == address do ?>
-				#{current.defer do
-					tag('/addresses/_label', 'address' => address)
-				end}
+				#{partial '/addresses/_label', address: address}
 			<?r end ?>
 		<?r end ?>
 	<?r end ?>
