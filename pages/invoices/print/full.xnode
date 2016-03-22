@@ -120,17 +120,13 @@
 		<section class="contact_us">
 			<header>Contact Us:</header>
 			
-			#{current.defer do
-				tag('/addresses/_label', 'address' => invoice.company_address) if invoice.company_address
-			end}
+			#{partial('/addresses/_label', address: invoice.company_address) if invoice.company_address}
 		</section>
 		
 		<section class="shipping_address">
 			<header>Please Pay:</header>
 			
-			#{current.defer do
-				tag('/accounts/_label', 'account' => invoice.account) if invoice.account
-			end}
+			#{partial('/accounts/_label', account: invoice.account) if invoice.account}
 		</section>
 	</section>
 </print>
