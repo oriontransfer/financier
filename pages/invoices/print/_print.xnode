@@ -3,7 +3,7 @@
 	<head>
 		<?r response.content_type! "text/html; charset=utf-8" ?>
 		
-		<?r if title = (attributes[:title] || @title) ?>
+		<?r if title = self[:title] ?>
 			<title>#{title.gsub(/<.*?>/, "")} - Financier</title>
 		<?r else ?>
 			<title>Financier</title>

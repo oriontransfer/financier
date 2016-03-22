@@ -8,7 +8,7 @@
 			response.do_not_cache!
 		?>
 		
-		<?r if title = (attributes[:title] || @title) ?>
+		<?r if title = self[:title] ?>
 			<title>#{title.gsub(/<.*?>/, "")} - Financier</title>
 		<?r else ?>
 			<title>Financier</title>

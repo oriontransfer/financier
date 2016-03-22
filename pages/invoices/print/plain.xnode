@@ -5,7 +5,7 @@
 	
 	f = Financier::ViewFormatter.new
 	
-	@title = "#{invoice.title} #{invoice.number}"
+	transaction.attributes[:title] = "#{invoice.title} #{invoice.number}"
 ?>
 <print>
 	<section class="header">

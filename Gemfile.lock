@@ -4,7 +4,7 @@ GEM
     bcrypt (3.1.11)
     coderay (1.1.1)
     concurrent-ruby (1.0.1)
-    domain_name (0.5.20160309)
+    domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     http-accept (1.4.0)
     http-cookie (1.0.2)
@@ -26,14 +26,14 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    puma (3.1.0)
+    puma (3.2.0)
     qif (1.1.2)
     rack (1.6.4)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rake (11.1.0)
+    rake (11.1.1)
     redcarpet (3.3.4)
     relaxo (0.4.4)
       json (~> 1.8)
@@ -49,18 +49,18 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     slop (3.6.0)
-    trenni (1.5.1)
+    trenni (1.6.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    utopia (1.5.1)
+    utopia (1.6.2)
       concurrent-ruby (~> 1.0.0)
       http-accept (~> 1.4.0)
       mail (~> 2.6.3)
       mime-types (~> 2.0)
       rack (~> 1.6)
       rack-cache (~> 1.2.0)
-      trenni (~> 1.5.0)
+      trenni (~> 1.6.0)
 
 PLATFORMS
   ruby
@@ -80,7 +80,7 @@ DEPENDENCIES
   relaxo (~> 0.4.0)
   relaxo-model (~> 0.4.6)
   relaxo-query-server (~> 0.1.2)
-  utopia (~> 1.5.0)
+  utopia (~> 1.6.0)
 
 BUNDLED WITH
    1.11.2

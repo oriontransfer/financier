@@ -2,10 +2,8 @@
 	address = attributes[:address]
 	
 	f = Financier::ViewFormatter.new
-	
-	@title = "Shipping Label"
 ?>
-<print>
+<print title="Shipping Label">
 	<div class="shipping">
 		<div class="title">Ship To</div>
 			
