@@ -38,7 +38,7 @@ GEM
     relaxo (0.4.4)
       json (~> 1.8)
       rest-client
-    relaxo-model (0.4.5)
+    relaxo-model (0.4.6)
       relaxo (~> 0.4.0)
     relaxo-query-server (0.1.5)
       json (~> 1.8)
@@ -78,7 +78,7 @@ DEPENDENCIES
   rake
   redcarpet (~> 3.0)
   relaxo (~> 0.4.0)
-  relaxo-model (~> 0.4.5)
+  relaxo-model (~> 0.4.6)
   relaxo-query-server (~> 0.1.2)
   utopia (~> 1.5.0)
 
