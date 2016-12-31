@@ -1,20 +1,7 @@
 #!/usr/bin/env rackup
 
-# Setup default encoding:
-Encoding.default_external = Encoding::UTF_8
-Encoding.default_internal = Encoding::UTF_8
-
-# Setup the server environment:
-RACK_ENV = ENV.fetch('RACK_ENV', :development).to_sym unless defined?(RACK_ENV)
-
-# Allow loading library code from lib directory:
-$LOAD_PATH << File.expand_path("lib", __dir__)
-
-require 'utopia'
-require 'utopia/session/encrypted_cookie'
-require 'rack/cache'
-
-require 'financier'
+require_relative 'config/environment'
+require 'utopia/session'
 
 if RACK_ENV == :production
 	# Handle exceptions in production with a error page and send an email notification:
@@ -30,14 +17,6 @@ end
 
 use Rack::Sendfile
 
-if RACK_ENV == :production
-	# Cache dynamically generated content where possible:
-	use Rack::Cache,
-		metastore: "file:#{Utopia::default_root("cache/meta")}",
-		entitystore: "file:#{Utopia::default_root("cache/body")}",
-		verbose: RACK_ENV == :development
-end
-
 use Utopia::ContentLength
 
 use Utopia::Redirection::Rewrite,
@@ -48,12 +27,13 @@ use Utopia::Redirection::DirectoryIndex
 use Utopia::Redirection::Errors,
 	404 => '/errors/file-not-found'
 
-use Utopia::Session::EncryptedCookie,
+use Utopia::Session,
 		:expire_after => 3600,
 		:secret => '84d06d02a00dae1ac7762fa859f428ea01f48773'
 
 use Utopia::Controller,
-	cache_controllers: (RACK_ENV == :production)
+	cache_controllers: (RACK_ENV == :production),
+	base: Utopia::Controller::Base
 
 use Utopia::Static
 
