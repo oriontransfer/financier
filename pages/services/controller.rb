@@ -1,4 +1,6 @@
 
+prepend Actions
+
 require 'json'
 
 on 'delete' do |request, path|

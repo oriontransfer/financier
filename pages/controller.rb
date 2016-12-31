@@ -1,4 +1,6 @@
 
+prepend Actions
+
 on 'login' do |request, path|
 	if request.post?
 		user = Financier::User.by_name(Financier::DB, :key => request[:name].to_s).first

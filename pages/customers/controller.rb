@@ -1,4 +1,6 @@
 
+prepend Actions
+
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	

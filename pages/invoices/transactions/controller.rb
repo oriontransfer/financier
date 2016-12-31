@@ -1,4 +1,6 @@
 
+prepend Actions
+
 on 'new' do |request, path|
 	@transaction = Financier::Invoice::Transaction.create(Financier::DB, :date => Date.today, :quantity => 1)
 	@transaction.assign(:invoice => request[:invoice_id])

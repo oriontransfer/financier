@@ -1,4 +1,6 @@
 
+prepend Actions
+
 on 'new' do |request, path|
 	@transaction = Financier::Account::Transaction.create(Financier::DB, timestamp: Time.now)
 	@transaction.assign(account: request[:account_id])
