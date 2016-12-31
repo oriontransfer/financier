@@ -24,13 +24,3 @@ require 'csv'
 CSV::Converters[:blank_to_nil] = lambda do |field|
 	field && field.empty? ? nil : field
 end
-
-if File.exist? 'local.yaml'
-	site_config = YAML::load_file('local.yaml')
-else
-	site_config = YAML::load_file('site.yaml')
-end
-
-# Configure the database connection:
-Financier::DB = Relaxo.connect(site_config['database-uri'])
-
