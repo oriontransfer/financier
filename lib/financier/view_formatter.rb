@@ -1,24 +1,36 @@
 
-require 'financier/formatter'
+require 'trenni/formatters'
+require 'trenni/formatters/html/definition_list_form'
+require 'trenni/formatters/html/option_select'
+
+require "redcarpet"
+#require "kramdown"
+require "date"
+
+require_relative "database"
+
+require 'redcarpet'
+
+class BigDecimal
+	alias _to_s to_s
+
+	def to_s param = nil
+		_to_s param || 'F'
+	end
+end
 
 module Financier
-	class ViewFormatter < Formatter
-		def initialize(options = {})
-			super(options)
-			
-			formatter_for(Latinum::Resource) do |object, options|
-				self.resource(object)
-			end
+	MARKDOWN = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
+	
+	class ViewFormatter < Trenni::Formatters::Formatter
+		map(Latinum::Resource) do |object, options|
+			BANK.format(object, options)
 		end
-		
+			
 		def markdown(text)
 			MARKDOWN.render(text)
 		end
-
-		def resource(resource)
-			Trenni::Strings::to_html BANK.format(resource)
-		end
-
+		
 		def quantity(transaction)
 			if transaction.unit?
 				"#{transaction.quantity.to_s('F')} #{transaction.unit}"

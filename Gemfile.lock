@@ -78,6 +78,9 @@ GEM
     simplecov-html (0.10.0)
     slop (3.6.0)
     trenni (2.0.2)
+    trenni-formatters (2.0.0)
+      mapping (~> 1.0)
+      trenni (~> 2.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -112,6 +115,7 @@ DEPENDENCIES
   relaxo-query-server (~> 0.1)
   rspec
   simplecov
+  trenni-formatters
   utopia (~> 1.9.7)
 
 BUNDLED WITH
