@@ -1,7 +1,5 @@
 
 require 'trenni/formatters'
-require 'trenni/formatters/html/definition_list_form'
-require 'trenni/formatters/html/option_select'
 
 require "redcarpet"
 #require "kramdown"
