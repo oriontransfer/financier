@@ -29,7 +29,7 @@ use Utopia::Redirection::Errors,
 
 use Utopia::Session,
 		:expire_after => 3600,
-		:secret => '84d06d02a00dae1ac7762fa859f428ea01f48773'
+		:secret => ENV['UTOPIA_SESSION_SECRET']
 
 use Utopia::Controller,
 	cache_controllers: (RACK_ENV == :production),
