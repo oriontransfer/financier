@@ -28,8 +28,8 @@ use Utopia::Redirection::Errors,
 	404 => '/errors/file-not-found'
 
 use Utopia::Session,
-		:expire_after => 3600,
-		:secret => ENV['UTOPIA_SESSION_SECRET']
+	:expire_after => 3600,
+	:secret => ENV['UTOPIA_SESSION_SECRET']
 
 use Utopia::Controller,
 	cache_controllers: (RACK_ENV == :production),
