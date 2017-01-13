@@ -11,7 +11,7 @@ GEM
     http-accept (1.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    json (1.8.3)
+    json (1.8.5)
     latinum (1.0.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
@@ -22,7 +22,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     netrc (0.11.0)
-    nokogiri (1.7.0)
+    nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     ofx (0.3.2)
       nokogiri
@@ -77,14 +77,14 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     slop (3.6.0)
-    trenni (2.0.2)
-    trenni-formatters (2.0.0)
+    trenni (2.1.0)
+    trenni-formatters (2.1.1)
       mapping (~> 1.0)
-      trenni (~> 2.0)
+      trenni (~> 2.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    utopia (1.9.7)
+    utopia (1.9.8)
       concurrent-ruby (~> 1.0)
       http-accept (~> 1.6)
       mail (~> 2.6)
@@ -115,7 +115,7 @@ DEPENDENCIES
   relaxo-query-server (~> 0.1)
   rspec
   simplecov
-  trenni-formatters
+  trenni-formatters (~> 2.1)
   utopia (~> 1.9.7)
 
 BUNDLED WITH

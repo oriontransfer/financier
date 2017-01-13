@@ -9,6 +9,7 @@
 	
 ?><form class="basic editor" method="post" action="#" >
 	#{f.hidden :field => :id}
+	#{f.hidden :field => :type}
 	#{f.hidden :field => :rev if f.object.id}
 	
 	<fieldset><legend>Invoice Details</legend>
@@ -26,9 +27,11 @@
 	
 	<fieldset><legend>Customer Details</legend>
 		<dl class="customer">
-			#{f.select :field => :customer, :optional => true, :collection => customers do |customer|
-				f.option :title => customer.name, :selected => (f.object.customer == customer)
-			end}
+			<?r f.select :field => :customer, :optional => true do |select| ?>
+				<?r customers.each do |customer| ?>
+					#{select.item :title => customer.name, :value => customer.id}
+				<?r end ?>
+			<?r end ?>
 		</dl>
 		
 		#{partial '_template/customer', invoice: f.object}
@@ -36,9 +39,11 @@
 	
 	<fieldset><legend>Company Details</legend>
 		<dl class="company">
-			#{f.select :field => :company, :optional => true, :collection => companies do |company|
-				f.option :title => company.name, :selected => (f.object.company == company)
-			end}
+			<?r f.select :field => :company, :optional => true do |select| ?>
+				<?r companies.each do |company| ?>
+					#{select.item :title => company.name, :value => company.id}
+				<?r end ?>
+			<?r end ?>
 		</dl>
 		
 		#{partial '_template/company', invoice: f.object}
@@ -49,6 +54,7 @@
 	</fieldset>
 	
 	<script type="text/javascript">
+	// <![CDATA[
 		jQuery(function($){
 			$('form dl.customer select').change(function() {
 				var form = $(this).closest('form');
@@ -80,5 +86,6 @@
 				});
 			});
 		});
+	// ]]>
 	</script>
 </form>

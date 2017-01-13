@@ -1,7 +1,6 @@
 <?r
 	accounts = Financier::Account.all(Financier::DB)
 	
-	destination_account = attributes[:account]
 	default_currency = attributes[:default_currency]
 	
 	f = Financier::FormFormatter.new
@@ -12,9 +11,11 @@
 	<form class="basic editor" method="post" enctype="multipart/form-data" action="#">
 		<fieldset><legend>Import Details</legend>
 			<dl>
-				#{f.select :field => :account, :collection => accounts do |account|
-					f.option :title => account.pseudonym, :selected => (destination_account == account)
-				end}
+				<?r f.select :field => :account do |select| ?>
+					<?r accounts.each do |account| ?>
+						#{select.item :title => account.pseudonym, :value => account.id}
+					<?r end ?>
+				<?r end ?>
 			
 				#{f.input :field => :default_currecy, :value => default_currency}
 				

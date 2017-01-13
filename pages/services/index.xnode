@@ -59,6 +59,7 @@
 	<script type="text/javascript" src="/_static/listing.js"></script>
 	
 	<script type="text/javascript">
+	// <![CDATA[
 		jQuery(function($){
 			$('a.button.generate-invoice').on("click", function() {
 				var selected = $('table.listing tr:has(input.selected:checked)'), services = [];
@@ -72,5 +73,6 @@
 				return false;
 			});
 		});
+	// ]]>
 	</script>
 </page>
