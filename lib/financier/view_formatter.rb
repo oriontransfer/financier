@@ -1,13 +1,11 @@
 
 require 'trenni/formatters'
+require 'trenni/formatters/markdown'
+require 'trenni/formatters/relative_time'
 
-require "redcarpet"
-#require "kramdown"
 require "date"
 
 require_relative "database"
-
-require 'redcarpet'
 
 class BigDecimal
 	alias _to_s to_s
@@ -18,15 +16,11 @@ class BigDecimal
 end
 
 module Financier
-	MARKDOWN = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
-	
 	class ViewFormatter < Trenni::Formatters::Formatter
+		include Trenni::Formatters::Markdown, Trenni::Formatters::RelativeTime
+		
 		map(Latinum::Resource) do |object, options|
 			BANK.format(object, options)
-		end
-			
-		def markdown(text)
-			MARKDOWN.render(text)
 		end
 		
 		def quantity(transaction)

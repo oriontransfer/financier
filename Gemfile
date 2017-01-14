@@ -17,7 +17,8 @@ gem "latinum", "~> 1.0"
 gem "ofx", "~> 0.3"
 gem "qif", "~> 1.1"
 
-gem "redcarpet", "~> 3.0"
+gem "sanitize"
+gem "kramdown"
 gem "bcrypt", "~> 3.0"
 
 gem "rake"
