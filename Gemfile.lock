@@ -11,7 +11,7 @@ GEM
     http-accept (1.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    json (1.8.5)
+    json (1.8.6)
     latinum (1.0.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
@@ -84,7 +84,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    utopia (1.9.8)
+    utopia (1.9.9)
       concurrent-ruby (~> 1.0)
       http-accept (~> 1.6)
       mail (~> 2.6)
@@ -116,7 +116,7 @@ DEPENDENCIES
   rspec
   simplecov
   trenni-formatters (~> 2.1)
-  utopia (~> 1.9.7)
+  utopia (~> 1.9.9)
 
 BUNDLED WITH
    1.13.6
