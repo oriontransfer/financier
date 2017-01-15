@@ -91,7 +91,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    utopia (1.9.9)
+    utopia (1.9.10)
       concurrent-ruby (~> 1.0)
       http-accept (~> 1.6)
       mail (~> 2.6)
@@ -124,7 +124,7 @@ DEPENDENCIES
   sanitize
   simplecov
   trenni-formatters (~> 2.1)
-  utopia (~> 1.9.9)
+  utopia (~> 1.9.10)
 
 BUNDLED WITH
    1.13.6

@@ -1,22 +1,28 @@
 
 jQuery(function($){
-	$('table.listing').each(function() {
-		var listing = $(this);
+	$(document).on('click', 'table.listing a.button.delete', function() {
+		var $listing = $(this).closest('.listing');
 		
-		listing.on("click", "a.button.delete", function() {
-			var rows = $('tr:has(input.selected:checked)', listing), documents = [];
-			rows.each(function() {
-				documents.push($(this).data());
-			});
-			
-			$.ajax({
-				type: 'post',
-				url: "delete",
-				data: {documents: documents},
-				success: function() {
-					rows.remove();
-				}
-			});
+		var elements = $listing.find('tr:has(input.selected:checked)'), rows = [];
+		elements.each(function() {
+			rows.push($(this).data());
 		});
+		
+		var href = "delete";
+		
+		if (this.getAttribute('href') != '#') {
+			href = this.href;
+		}
+		
+		$.ajax({
+			type: 'post',
+			url: href,
+			data: {rows: rows},
+			success: function() {
+				elements.add(elements.next('.related')).fadeOut(300, function(){$(this).remove()});
+			}
+		});
+		
+		return false;
 	});
 });

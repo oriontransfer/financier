@@ -29,7 +29,7 @@
 				<th class="tax_rate">Tax</th>
 				<th class="total">Total</th>
 				<th class="actions">
-					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+					<a class="button delete" href="transactions/delete"><i class="icon-minus-sign"></i></a>
 				</th>
 			</tr>
 		</thead>

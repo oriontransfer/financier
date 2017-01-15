@@ -1,7 +1,7 @@
 
 source "https://rubygems.org"
 
-gem "utopia", "~> 1.9.9"
+gem "utopia", "~> 1.9.10"
 # gem "utopia-tags-gallery"
 # gem "utopia-tags-google-analytics"
 
