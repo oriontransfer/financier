@@ -11,9 +11,11 @@
 	
 		<fieldset><legend>Invoice</legend>
 			<dl>
-				#{f.select :field => :invoice, :collection => invoices do |invoice|
-					f.option :title => "#{invoice.customer.name}: #{invoice.name}", :selected => (f.object.invoice == invoice)
-				end}
+				<?r f.select :field => :invoice do |select| ?>
+					<?r invoices.each do |invoice| ?>
+						#{select.item :title => "#{invoice.customer.name}: #{invoice.name}", :value => invoice.id}
+					<?r end ?>
+				<?r end ?>
 			</dl>
 		</fieldset>
 
