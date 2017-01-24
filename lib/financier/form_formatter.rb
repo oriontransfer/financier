@@ -10,7 +10,7 @@ module Financier
 		include Trenni::Formatters::HTML::DefinitionListForm
 		
 		map(Latinum::Resource) do |object, options|
-			BANK.format(object, **options.fetch(:resource_format, {}))
+			object.to_s
 		end
 		
 		def select(options = {}, &block)
