@@ -20,9 +20,11 @@
 	
 	<fieldset><legend>Billing Details</legend>
 		<dl>
-			#{f.select :field => :customer, :collection => customers do |customer|
-				f.option :title => customer.name, :selected => (f.object.customer == customer)
-			end}
+			<?r f.select :field => :customer do |select| ?>
+				<?r customers.each do |customer| ?>
+					#{select.item :title => customer.name, :value => customer.id}
+				<?r end ?>
+			<?r end ?>
 		</dl>
 		
 		<dl>
