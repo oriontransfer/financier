@@ -13,7 +13,7 @@
 			<dl>
 				<?r f.select :field => :invoice do |select| ?>
 					<?r invoices.each do |invoice| ?>
-						#{select.item :title => "#{invoice.customer.name}: #{invoice.name}", :value => invoice.id}
+						#{select.item :title => "#{invoice.customer.name}: #{invoice.name}", :value => invoice}
 					<?r end ?>
 				<?r end ?>
 			</dl>

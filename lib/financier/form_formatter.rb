@@ -9,9 +9,11 @@ module Financier
 	class FormFormatter < ViewFormatter
 		include Trenni::Formatters::HTML::DefinitionListForm
 		
-		map(Latinum::Resource) do |object, options|
-			object.to_s
+		def format_unspecified(object, options)
+			object.id
 		end
+		
+		unmap(Latinum::Resource)
 		
 		def select(options = {}, &block)
 			element(Trenni::Formatters::HTML::OptionSelect, options, &block)

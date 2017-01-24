@@ -8,7 +8,7 @@
 	<?r f.radio_select :field => :account do |select| ?>
 		#{select.item :title => 'No Account'}
 		<?r accounts.each do |account| ?>
-			<?r select.item :value => account.id do ?>
+			<?r select.item :value => account do ?>
 				#{partial '/accounts/_label', account: account}
 			<?r end ?>
 		<?r end ?>
@@ -17,7 +17,7 @@
 	<?r f.radio_select :field => :company_address do |select| ?>
 		#{select.item :title => 'No Address'}
 		<?r addresses.each do |address| ?>
-			<?r select.item :value => address.id do ?>
+			<?r select.item :value => address do ?>
 				#{partial '/addresses/_label', address: address}
 			<?r end ?>
 		<?r end ?>

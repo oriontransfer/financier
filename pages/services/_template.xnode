@@ -22,7 +22,7 @@
 		<dl>
 			<?r f.select :field => :customer do |select| ?>
 				<?r customers.each do |customer| ?>
-					#{select.item :title => customer.name, :value => customer.id}
+					#{select.item :title => customer.name, :value => customer}
 				<?r end ?>
 			<?r end ?>
 		</dl>

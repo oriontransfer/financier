@@ -29,7 +29,7 @@
 		<dl class="customer">
 			<?r f.select :field => :customer, :optional => true do |select| ?>
 				<?r customers.each do |customer| ?>
-					#{select.item :title => customer.name, :value => customer.id}
+					#{select.item :title => customer.name, :value => customer}
 				<?r end ?>
 			<?r end ?>
 		</dl>
@@ -41,7 +41,7 @@
 		<dl class="company">
 			<?r f.select :field => :company, :optional => true do |select| ?>
 				<?r companies.each do |company| ?>
-					#{select.item :title => company.name, :value => company.id}
+					#{select.item :title => company.name, :value => company}
 				<?r end ?>
 			<?r end ?>
 		</dl>

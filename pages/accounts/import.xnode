@@ -13,7 +13,7 @@
 			<dl>
 				<?r f.select :field => :account do |select| ?>
 					<?r accounts.each do |account| ?>
-						#{select.item :title => account.pseudonym, :value => account.id}
+						#{select.item :title => account.pseudonym, :value => account}
 					<?r end ?>
 				<?r end ?>
 			
