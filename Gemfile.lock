@@ -48,7 +48,7 @@ GEM
     relaxo (0.4.7)
       json (~> 1.8)
       rest-client
-    relaxo-model (0.5.0)
+    relaxo-model (0.5.1)
       relaxo (~> 0.4.0)
     relaxo-query-server (0.1.5)
       json (~> 1.8)
@@ -85,7 +85,7 @@ GEM
     simplecov-html (0.10.0)
     slop (3.6.0)
     trenni (2.1.0)
-    trenni-formatters (2.3.0)
+    trenni-formatters (2.4.0)
       mapping (~> 1.0)
       trenni (~> 2.1)
     unf (0.1.4)
@@ -123,7 +123,7 @@ DEPENDENCIES
   rspec
   sanitize
   simplecov
-  trenni-formatters (~> 2.3)
+  trenni-formatters (~> 2.4)
   utopia (~> 1.9.10)
 
 BUNDLED WITH

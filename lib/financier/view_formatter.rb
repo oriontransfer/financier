@@ -7,20 +7,20 @@ require "date"
 
 require_relative "database"
 
-class BigDecimal
-	alias _to_s to_s
-
-	def to_s param = nil
-		_to_s param || 'F'
-	end
-end
-
 module Financier
 	class ViewFormatter < Trenni::Formatters::Formatter
 		include Trenni::Formatters::Markdown, Trenni::Formatters::RelativeTime
 		
 		map(Latinum::Resource) do |object, options|
 			BANK.format(object, options)
+		end
+		
+		map(Date) do |object, options|
+			object.strftime
+		end
+		
+		map(BigDecimal) do |object, options|
+			object.to_s('F')
 		end
 		
 		def quantity(transaction)

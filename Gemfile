@@ -9,7 +9,7 @@ gem "relaxo", "~> 0.4"
 gem "relaxo-model", "~> 0.5"
 gem "relaxo-query-server", "~> 0.1"
 
-gem "trenni-formatters", "~> 2.3"
+gem "trenni-formatters", "~> 2.4"
 
 gem "periodical", "~> 1.0"
 gem "latinum", "~> 1.0"

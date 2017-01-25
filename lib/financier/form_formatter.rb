@@ -13,7 +13,9 @@ module Financier
 			object.id
 		end
 		
-		unmap(Latinum::Resource)
+		map(Latinum::Resource) do |object, options|
+			object.to_s
+		end
 		
 		def select(options = {}, &block)
 			element(Trenni::Formatters::HTML::OptionSelect, options, &block)

@@ -1,16 +1,13 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes[:invoice])
-	
-	puts f.object.inspect
-	
+		
 	if f.object.customer
 		addresses = f.object.customer.addresses
 	else
 		addresses = []
 	end
 ?><dl>
-	<?r f.radio_select :field => :billing_address do |select| ?>
-		#{select.item :title => 'No Address'}
+	<?r f.radio_select :field => :billing_address, :optional => 'No Address' do |select| ?>
 		<?r addresses.each do |address| ?>
 			<?r select.item :value => address do ?>
 				#{partial '/addresses/_label', address: address}
@@ -18,8 +15,7 @@
 		<?r end ?>
 	<?r end ?>
 	
-	<?r f.radio_select :field => :shipping_address do |select| ?>
-		#{select.item :title => 'No Address'}
+	<?r f.radio_select :field => :shipping_address, :optional => 'No Address' do |select| ?>
 		<?r addresses.each do |address| ?>
 			<?r select.item :value => address do ?>
 				#{partial '/addresses/_label', address: address}
