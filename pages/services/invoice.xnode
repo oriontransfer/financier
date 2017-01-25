@@ -58,7 +58,7 @@
 				<?r	end ?>
 				<tr data-id="#{service.id}" data-rev="#{service.rev}">
 					<th>#{f.text service.name}</th>
-					<td>#{service.active ? '&#x2705;' : '&#x274C;'}</td>
+					<td>#{service.active ? '✅' : '❌'}</td>
 					<td>#{f.text service.domain}</td>
 					<td>#{f.text service.billed_until_date}</td>
 					<td>#{f.text billing_end_date}</td>
