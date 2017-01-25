@@ -18,10 +18,12 @@
 		<fieldset><legend>Billing Details</legend>
 			<dl>
 				#{f.input :field => :billing_end_date, :type => :date, :value => billing_end_date}
-			
-				#{f.select :field => :billing_customer, :collection => customers do |customer|
-					f.option :title => customer.name, :selected => (billing_customer == customer)
-				end}
+				
+				<?r f.select :field => :billing_customer do |select| ?>
+					<?r customers.each do |customer| ?>
+						#{select.item :title => customer.name, :value => customer}
+					<?r end ?>
+				<?r end ?>
 			</dl>
 		</fieldset>
 		
