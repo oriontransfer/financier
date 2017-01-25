@@ -129,7 +129,7 @@ module Financier
 				invoice = Invoice.create(txn, :name => "Services")
 				
 				services.each do |service|
-					service = service.attach(txn)
+					service = service.dup(txn)
 					
 					# Round down the number of periods:
 					periods = service.periods_to_date(date)
