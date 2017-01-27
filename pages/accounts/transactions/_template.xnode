@@ -18,20 +18,19 @@
 	
 	<fieldset><legend>Accounting</legend>
 		<dl>
-			<dt>For</dt>
-			<dd>
-				<select name="for">
-					<option value=""#{f.object.for == nil ? ' selected' : ''}>None</option>
-					
-					#{f.item_group :title => "Customers", :collection => customers do |customer|
-						f.item :title => customer.name, :selected => (f.object.for == customer)
-					end}
-			
-					#{f.option_group :title => "Companies", :collection => companies do |company|
-						f.option :title => company.name, :selected =>  (f.object.for == company)
-					end}
-				</select>
-			</dd>
+			<?r f.select :field => :for, :optional => true do |select| ?>
+				<?r select.group :title => 'Customers' do |group| ?>
+					<?r customers.each do |customer| ?>
+						#{select.item :title => customer.name, :value => customer}
+					<?r end ?>
+				<?r end ?>
+				
+				<?r select.group :title => 'Companies' do |group| ?>
+					<?r companies.each do |company| ?>
+						#{select.item :title => company.name, :value => company}
+					<?r end ?>
+				<?r end ?>
+			<?r end ?>
 		</dl>
 	</fieldset>
 	

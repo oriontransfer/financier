@@ -25,18 +25,19 @@
 		</dl>
 		
 		<dl>
-			<dt>For</dt>
-			<dd>
-				<select name="for">
-					#{f.item_group :title => "Customers", :collection => customers do |customer|
-						f.item :title => customer.name, :selected => (f.object.for == customer)
-					end}
+			<?r f.select :field => :for, :optional => true do |select| ?>
+				<?r select.group :title => 'Customers' do |group| ?>
+					<?r customers.each do |customer| ?>
+						#{select.item :title => customer.name, :value => customer}
+					<?r end ?>
+				<?r end ?>
 				
-					#{f.option_group :title => "Companies", :collection => companies do |company|
-						f.option :title => company.name, :selected =>  (f.object.for == company)
-					end}
-				</select>
-			</dd>
+				<?r select.group :title => 'Companies' do |group| ?>
+					<?r companies.each do |company| ?>
+						#{select.item :title => company.name, :value => company}
+					<?r end ?>
+				<?r end ?>
+			<?r end ?>
 			
 			#{f.input :field => :purpose}
 		</dl>
