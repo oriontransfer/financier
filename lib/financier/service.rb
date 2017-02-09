@@ -25,8 +25,8 @@ module Financier
 		# An array of dates where billing has occurred
 		property :billed_dates, ArrayOf[Date]
 
-		view :all, 'financier/service', Service
-		view :by_customer, 'financier/service_by_customer', Service
+		view :all, [:type], index: [:id]
+		view :by_customer, [:type, 'by_customer'], index: [:customer, :id]
 		
 		def initialize(database, attributes)
 			super database, attributes

@@ -18,23 +18,26 @@ on 'delete' do |request, path|
 		end
 	end
 	
-	respond! 200
+	succeed!
 end
 
 on 'new' do |request, path|
-	@customer = Financier::Customer.create(Financier::DB)
+	@customer = Financier::Customer.create(Financier::DB.current)
 	
 	if request.post?
+		puts request.params.inspect
 		@customer.assign(request.params)
 		
-		@customer.save
+		Financier::DB.commit(message: path.to_s) do |dataset|
+			@customer.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'edit' do |request, path|
-	@customer = Financier::Customer.fetch(Financier::DB, request[:id])
+	@customer = Financier::Customer.fetch(Financier::DB.current, request[:id])
 	
 	if request.post?
 		@customer.assign(request.params)
@@ -46,7 +49,7 @@ on 'edit' do |request, path|
 end
 
 on 'show' do |request, path|
-	@customer = Financier::Customer.fetch(Financier::DB, request[:id])
+	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request[:id])
 	
 	@transactions = []
 	@transactions += @customer.invoices.to_a

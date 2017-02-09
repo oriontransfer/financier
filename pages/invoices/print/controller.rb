@@ -2,10 +2,10 @@
 prepend Actions
 
 on 'full' do |request, path|
-	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
+	@invoice = Financier::Invoice.fetch(Financier::DB.current, request[:id])
 end
 
 on 'plain' do |request, path|
-	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
+	@invoice = Financier::Invoice.fetch(Financier::DB.current, request[:id])
 end
 

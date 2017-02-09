@@ -22,15 +22,15 @@
 		</thead>
 		<tbody>
 			<?r 
-				Financier::Customer.all(Financier::DB).each do |customer|
+				Financier::Customer.all(Financier::DB.current).each do |customer|
 			?>
-			<tr data-id="#{customer.id}" data-rev="#{customer.rev}">
+			<tr data-id="#{customer.id}">
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{customer.id}"><i class="icon-edit"></i></a>
 				</td>
 				<th><a href="show?id=#{customer.id}">#{f.text customer.name}</a></th>
-				<td>#{f.text customer.invoice_count || 0}</td>
-				<td><?r if invoice = customer.invoices(:limit => 1).first ?>
+				<td>#{f.text customer.invoices.count || 0}</td>
+				<td><?r if invoice = customer.invoices.to_a.last ?>
 					<a href="../invoices/show?id=#{invoice.id}">#{f.text invoice.name}</a>
 					<?r end ?></td>
 				<td></td>

@@ -30,7 +30,7 @@
 				$stderr.puts invoice.transactions.rows.inspect
 				invoice.transactions.each do |transaction|
 			?>
-			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+			<tr data-id="#{transaction.id}">
 				<td class="actions">
 					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="icon-edit"></i></a>
 				</td>

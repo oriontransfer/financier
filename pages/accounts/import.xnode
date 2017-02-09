@@ -1,5 +1,5 @@
 <?r
-	accounts = Financier::Account.all(Financier::DB)
+	accounts = Financier::Account.all(Financier::DB.current)
 	
 	default_currency = attributes[:default_currency]
 	

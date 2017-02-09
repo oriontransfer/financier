@@ -4,45 +4,46 @@ prepend Actions
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request[:documents].values
+	documents = request[:rows].values
 	
-	documents.each do |document|
-		Financier::DB.transaction do |db|
-			@company = Financier::Company::fetch(db, document['id'])
-			
-			if @company.rev == document['rev']
-				@company.delete
-			else
-				fail!
-			end
+	Financier::DB.commit(message: "Delete Companies") do |dataset|
+		documents.each do |document|
+			company = Financier::Company.fetch_all(dataset, id: document['id'])
+			company.delete(dataset)
 		end
 	end
 	
-	respond! 200
+	succeed!
 end
 
 on 'new' do |request, path|
-	@company = Financier::Company.create(Financier::DB)
+	@company = Financier::Company.create(Financier::DB.current)
 	
 	if request.post?
 		@company.assign(request.params)
-		@company.save
+		
+		Financier::DB.commit(message: "New Company") do |dataset|
+			@company.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'edit' do |request, path|
-	@company = Financier::Company.fetch(Financier::DB, request[:id])
+	@company = Financier::Company.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
 		@company.assign(request.params)
-		@company.save
+		
+		Financier::DB.commit(message: "Edit Company") do |dataset|
+			@company.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'index' do |request, path|
-	@companies = Financier::Company.all(Financier::DB)
+	@companies = Financier::Company.all(Financier::DB.current)
 end

@@ -1,10 +1,9 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes[:account])
 	
-	companies = Financier::Company.all(Financier::DB)
+	companies = Financier::Company.all(Financier::DB.current)
 	
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :rev if f.object.id}
 		
 	<fieldset><legend>Bank Details</legend>
 		<dl>

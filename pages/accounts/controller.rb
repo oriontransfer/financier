@@ -18,7 +18,7 @@ on 'delete' do |request, path|
 		end
 	end
 	
-	respond! 200
+	succeed!
 end
 
 on 'new' do |request, path|
@@ -34,7 +34,7 @@ on 'new' do |request, path|
 end
 
 on 'edit' do |request, path|
-	@account = Financier::Account.fetch(Financier::DB, request[:id])
+	@account = Financier::Account.fetch(Financier::DB.current, request[:id])
 	
 	if request.post?
 		@account.assign(request.params)
@@ -46,7 +46,7 @@ on 'edit' do |request, path|
 end
 
 on 'show' do |request, path|
-	@account = Financier::Account.fetch(Financier::DB, request[:id])
+	@account = Financier::Account.fetch(Financier::DB.current, request[:id])
 end
 
 def import_ofx(path)
@@ -112,7 +112,7 @@ end
 
 on 'import' do |request, path|
 	if request[:account]
-		@account = Financier::Account.fetch(Financier::DB, request[:account])
+		@account = Financier::Account.fetch(Financier::DB.current, request[:account])
 	else
 		@account = nil
 	end

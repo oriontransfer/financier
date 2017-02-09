@@ -38,7 +38,7 @@
 			<?r
 					end
 			?>
-			<tr data-id="#{service.id}" data-rev="#{service.rev}">
+			<tr data-id="#{service.id}">
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{service.id}"><i class="icon-edit"></i></a>
 				</td>

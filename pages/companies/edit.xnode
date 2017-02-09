@@ -1,5 +1,5 @@
 <page>
 	<heading>Edit Company</heading>
 	
-	#{partial 'template', customer: controller[:company]}
+	#{partial 'template', company: controller[:company]}
 </page>

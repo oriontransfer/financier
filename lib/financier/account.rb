@@ -9,8 +9,12 @@ module Financier
 	class Account
 		include Relaxo::Model
 		
+		property :id, UUID
+		
 		class Transaction
 			include Relaxo::Model
+			
+			property :id, UUID
 			
 			property :name
 			property :description
@@ -32,10 +36,18 @@ module Financier
 			
 			property :for, Optional[BelongsTo[Customer, Company]]
 			property :account, BelongsTo[Account]
+			
+			view :by_account, [:type, 'by_account', :account], index: [[:timestamp, :id]]
+			view :by_customer, [:type, :customer], index: [[:timestamp, :id]]
 		end
 		
-		view :all, 'financier/account', Account
-		relationship :transactions, 'financier/transaction_by_account', Transaction
+		property :id, UUID
+		
+		view :all, [:type], index: [:id]
+		
+		def transactions
+			Transaction.by_account(@dataset, account: self)
+		end
 		
 		property :active, Attribute[Boolean]
 		

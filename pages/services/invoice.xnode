@@ -1,5 +1,5 @@
 <?r
-	customers = Financier::Customer.all(Financier::DB)
+	customers = Financier::Customer.all(Financier::DB.current)
 	
 	services = attributes[:services]
 	billing_end_date = attributes[:billing_end_date]
@@ -56,7 +56,7 @@
 					<th colspan="7">#{customer.name}</th>
 				</tr>
 				<?r	end ?>
-				<tr data-id="#{service.id}" data-rev="#{service.rev}">
+				<tr data-id="#{service.id}">
 					<th>#{f.text service.name}</th>
 					<td>#{service.active ? '✅' : '❌'}</td>
 					<td>#{f.text service.domain}</td>

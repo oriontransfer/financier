@@ -8,11 +8,11 @@ module Financier
 	class User
 		include Relaxo::Model
 		
+		property :id, UUID
 		property :name
 		property :password, Attribute[BCrypt::Password]
 		
-		view :all, 'financier/user', User
-		view :by_name, 'financier/user_by_name', User
+		view :all, [:type], index: [:id]
+		view :by_name, [:type, 'by_name'], index: [:name]
 	end
-	
 end

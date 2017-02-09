@@ -1,15 +1,15 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes[:company])
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :rev if f.object.id}
 		
 	<fieldset><legend>Company Details</legend>
 		<dl>
 			#{f.input :field => :name, :required => true}
 			
-			#{f.select :field => :role, :collection => ['primary', 'supplier'] do |item|
-				f.item :title => Strings::to_title(item), :value => item, :selected => (f.object.role == item)
-			end}
+			<?r f.select :field => :role do |select| ?>
+				#{select.item title: "Primary", value: "primary"}
+				#{select.item title: "Supplier", value: "supplier"}
+			<?r end ?>
 		</dl>
 	</fieldset>
 	

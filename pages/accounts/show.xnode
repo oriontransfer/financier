@@ -37,7 +37,7 @@
 				account.transactions.sort_by(&:timestamp).each do |transaction|
 					balance << transaction.amount
 			?>
-			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+			<tr data-id="#{transaction.id}">
 				<td class="actions">
 					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="icon-edit"></i></a>
 				</td>

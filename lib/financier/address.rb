@@ -8,6 +8,8 @@ module Financier
 	class Address
 		include Relaxo::Model
 		
+		property :id, UUID
+		
 		property :attention
 		property :unit
 		property :street
@@ -35,6 +37,9 @@ module Financier
 			self.updated_date = Date.today
 		end
 		
-		view :all, 'financier/address', Address
+		# relationship :addresses, 'financier/address_by_company', Address
+		
+		view :all, [:type], index: [:id]
+		view :for, [:type, 'for', :for], index: [[:attention, :id]]
 	end
 end

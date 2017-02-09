@@ -18,11 +18,11 @@ on 'delete' do |request, path|
 		end
 	end
 	
-	respond! 200
+	succeed!
 end
 
 on 'new' do |request, path|
-	@transaction = Financier::Invoice::Transaction.create(Financier::DB, :date => Date.today, :quantity => 1)
+	@transaction = Financier::Invoice::Transaction.create(Financier::DB.current, :date => Date.today, :quantity => 1)
 	@transaction.assign(:invoice => request[:invoice_id])
 	
 	if request.post?
@@ -35,7 +35,7 @@ on 'new' do |request, path|
 end
 
 on 'edit' do |request, path|
-	@transaction = Financier::Invoice::Transaction.fetch(Financier::DB, request[:id])
+	@transaction = Financier::Invoice::Transaction.fetch(Financier::DB.current, request[:id])
 	
 	if request.post?
 		@transaction.assign(request.params)
@@ -47,7 +47,7 @@ on 'edit' do |request, path|
 end
 
 on 'move' do |request, path|
-	@transaction = Financier::Invoice::Transaction.fetch(Financier::DB, request[:id])
+	@transaction = Financier::Invoice::Transaction.fetch(Financier::DB.current, request[:id])
 	
 	if request.post?
 		@transaction.assign(request.params)

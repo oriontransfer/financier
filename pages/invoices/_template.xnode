@@ -1,16 +1,15 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes[:invoice])
 	
-	customers = Financier::Customer.all(Financier::DB)
-	companies = Financier::Company.all(Financier::DB)
+	customers = Financier::Customer.all(Financier::DB.current)
+	companies = Financier::Company.all(Financier::DB.current)
 	
-	accounts = Financier::Account.all(Financier::DB)
-	addresses = Financier::Address.all(Financier::DB)
+	accounts = Financier::Account.all(Financier::DB.current)
+	addresses = Financier::Address.all(Financier::DB.current)
 	
 ?><form class="basic editor" method="post" action="#" >
 	#{f.hidden :field => :id}
 	#{f.hidden :field => :type}
-	#{f.hidden :field => :rev if f.object.id}
 	
 	<fieldset><legend>Invoice Details</legend>
 		<dl>

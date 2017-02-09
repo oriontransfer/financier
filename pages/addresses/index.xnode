@@ -21,9 +21,9 @@
 		</thead>
 		<tbody>
 			<?r 
-				Financier::Address.all(Financier::DB).each do |address|
+				Financier::Address.all(Financier::DB.current).each do |address|
 			?>
-			<tr data-id="#{address.id}" data-rev="#{address.rev}">
+			<tr data-id="#{address.id}">
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{address.id}"><i class="icon-edit"></i></a>
 				</td>

@@ -83,7 +83,7 @@
 					summary[:total] << transaction.total
 				
 			?>
-			<tr data-id="#{transaction.id}" data-rev="#{transaction.rev}">
+			<tr data-id="#{transaction.id}">
 				<td class="when">#{f.text transaction.date}</td>
 				<th class="name">#{f.text transaction.name}</th>
 				<td class="price">#{f.text transaction.price}</td>

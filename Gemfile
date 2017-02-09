@@ -5,9 +5,9 @@ gem "utopia", "~> 1.9.10"
 # gem "utopia-tags-gallery"
 # gem "utopia-tags-google-analytics"
 
-gem "relaxo", "~> 0.4"
-gem "relaxo-model", "~> 0.5"
-gem "relaxo-query-server", "~> 0.1"
+gem "relaxo", "~> 0.6"
+gem "relaxo-model", "~> 0.6"
+gem 'rugged', git: 'git://github.com/libgit2/rugged.git', submodules: true
 
 gem "trenni-formatters", "~> 2.4"
 

@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/libgit2/rugged.git
+  revision: ce9ea12ba6b1c5ffe8a12e9acfa8dd5b43742561
+  submodules: true
+  specs:
+    rugged (0.26.0b2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -7,11 +14,7 @@ GEM
     crass (1.0.2)
     diff-lcs (1.3)
     docile (1.1.5)
-    domain_name (0.5.20161129)
-      unf (>= 0.0.5, < 1.0.0)
     http-accept (1.6.0)
-    http-cookie (1.0.3)
-      domain_name (~> 0.5)
     json (1.8.6)
     kramdown (1.13.2)
     latinum (1.0.0)
@@ -23,7 +26,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
-    netrc (0.11.0)
+    msgpack (1.0.3)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     nokogumbo (1.4.10)
@@ -45,19 +48,11 @@ GEM
       rack (>= 1.0)
     rainbow (2.2.1)
     rake (12.0.0)
-    relaxo (0.4.7)
-      json (~> 1.8)
-      rest-client
-    relaxo-model (0.5.1)
-      relaxo (~> 0.4.0)
-    relaxo-query-server (0.1.5)
-      json (~> 1.8)
-      relaxo (~> 0.4.4)
-      rest-client
-    rest-client (2.0.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
+    relaxo (0.6.0)
+      rugged
+    relaxo-model (0.6.0)
+      msgpack (~> 1.0)
+      relaxo (~> 0.6)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -88,9 +83,6 @@ GEM
     trenni-formatters (2.4.0)
       mapping (~> 1.0)
       trenni (~> 2.1)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.2)
     utopia (1.9.10)
       concurrent-ruby (~> 1.0)
       http-accept (~> 1.6)
@@ -117,10 +109,10 @@ DEPENDENCIES
   qif (~> 1.1)
   rack-test
   rake
-  relaxo (~> 0.4)
-  relaxo-model (~> 0.5)
-  relaxo-query-server (~> 0.1)
+  relaxo (~> 0.6)
+  relaxo-model (~> 0.6)
   rspec
+  rugged!
   sanitize
   simplecov
   trenni-formatters (~> 2.4)

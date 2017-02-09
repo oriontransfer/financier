@@ -3,10 +3,10 @@ prepend Actions
 
 on 'login' do |request, path|
 	if request.post?
-		user = Financier::User.by_name(Financier::DB, :key => request[:name].to_s).first
+		user = Financier::User.fetch_by_name(Financier::DB.current, name: request[:name])
 		
 		if user && user.password == request[:password]
-			request.session[:user] = user.id
+			request.session[:user_id] = user.id
 			
 			redirect! "/customers/index"
 		else
@@ -17,7 +17,7 @@ on 'login' do |request, path|
 end
 
 on 'logout' do |request, path|
-	request.session[:user] = nil
+	request.session[:user_id] = nil
 	
 	redirect! "/login"
 end
@@ -33,8 +33,8 @@ def public_path? path
 end
 
 on '**' do |request, path|
-	if request.session[:user]
-		@user = Financier::User.fetch(Financier::DB, request.session[:user]) rescue nil
+	if user_id = request.session[:user_id]
+		@user = Financier::User.fetch_all(Financier::DB.current, id: user_id)
 	end
 	
 	unless @user or public_path?(path)

@@ -9,19 +9,29 @@ module Financier
 	class Customer
 		include Relaxo::Model
 		
+		property :id, UUID
+		
 		property :name
 		property :email_address
 		
-		view :all, 'financier/customer', Customer
-		view :by_name, 'financier/customer_by_name', Customer
-		relationship :services, 'financier/service_by_customer', Service
+		view :all, [:type], index: [:id]
+		view :by_name, [:type, 'by_name'], index: [:name]
 		
-		relationship :invoices, 'financier/invoice_by_customer', Invoice
-		relationship :invoice_count, 'financier/invoice_count_by_customer', ValueOf, :reduction => :first, :key => :self
+		def invoices
+			Invoice.by_customer(@dataset, customer: self)
+		end
 		
-		relationship :account_transactions, 'financier/account_transaction_by_customer', Account::Transaction
+		def account_transactions
+			Account::Transaction.by_customer(@dataset, customer: self)
+		end
 		
-		relationship :addresses, 'financier/address_by_customer', Address
+		# relationship :services, 'financier/service_by_customer', Service
+		# 
+		# relationship :invoices, 'financier/invoice_by_customer', Invoice
+		# relationship :invoice_count, 'financier/invoice_count_by_customer', ValueOf, :reduction => :first, :key => :self
+		# 
+		# relationship :account_transactions, 'financier/account_transaction_by_customer', Account::Transaction
+		# 
+		# relationship :addresses, 'financier/address_by_customer', Address
 	end
-	
 end

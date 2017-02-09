@@ -18,7 +18,7 @@ on 'delete' do |request, path|
 		end
 	end
 	
-	respond! 200
+	succeed!
 end
 
 on 'new' do |request, path|
@@ -34,7 +34,7 @@ on 'new' do |request, path|
 end
 
 on 'edit' do |request, path|
-	@address = Financier::Address.fetch(Financier::DB, request[:id])
+	@address = Financier::Address.fetch(Financier::DB.current, request[:id])
 
 	if request.post?
 		@address.assign(request.params)
@@ -45,5 +45,5 @@ on 'edit' do |request, path|
 end
 
 on 'print' do |request, path|
-	@address = Financier::Address.fetch(Financier::DB, request[:id])
+	@address = Financier::Address.fetch(Financier::DB.current, request[:id])
 end

@@ -14,9 +14,13 @@ module Financier
 	class Invoice
 		include Relaxo::Model
 		
+		property :id, UUID
+		
 		class Transaction
 			include Relaxo::Model
-
+			
+			property :id, UUID
+			
 			property :name
 			property :description
 
@@ -100,9 +104,9 @@ module Financier
 		# The address where the items should be shipped:
 		property :shipping_address, Optional[HasOne[Address]]
 		
-		relationship :totals, 'financier/transaction_total_by_invoice', {:group => true, :startkey => [:self], :endkey => [:self, {}]} do |database, row|
-			Latinum::Resource.new(row['value'], row['key'][1])
-		end
+		# relationship :totals, 'financier/transaction_total_by_invoice', {:group => true, :startkey => [:self], :endkey => [:self, {}]} do |database, row|
+			# Latinum::Resource.new(row['value'], row['key'][1])
+		# end
 		
 		def after_create
 			self.number ||= Financier::generate_invoice_number
@@ -117,45 +121,44 @@ module Financier
 			self.transactions.each &:delete
 		end
 		
-		view :all, 'financier/invoice', Invoice
-		relationship :transactions, 'financier/transaction_by_invoice', Transaction
+		view :all, [:type], index: [:id]
+		# relationship :transactions, 'financier/transaction_by_invoice', Transaction
 		
-		view :count_by_customer, 'financier/invoice_count_by_customer'
+		view :by_customer, [:type, :customer], index: [[:created_date, :id]]
+		# view :count_by_customer, 'financier/invoice_count_by_customer'
 		
-		def self.create_invoice_for_services(database, services, date)
+		def self.create_invoice_for_services(dataset, services, date)
 			today = Date.today
 			
-			database.transaction(Invoice) do |txn|
-				invoice = Invoice.create(txn, :name => "Services")
+			invoice = Invoice.create(dataset, :name => "Services")
+			
+			services.each do |service|
+				service = service.dup
 				
-				services.each do |service|
-					service = service.dup(txn)
+				# Round down the number of periods:
+				periods = service.periods_to_date(date)
+				
+				$stderr.puts "Periods for service #{service.name}: #{periods.inspect}"
+				
+				if periods >= 1
+					transaction = Transaction.create(dataset,
+						service: service,
+						name: service.name,
+						price: service.periodic_cost,
+						quantity: periods.to_d,
+						date: today,
+						description: service.billing_description(date),
+						invoice: invoice
+					)
 					
-					# Round down the number of periods:
-					periods = service.periods_to_date(date)
+					transaction.save(dataset)
 					
-					$stderr.puts "Periods for service #{service.name}: #{periods.inspect}"
-					
-					if periods >= 1
-						transaction = Transaction.create(txn,
-							:service => service,
-							:name => service.name,
-							:price => service.periodic_cost,
-							:quantity => periods.to_d,
-							:date => today,
-							:description => service.billing_description(date),
-							:invoice => invoice
-						)
-						
-						transaction.save
-						
-						service.bill_until_date(date)
-						service.save
-					end
+					service.bill_until_date(date)
+					service.save(dataset)
 				end
-				
-				invoice.save
 			end
+			
+			invoice.save(dataset)
 		end
 	end
 

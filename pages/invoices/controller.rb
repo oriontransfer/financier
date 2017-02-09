@@ -18,33 +18,38 @@ on 'delete' do |request, path|
 		end
 	end
 	
-	respond! 200
+	succeed!
 end
 
 on 'new' do |request, path|
-	@invoice = Financier::Invoice.create(Financier::DB, :created_date => Date.today)
+	@invoice = Financier::Invoice.create(Financier::DB.current, :created_date => Date.today)
 	
 	if request.post?
 		@invoice.assign(request.params)
 		
-		@invoice.save
+		Financier::DB.commit(message: "Create Invoice") do |dataset|
+			@invoice.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'edit' do |request, path|
-	@invoice = Financier::Invoice.fetch(Financier::DB, request[:id])
+	@invoice = Financier::Invoice.fetch(Financier::DB.current, request[:id])
 	
 	if request.post?
 		@invoice.assign(request.params)
 		@invoice.updated_date = Date.today
-		@invoice.save
+		
+		Financier::DB.commit(message: "Edit Invoice") do |dataset|
+			@invoice.save(dataset)
+		end
 		
 		redirect! request[:_return] || "index"
 	end
 end
 
 on 'show' do |request, path|
-	@invoice =  Financier::Invoice.fetch(Financier::DB, request[:id])
+	@invoice =  Financier::Invoice.fetch(Financier::DB.current, request[:id])
 end

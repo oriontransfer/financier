@@ -1,11 +1,10 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes[:transaction])
 	
-	customers = Financier::Customer.all(Financier::DB)
-	companies = Financier::Company.all(Financier::DB)
+	customers = Financier::Customer.all(Financier::DB.current)
+	companies = Financier::Company.all(Financier::DB.current)
 	
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :rev if f.object.id}
 	
 	<fieldset><legend>Transaction Details</legend>
 		<dl>

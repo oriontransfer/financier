@@ -4,10 +4,9 @@
 	<?r
 		f = Financier::FormFormatter.new(:object => controller[:transaction])
 		
-		invoices = Financier::Invoice.all(Financier::DB).sort_by(&:created_date)
+		invoices = Financier::Invoice.all(Financier::DB.current).sort_by(&:created_date)
 		
 	?><form class="basic editor" method="post" action="#" >
-		#{f.hidden :field => :rev if f.object.id}
 	
 		<fieldset><legend>Invoice</legend>
 			<dl>

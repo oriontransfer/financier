@@ -20,11 +20,11 @@ on 'delete' do |request, path|
 		end
 	end
 	
-	respond! 200
+	succeed!
 end
 
 on 'new' do |request, path|
-	@service = Financier::Service.create(Financier::DB, :start_date => Date.today, :period => 7)
+	@service = Financier::Service.create(Financier::DB.current, :start_date => Date.today, :period => 7)
 	
 	if request.post?
 		@service.assign(request.params)
@@ -36,7 +36,7 @@ on 'new' do |request, path|
 end
 
 on 'edit' do |request, path|
-	@service = Financier::Service.fetch(Financier::DB, request[:id])
+	@service = Financier::Service.fetch(Financier::DB.current, request[:id])
 	
 	if request.post?
 		@service.assign(request.params)
@@ -48,12 +48,12 @@ on 'edit' do |request, path|
 end
 
 on 'invoice' do |request, path|
-	@services = request[:services].map{|id| Financier::Service.fetch(Financier::DB, id)}
+	@services = request[:services].map{|id| Financier::Service.fetch(Financier::DB.current, id)}
 	
 	@billing_end_date = Date.parse(request[:billing_end_date]) rescue Date.today
 	
 	if request[:billing_customer]
-		@billing_customer = Financier::Customer.fetch(Financier::DB, request[:billing_customer])
+		@billing_customer = Financier::Customer.fetch(Financier::DB.current, request[:billing_customer])
 	else
 		@billing_customer = @services.first.customer
 	end
@@ -61,12 +61,18 @@ on 'invoice' do |request, path|
 	if request.post? && request[:create]
 		invoice = nil
 
-		Financier::DB.transaction do |db|
-			invoice = Financier::Invoice.create_invoice_for_services(db, @services, @billing_end_date)
+		begin
+			Financier::DB.transaction do |db|
+				invoice = Financier::Invoice.create_invoice_for_services(db, @services, @billing_end_date)
+				
+				invoice.customer = @billing_customer
 
-			invoice.customer = @billing_customer
-
-			invoice.save
+				invoice.save
+			end
+		rescue RestClient::ExpectationFailed
+			puts $!.inspect
+			puts $!.response
+			raise
 		end
 
 		redirect! "../invoices/show?id=#{invoice.id}"

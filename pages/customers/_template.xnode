@@ -1,7 +1,6 @@
 <?r
 	f = Financier::FormFormatter.new(:object => attributes[:customer])
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :rev if f.object.id}
 	
 	<fieldset><legend>Customer Details</legend>
 		<dl>
