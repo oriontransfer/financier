@@ -13,6 +13,7 @@ module Financier
 		
 		class Transaction
 			include Relaxo::Model
+			parent_type Account
 			
 			property :id, UUID
 			
@@ -23,7 +24,7 @@ module Financier
 			property :timestamp, Attribute[DateTime]
 			
 			def date
-				self.timestamp.to_date
+				self.timestamp&.to_date
 			end
 			
 			def totals
@@ -37,8 +38,10 @@ module Financier
 			property :for, Optional[BelongsTo[Customer, Company]]
 			property :account, BelongsTo[Account]
 			
+			view :all, [:type], index: [:id]
+			
 			view :by_account, [:type, 'by_account', :account], index: [[:timestamp, :id]]
-			view :by_customer, [:type, :customer], index: [[:timestamp, :id]]
+			view :by_for, [:type, 'by_for', :for], index: [[:date, :id]]
 		end
 		
 		property :id, UUID

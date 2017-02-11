@@ -25,7 +25,7 @@
 				<th class="date">Date</th>
 				<th class="price">Amount</th>
 				<th class="actions">
-					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+					<a class="button delete" href="transactions/delete"><i class="icon-minus-sign"></i></a>
 				</th>
 			</tr>
 		</thead>

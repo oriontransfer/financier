@@ -4,7 +4,6 @@
 	companies = Financier::Company.all(Financier::DB.current)
 	
 ?><form class="basic editor" method="post" action="#" >
-		
 	<fieldset><legend>Bank Details</legend>
 		<dl>
 			#{f.input :field => :name, :required => true}
@@ -29,9 +28,11 @@
 	
 	<fieldset><legend>Account Details</legend>
 		<dl>
-			#{f.select :field => :company, :optional => true, :collection => companies do |company|
-				f.option :title => company.name, :selected => (f.object.company == company)
-			end}
+			<?r f.select :field => :company, :optional => true do |select| ?>
+				<?r companies.each do |company| ?>
+					#{select.item :title => company.name, :value => company}
+				<?r end ?>
+			<?r end ?>
 		</dl>
 		
 		<dl>

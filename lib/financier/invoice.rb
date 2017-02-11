@@ -18,6 +18,12 @@ module Financier
 		
 		class Transaction
 			include Relaxo::Model
+			parent_type Invoice
+			
+			@type = "invoice/transaction"
+			
+			view :all, [:type], index: [:id]
+			view :by_invoice, [:type, 'by_invoice', :invoice], index: [[:date, :id]]
 			
 			property :id, UUID
 			
@@ -103,6 +109,17 @@ module Financier
 		property :billing_address, Optional[HasOne[Address]]
 		# The address where the items should be shipped:
 		property :shipping_address, Optional[HasOne[Address]]
+		
+		def transactions
+			Transaction::by_invoice(@dataset, invoice: self)
+		end
+		
+		def totals
+			collection = Latinum::Collection.new
+			collection << self.transactions.map(&:total)
+			
+			return collection
+		end
 		
 		# relationship :totals, 'financier/transaction_total_by_invoice', {:group => true, :startkey => [:self], :endkey => [:self, {}]} do |database, row|
 			# Latinum::Resource.new(row['value'], row['key'][1])

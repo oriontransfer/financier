@@ -28,7 +28,7 @@
 		<tbody>
 			<?r
 				customer = nil
-				Financier::Service.by_customer(Financier::DB).each do |service|
+				Financier::Service.by_customer(Financier::DB.current).each do |service|
 					if customer != service.customer
 						customer = service.customer
 			?>

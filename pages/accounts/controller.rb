@@ -4,17 +4,12 @@ prepend Actions
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request[:documents].values
+	documents = request[:rows].values
 	
-	documents.each do |document|
-		Financier::DB.transaction do |db|
-			account = Financier::Account::fetch(db, document['id'])
-			
-			if account.rev == document['rev']
-				account.delete
-			else
-				fail!
-			end
+	Financier::DB.commit(message: "Delete Companies") do |dataset|
+		documents.each do |document|
+			account = Financier::Account.fetch_all(dataset, id: document['id'])
+			account.delete(dataset)
 		end
 	end
 	
@@ -22,51 +17,55 @@ on 'delete' do |request, path|
 end
 
 on 'new' do |request, path|
-	@account = Financier::Account.create(Financier::DB)
+	@account = Financier::Account.create(Financier::DB.current)
 	
 	if request.post?
 		@account.assign(request.params)
 		
-		@account.save
+		Financier::DB.commit(message: "New Account") do |dataset|
+			@account.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'edit' do |request, path|
-	@account = Financier::Account.fetch(Financier::DB.current, request[:id])
+	@account = Financier::Account.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
 		@account.assign(request.params)
 		
-		@account.save
+		Financier::DB.commit(message: "Edit Account") do |dataset|
+			@account.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'show' do |request, path|
-	@account = Financier::Account.fetch(Financier::DB.current, request[:id])
+	@account = Financier::Account.fetch_all(Financier::DB.current, id: request[:id])
 end
 
 def import_ofx(path)
-	Financier::DB.transaction do |db|
+	Financier::DB.commit(message: "Import OFX Transactions") do |dataset|
 		OFX(path) do |parser|
 			#puts YAML::dump(parser.account)
 			#puts YAML::dump(parser.account.balance)
 			#puts YAML::dump(parser.account.transactions)
 			account = parser.account
 		
-			parser.account.transactions.each do |record|
+			account.transactions.each do |record|
 				puts YAML::dump(record)
 			
-				transaction = Financier::Account::Transaction.create(db)
+				transaction = Financier::Account::Transaction.create(dataset)
 				transaction.amount = Latinum::Resource.new(record.amount, account.currency)
 				transaction.name = record.memo
 				transaction.timestamp = record.posted_at
 				transaction.account = @account
 			
-				transaction.save
+				transaction.save(dataset)
 			end
 		end
 	end
@@ -75,23 +74,23 @@ end
 def import_qif(path)
 	qif = Qif::Reader.new(open(path))
 	
-	Financier::DB.transaction do |db|
+	Financier::DB.commit(message: "Import QIF Transactions") do |dataset|
 		qif.each do |record|
-			transaction = Financier::Account::Transaction.create(db)
+			transaction = Financier::Account::Transaction.create(dataset)
 			transaction.amount = Latinum::Resource.new(record.amount, @default_currency)
 			transaction.name = record.memo
 			transaction.timestamp = record.date.to_datetime
 			transaction.account = @account
 		
-			transaction.save
+			transaction.save(dataset)
 		end
 	end
 end
 
 def import_csv(path)
-	Financier::DB.transaction do |db|
+	Financier::DB.commit(message: "Import CSV Transactions") do |dataset|
 		CSV.foreach(path, :headers => true, :header_converters => :symbol, :converters => [:blank_to_nil]) do |row|
-			transaction = Financier::Account::Transaction.create(db)
+			transaction = Financier::Account::Transaction.create(dataset)
 			
 			currency = row[:currency] || @default_currency
 			
@@ -105,7 +104,7 @@ def import_csv(path)
 			transaction.timestamp = Date.parse(row[:date])
 			transaction.account = @account
 		
-			transaction.save
+			transaction.save(dataset)
 		end
 	end
 end
@@ -119,7 +118,7 @@ on 'import' do |request, path|
 	
 	@default_currency = request[:default_currency] || "NZD"
 	
-	if request.post? && @account
+	if request.post? and @account
 		upload = request[:data]
 		
 		case upload[:filename]

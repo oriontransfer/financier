@@ -40,6 +40,6 @@ module Financier
 		# relationship :addresses, 'financier/address_by_company', Address
 		
 		view :all, [:type], index: [:id]
-		view :for, [:type, 'for', :for], index: [[:attention, :id]]
+		view :by_for, [:type, 'by_for', :for], index: [[:attention, :id]]
 	end
 end

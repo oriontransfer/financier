@@ -5,5 +5,5 @@ require 'relaxo'
 
 module Financier
 	# Configure the database connection:
-	DB = Relaxo.connect(DATABASE_ENV)
+	DB = Relaxo.connect(DATABASE_ENV, logger: Logger.new($stderr))
 end

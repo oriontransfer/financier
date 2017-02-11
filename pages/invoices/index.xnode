@@ -29,7 +29,7 @@
 				}
 				
 				Financier::Invoice.all(Financier::DB.current).sort_by(&:created_date).each do |invoice|
-					totals = invoice.totals(:group => true, :startkey => [invoice.id], :endkey => [invoice.id, {}])
+					totals = invoice.totals
 			?>
 			<tr data-id="#{invoice.id}">
 				<td class="actions">

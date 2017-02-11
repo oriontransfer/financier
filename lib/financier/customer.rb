@@ -25,6 +25,10 @@ module Financier
 			Account::Transaction.by_customer(@dataset, customer: self)
 		end
 		
+		def addresses
+			Address::by_for(@dataset, for: self)
+		end
+		
 		# relationship :services, 'financier/service_by_customer', Service
 		# 
 		# relationship :invoices, 'financier/invoice_by_customer', Invoice

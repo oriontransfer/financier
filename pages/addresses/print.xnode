@@ -1,12 +1,7 @@
-<?r
-	address = attributes[:address]
-	
-	f = Financier::ViewFormatter.new
-?>
-<print title="Shipping Label">
+<page-print title="Shipping Label">
 	<div class="shipping">
 		<div class="title">Ship To</div>
-			
-		#{partial 'label', address: address, print: true}
+		
+		#{partial 'label', address: attributes[:address], print: true}
 	</div>
-</print>
+</page-print>

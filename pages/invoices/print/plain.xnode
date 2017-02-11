@@ -7,7 +7,7 @@
 	
 	transaction.attributes[:title] = "#{invoice.title} #{invoice.number}"
 ?>
-<print>
+<page-print>
 	<section class="header">
 		<heading>#{f.text invoice.title}</heading>
 		
@@ -127,4 +127,4 @@
 			#{partial('/accounts/_label', account: invoice.account) if invoice.account}
 		</section>
 	</section>
-</print>
+</page-print>

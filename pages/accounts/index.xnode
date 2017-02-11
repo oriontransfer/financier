@@ -39,9 +39,9 @@
 					<input type="checkbox" class="selected" />
 				</th>
 			</tr>
-			<tr>
+			<tr class="related">
 				<td class="description" colspan="5">
-					#{partial 'label', account: account}
+					#{partial 'account-label', account: account}
 				</td>
 			</tr>
 			<?r end ?>

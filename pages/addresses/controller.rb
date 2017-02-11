@@ -4,17 +4,12 @@ prepend Actions
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request[:documents].values
+	documents = request[:rows].values
 	
-	documents.each do |document|
-		Financier::DB.transaction do |db|
-			address = Financier::Address::fetch(db, document['id'])
-			
-			if address.rev == document['rev']
-				address.delete
-			else
-				fail!
-			end
+	Financier::DB.commit(message: "Delete Companies") do |dataset|
+		documents.each do |document|
+			address = Financier::Address.fetch_all(dataset, id: document['id'])
+			address.delete(dataset)
 		end
 	end
 	
@@ -22,28 +17,33 @@ on 'delete' do |request, path|
 end
 
 on 'new' do |request, path|
-	@address = Financier::Address.create(Financier::DB)
+	@address = Financier::Address.create(Financier::DB.current)
 	
 	if request.post?
 		@address.assign(request.params)
 		
-		@address.save
+		Financier::DB.commit(message: "New Address") do |dataset|
+			@address.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'edit' do |request, path|
-	@address = Financier::Address.fetch(Financier::DB.current, request[:id])
+	@address = Financier::Address.fetch_all(Financier::DB.current, id: request[:id])
 
 	if request.post?
 		@address.assign(request.params)
-		@address.save
+		
+		Financier::DB.commit(message: "Edit Address") do |dataset|
+			@address.save(dataset)
+		end
 	end
 	
 	redirect! "index" if request.post?
 end
 
 on 'print' do |request, path|
-	@address = Financier::Address.fetch(Financier::DB.current, request[:id])
+	@address = Financier::Address.fetch_all(Financier::DB.current, id: request[:id])
 end

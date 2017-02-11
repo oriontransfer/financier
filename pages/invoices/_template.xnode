@@ -8,9 +8,6 @@
 	addresses = Financier::Address.all(Financier::DB.current)
 	
 ?><form class="basic editor" method="post" action="#" >
-	#{f.hidden :field => :id}
-	#{f.hidden :field => :type}
-	
 	<fieldset><legend>Invoice Details</legend>
 		<dl>
 			#{f.input :field => :name}
@@ -28,7 +25,7 @@
 		<dl class="customer">
 			<?r f.select :field => :customer, :optional => true do |select| ?>
 				<?r customers.each do |customer| ?>
-					#{select.item :title => customer.name, :value => customer}
+					#{select.item title: customer.name, value: customer}
 				<?r end ?>
 			<?r end ?>
 		</dl>
