@@ -22,7 +22,7 @@ on 'new' do |request, path|
 	if request.post?
 		@customer.assign(request.params)
 		
-		Financier::DB.commit(message: path.to_s) do |dataset|
+		Financier::DB.commit(message: "New Customer") do |dataset|
 			@customer.save(dataset)
 		end
 		
@@ -36,7 +36,9 @@ on 'edit' do |request, path|
 	if request.post?
 		@customer.assign(request.params)
 		
-		@customer.save
+		Financier::DB.commit(message: "Edit Customer") do |dataset|
+			@customer.save(dataset)
+		end
 		
 		redirect! "index"
 	end
