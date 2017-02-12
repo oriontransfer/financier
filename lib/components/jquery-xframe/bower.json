@@ -1,0 +1,21 @@
+{
+  "name": "jquery-xframe",
+  "dependencies": {
+    "jquery": ">=1.4.1"
+  },
+  "description": "jQuery.XFrame is a tiny reloadable <iframe> replacement.",
+  "main": "dist/jquery.xframe.js",
+  "authors": [
+    "Samuel Williams <samuel@codeotaku.com> (http://www.codeotaku.com)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "jquery",
+    "iframe"
+  ],
+  "homepage": "https://github.com/ioquatix/jquery-xframe",
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ]
+}
