@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/libgit2/rugged.git
-  revision: ce9ea12ba6b1c5ffe8a12e9acfa8dd5b43742561
+  revision: 70d6e6ea9dfa3c0c5e7666ce86aa9d709e5706a7
   submodules: true
   specs:
-    rugged (0.26.0b2)
+    rugged (0.26.0b3)
 
 GEM
   remote: https://rubygems.org/
@@ -49,11 +49,11 @@ GEM
       rack (>= 1.0)
     rainbow (2.2.1)
     rake (12.0.0)
-    relaxo (0.6.0)
+    relaxo (1.0.0)
       rugged
-    relaxo-model (0.6.0)
+    relaxo-model (0.9.0)
       msgpack (~> 1.0)
-      relaxo (~> 0.6)
+      relaxo (~> 1.0)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -111,8 +111,8 @@ DEPENDENCIES
   qif (~> 1.1)
   rack-test
   rake
-  relaxo (~> 0.6)
-  relaxo-model (~> 0.6)
+  relaxo (~> 1.0)
+  relaxo-model (~> 0.9)
   rspec
   rugged!
   sanitize
