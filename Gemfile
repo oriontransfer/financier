@@ -12,7 +12,9 @@ gem 'rugged', git: 'git://github.com/libgit2/rugged.git', submodules: true
 gem "trenni-formatters", "~> 2.4"
 
 gem "periodical", "~> 1.0"
-gem "latinum", "~> 1.1"
+gem "latinum", "~> 1.2"
+
+gem "facets"
 
 gem "ofx", "~> 0.3"
 gem "qif", "~> 1.1"

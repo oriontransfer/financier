@@ -126,7 +126,7 @@
 		<section class="shipping_address">
 			<header>Please Pay:</header>
 			
-			#{partial('/accounts/_label', account: invoice.account) if invoice.account}
+			#{partial('/accounts/_account-label', account: invoice.account) if invoice.account}
 		</section>
 	</section>
 </page-print>

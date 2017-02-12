@@ -27,7 +27,7 @@
 				<td class="actions">
 					<a class="button edit" href="edit?id=#{address.id}"><i class="icon-edit"></i></a>
 				</td>
-				<th>#{f.text address.for.name}</th>
+				<th>#{address.principal&.name}</th>
 				<td class="actions"><a class="button print" href="print?id=#{address.id}"><i class="icon-print"></i></a></td>
 				<td>#{f.text address.purpose}</td>
 				<td>#{f.text address.updated_date}</td>

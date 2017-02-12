@@ -144,10 +144,10 @@ module Financier
 		view :by_customer, [:type, :customer], index: [[:created_date, :id]]
 		# view :count_by_customer, 'financier/invoice_count_by_customer'
 		
-		def self.create_invoice_for_services(dataset, services, date)
+		def self.generate_invoice_for_services(dataset, services, date, **arguments)
 			today = Date.today
 			
-			invoice = Invoice.create(dataset, :name => "Services")
+			invoice = Invoice.insert(dataset, **arguments)
 			
 			services.each do |service|
 				service = service.dup
@@ -169,13 +169,12 @@ module Financier
 					)
 					
 					transaction.save(dataset)
-					
 					service.bill_until_date(date)
 					service.save(dataset)
 				end
 			end
 			
-			invoice.save(dataset)
+			return invoice
 		end
 	end
 

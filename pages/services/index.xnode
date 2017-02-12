@@ -26,32 +26,26 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?r
-				customer = nil
-				Financier::Service.by_customer(Financier::DB.current).each do |service|
-					if customer != service.customer
-						customer = service.customer
-			?>
-			<tr>
-				<th colspan="8">#{customer.name}</th>
-			</tr>
-			<?r
-					end
-			?>
-			<tr data-id="#{service.id}">
-				<td class="actions">
-					<a class="button edit" href="edit?id=#{service.id}"><i class="icon-edit"></i></a>
-				</td>
-				<th>#{f.text service.name}</th>
-				<td>#{service.active ? '✅' : '❌'}</td>
-				<td>#{f.text service.domain}</td>
-				<td>#{f.text service.start_date}</td>
-				<td>#{f.text service.billed_until_date}</td>
-				<td>#{f.text service.periodic_cost} / #{f.text service.period}</td>
-				<th class="actions">
-					<input type="checkbox" class="selected" />
-				</th>
-			</tr>
+			<?r Financier::Customer.all(Financier::DB.current).each do |customer| ?>
+				<tr>
+					<th colspan="8">#{customer.name}</th>
+				</tr>
+				<?r customer.services.each do |service| ?>
+					<tr data-id="#{service}">
+						<td class="actions">
+							<a class="button edit" href="edit?id=#{service.id}"><i class="icon-edit"></i></a>
+						</td>
+						<th>#{f.text service.name}</th>
+						<td>#{service.active ? '✅' : '❌'}</td>
+						<td>#{f.text service.domain}</td>
+						<td>#{f.text service.start_date}</td>
+						<td>#{f.text service.billed_until_date}</td>
+						<td>#{f.text service.periodic_cost} / #{f.text service.period}</td>
+						<th class="actions">
+							<input type="checkbox" class="selected" />
+						</th>
+					</tr>
+				<?r end ?>
 			<?r end ?>
 		</tbody>
 	</table>

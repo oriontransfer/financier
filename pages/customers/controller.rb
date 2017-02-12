@@ -4,17 +4,12 @@ prepend Actions
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request[:documents].values
+	documents = request[:rows].values
 	
-	documents.each do |document|
-		Financier::DB.transaction do |db|
-			customer = Financier::Customer::fetch(db, document['id'])
-			
-			if customer.rev == document['rev']
-				customer.delete
-			else
-				fail!
-			end
+	Financier::DB.commit(message: "Delete Customers") do |dataset|
+		documents.each do |document|
+			customer = Financier::Customer.fetch_all(dataset, id: document['id'])
+			customer.delete(dataset)
 		end
 	end
 	
@@ -25,7 +20,6 @@ on 'new' do |request, path|
 	@customer = Financier::Customer.create(Financier::DB.current)
 	
 	if request.post?
-		puts request.params.inspect
 		@customer.assign(request.params)
 		
 		Financier::DB.commit(message: path.to_s) do |dataset|
@@ -37,7 +31,7 @@ on 'new' do |request, path|
 end
 
 on 'edit' do |request, path|
-	@customer = Financier::Customer.fetch(Financier::DB.current, request[:id])
+	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
 		@customer.assign(request.params)

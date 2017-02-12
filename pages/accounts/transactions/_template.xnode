@@ -17,7 +17,7 @@
 	
 	<fieldset><legend>Accounting</legend>
 		<dl>
-			<?r f.select :field => :for, :optional => true do |select| ?>
+			<?r f.select :field => :principal, :optional => true do |select| ?>
 				<?r select.group :title => 'Customers' do |group| ?>
 					<?r customers.each do |customer| ?>
 						#{select.item :title => customer.name, :value => customer}

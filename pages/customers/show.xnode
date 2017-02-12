@@ -21,10 +21,10 @@
 				balance = Latinum::Collection.new(currencies)
 				
 				transactions.each do |transaction|
-					totals = transaction.totals.to_a
+					totals = transaction.totals
 					
 					if Financier::Invoice === transaction
-						totals.collect! {|total| - total}
+						totals = totals.collect {|total| - total}
 					end
 					
 					balance << totals

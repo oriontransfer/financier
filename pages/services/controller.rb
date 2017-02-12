@@ -6,22 +6,18 @@ require 'json'
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request[:documents].values
+	documents = request[:rows].values
 	
-	documents.each do |document|
-		Financier::DB.transaction do |db|
-			service = Financier::Service::fetch(db, document['id'])
-			
-			if service.rev == document['rev']
-				service.delete
-			else
-				fail!
-			end
+	Financier::DB.commit(message: "Delete Services") do |dataset|
+		documents.each do |document|
+			service = Financier::Service.fetch_all(dataset, id: document['id'])
+			service.delete(dataset)
 		end
 	end
 	
 	succeed!
 end
+
 
 on 'new' do |request, path|
 	@service = Financier::Service.create(Financier::DB.current, :start_date => Date.today, :period => 7)
@@ -29,19 +25,23 @@ on 'new' do |request, path|
 	if request.post?
 		@service.assign(request.params)
 		
-		@service.save
+		Financier::DB.commit(message: "New Service") do |dataset|
+			@service.save(dataset)
+		end
 		
 		redirect! "index"
 	end
 end
 
 on 'edit' do |request, path|
-	@service = Financier::Service.fetch(Financier::DB.current, request[:id])
+	@service = Financier::Service.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
 		@service.assign(request.params)
 		
-		@service.save
+		Financier::DB.commit(message: "Edit Service") do |dataset|
+			@service.save(dataset)
+		end
 		
 		redirect! "index"
 	end
@@ -60,21 +60,14 @@ on 'invoice' do |request, path|
 	
 	if request.post? && request[:create]
 		invoice = nil
-
-		begin
-			Financier::DB.transaction do |db|
-				invoice = Financier::Invoice.create_invoice_for_services(db, @services, @billing_end_date)
-				
-				invoice.customer = @billing_customer
-
-				invoice.save
-			end
-		rescue RestClient::ExpectationFailed
-			puts $!.inspect
-			puts $!.response
-			raise
+		
+		Financier::DB.commit(message: "Create Invoice for Services") do |dataset|
+			invoice = Financier::Invoice.generate_invoice_for_services(dataset, @services, @billing_end_date,
+				:name => "Services",
+				:customer => @billing_customer
+			)
 		end
-
+		
 		redirect! "../invoices/show?id=#{invoice.id}"
 	end
 end

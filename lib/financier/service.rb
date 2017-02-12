@@ -9,6 +9,8 @@ module Financier
 	class Service
 		include Relaxo::Model
 		
+		property :id, UUID
+		
 		property :name
 		property :description
 
@@ -26,21 +28,19 @@ module Financier
 		property :billed_dates, ArrayOf[Date]
 
 		view :all, [:type], index: [:id]
-		view :by_customer, [:type, 'by_customer'], index: [:customer, :id]
+		view :by_customer, [:type, 'by_customer', :customer], index: [[:start_date, :id]]
 		
-		def initialize(database, attributes)
-			super database, attributes
-			
+		def after_fetch
+			# Fix up old data:
 			if @attributes['end_date']
 				@attributes['billed_until_date'] = @attributes.delete('end_date')
 			end
-			
-			self.billed_until_date ||= self.start_date
-			self.billed_dates ||= []
 		end
 		
 		def after_create
 			self.start_date ||= Date.today
+			self.billed_until_date ||= self.start_date
+			self.billed_dates ||= []
 		end
 		
 		def periods_to_date(date)

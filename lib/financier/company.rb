@@ -19,11 +19,11 @@ module Financier
 		# relationship :accounts, 'financier/account_by_company', Account
 
 		def addresses
-			Address.for(@dataset, for: self)
+			Address.by_principal(@dataset, for: self)
 		end
 		
-		def addresses
-			Account.for(@dataset, for: self)
+		def accounts
+			Account.by_company(@dataset, company: self)
 		end
 		
 		view :all, [:type], index: [:id]

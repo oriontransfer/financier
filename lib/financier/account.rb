@@ -35,13 +35,13 @@ module Financier
 				"#{self.name} (#{self.account.name})"
 			end
 			
-			property :for, Optional[BelongsTo[Customer, Company]]
+			property :principal, Optional[BelongsTo[Customer, Company]]
 			property :account, BelongsTo[Account]
 			
 			view :all, [:type], index: [:id]
 			
 			view :by_account, [:type, 'by_account', :account], index: [[:timestamp, :id]]
-			view :by_for, [:type, 'by_for', :for], index: [[:date, :id]]
+			view :by_principal, [:type, 'by_principal', :principal], index: [[:date, :id]]
 		end
 		
 		property :id, UUID
@@ -55,6 +55,8 @@ module Financier
 		property :active, Attribute[Boolean]
 		
 		property :company, Optional[BelongsTo[Company]]
+		
+		view :by_company, [:type, 'by_company', :company], index: [:id]
 		
 		property :pseudonym
 		property :description

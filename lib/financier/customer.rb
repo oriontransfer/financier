@@ -22,11 +22,15 @@ module Financier
 		end
 		
 		def account_transactions
-			Account::Transaction.by_customer(@dataset, customer: self)
+			Account::Transaction.by_principal(@dataset, principal: self)
 		end
 		
 		def addresses
-			Address::by_for(@dataset, for: self)
+			Address::by_principal(@dataset, principal: self)
+		end
+		
+		def services
+			Service::by_customer(@dataset, customer: self)
 		end
 		
 		# relationship :services, 'financier/service_by_customer', Service
