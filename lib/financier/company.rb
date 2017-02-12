@@ -19,7 +19,7 @@ module Financier
 		# relationship :accounts, 'financier/account_by_company', Account
 
 		def addresses
-			Address.by_principal(@dataset, for: self)
+			Address.by_principal(@dataset, principal: self)
 		end
 		
 		def accounts
