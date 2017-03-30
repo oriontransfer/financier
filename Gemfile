@@ -29,6 +29,8 @@ gem "sanitize"
 gem "kramdown"
 gem "bcrypt", "~> 3.0"
 
+gem "tty-prompt"
+
 group :development do
 	# For `rake server`:
 	gem "puma"

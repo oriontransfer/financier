@@ -2,30 +2,36 @@
 
 Financier is a comprehensive business management platform built on top of [Utopia](https://github.com/ioquatix/utopia) and [Relaxo](https://github.com/ioquatix/relaxo).
 
-# Installation
+## Installation
 
 Install the ruby gem as follows:
 
 	git clone https://github.com/ioquatix/financier.git
 	cd financier
-	
 	bundle install
 
-You need to have CouchDB running and create a database, e.g. `$company-financier`. To load the default design document into CouchDB, use `relaxo`:
+## Usage
 
-	relaxo $company-financier lib/financier.yaml
+To create a user:
 
-Update the file `site.yaml` to reflect the `database-uri` as chosen above.
+	$ rake financier:users:create
+	Login name: admin
+	Login password: ••••••
 
-Finally to start the server:
+Then, to start the development server:
 
-	rake server
+	$ rake
+	* Version 3.8.2 (ruby 2.4.0-p0), codename: Sassy Salamander
+	* Min threads: 0, max threads: 16
+	* Environment: development
+	* Listening on tcp://0.0.0.0:9292
+	* Starting control server on tcp://0.0.0.0:9293
 
-You can now open <http://localhost:9292> in your browser. The default username and password is `admin`/`admin`.
+You can now open <http://localhost:9292> in your browser and log in.
 
-# License
+## License
 
-Copyright, 2016, by [Samuel G. D. Williams](http://www.codeotaku.com/samuel-williams).
+Copyright, 2017, by [Samuel G. D. Williams](http://www.codeotaku.com/samuel-williams).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
