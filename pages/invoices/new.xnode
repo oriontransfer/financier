@@ -1,5 +1,5 @@
-<page>
-	<heading>New Invoice</heading>
+<content:page>
+	<content:heading>New Invoice</content:heading>
 
-	#{partial 'template', invoice: controller[:invoice]}
-</page>
+	#{partial 'content:template', invoice: controller[:invoice]}
+</content:page>

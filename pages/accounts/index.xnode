@@ -1,12 +1,12 @@
 <?r
 	f = Financier::ViewFormatter.new
 ?>
-<page>
+<content:page>
 	<div class="toolbar">
 		<a class="button" href="import"><i class="icon-upload-alt"> Import</i></a>
 	</div>
 	
-	<heading>Accounts</heading>
+	<content:heading>Accounts</content:heading>
 	
 	<table class="listing accounts" data-model="Account">
 		<thead>
@@ -41,7 +41,7 @@
 			</tr>
 			<tr class="related">
 				<td class="description" colspan="5">
-					#{partial 'account-label', account: account}
+					#{partial 'content:label', account: account}
 				</td>
 			</tr>
 			<?r end ?>
@@ -49,4 +49,4 @@
 	</table>
 	
 	<script type="text/javascript" src="/_static/listing.js"></script>
-</page>
+</content:page>

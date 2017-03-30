@@ -1,5 +1,5 @@
-<page>
-	<heading>New Address</heading>
+<content:page>
+	<content:heading>New Address</content:heading>
 	
-	#{partial 'template', address: controller[:address]}
-</page>
+	#{partial 'content:template', address: controller[:address]}
+</content:page>

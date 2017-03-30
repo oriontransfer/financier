@@ -30,7 +30,7 @@
 			<?r end ?>
 		</dl>
 		
-		#{partial '_template/customer', invoice: f.object}
+		#{partial 'content:_template/customer', invoice: f.object}
 	</fieldset>
 	
 	<fieldset><legend>Company Details</legend>
@@ -42,7 +42,7 @@
 			<?r end ?>
 		</dl>
 		
-		#{partial '_template/company', invoice: f.object}
+		#{partial 'content:_template/company', invoice: f.object}
 	</fieldset>
 	
 	<fieldset class="footer">

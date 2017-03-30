@@ -1,7 +1,7 @@
 <?r
 	f = Financier::FormFormatter.new
 ?>
-<page class="login">
+<content:page class="login">
 	<link rel="stylesheet" href="/_static/login.css" type="text/css" />
 	
 	<form class="login" action="#" method="post">
@@ -20,4 +20,4 @@
 	</form>
 	
 	<div class="powered_by">Powered by <a href="http://www.oriontransfer.co.nz/">Orion Transfer</a></div>
-</page>
+</content:page>

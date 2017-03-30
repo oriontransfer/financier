@@ -1,5 +1,5 @@
-<page>
-	<heading>Move Transaction</heading>
+<content:page>
+	<content:heading>Move Transaction</content:heading>
 	
 	<?r
 		f = Financier::FormFormatter.new(:object => controller[:transaction])
@@ -22,4 +22,4 @@
 			#{f.submit}
 		</fieldset>
 	</form>
-</page>
+</content:page>

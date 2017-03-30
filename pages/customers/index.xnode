@@ -1,8 +1,8 @@
 <?r
 	f = Financier::ViewFormatter.new
 ?>
-<page>
-	<heading>Customers</heading>
+<content:page>
+	<content:heading>Customers</content:heading>
 	
 	<table class="listing customers" data-model="Customer">
 		<thead>
@@ -44,4 +44,4 @@
 	</table>
 	
 	<script type="text/javascript" src="/_static/listing.js"></script>
-</page>
+</content:page>

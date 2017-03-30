@@ -3,12 +3,12 @@
 	
 	f = Financier::ViewFormatter.new
 ?>
-<page>
+<content:page>
 	<div class="toolbar">
 		<a class="button" href="edit?id=#{account.id}&amp;_return=#{request.url}"><i class="icon-edit"> Edit</i></a>
 	</div>
 	
-	<heading>Account #{f.text account.pseudonym}</heading>
+	<content:heading>Account #{f.text account.pseudonym}</content:heading>
 	
 	<?r if account.description? ?>
 	#{f.markdown account.description}
@@ -68,4 +68,4 @@
 	</table>
 	
 	<script type="text/javascript" src="/_static/listing.js"></script>
-</page>
+</content:page>

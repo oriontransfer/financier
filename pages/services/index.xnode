@@ -1,12 +1,12 @@
 <?r
 	f = Financier::ViewFormatter.new
 ?>
-<page>
+<content:page>
 	<div class="toolbar">
 		<a class="button generate-invoice" href="invoice"><i class="icon-cogs"> Generate Invoice</i></a>
 	</div>
 	
-	<heading>Services</heading>
+	<content:heading>Services</content:heading>
 	
 	<table class="listing services" data-model="Service">
 		<thead>
@@ -69,4 +69,4 @@
 		});
 	// ]]>
 	</script>
-</page>
+</content:page>

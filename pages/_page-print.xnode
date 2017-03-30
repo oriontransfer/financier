@@ -20,7 +20,7 @@
 		<div id="page">
 			<img id="logo" src="/_static/logo-large.png" />
 			
-			<content />
+			<utopia:content/>
 		</div>
 	</body>
 </html>

@@ -1,6 +1,6 @@
 <?r response.do_not_cache! ?>
-<page>
-	<heading>File Not Found</heading>
+<content:page>
+	<content:heading>File Not Found</content:heading>
 	
 	<p>The file you requested is unfortunately not available at this time!</p>
-</page>
+</content:page>

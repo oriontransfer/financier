@@ -1,5 +1,5 @@
-<page>
-	<heading>New Company</heading>
+<content:page>
+	<content:heading>New Company</content:heading>
 	
-	#{partial 'template', company: controller[:company]}
-</page>
+	#{partial 'content:template', company: controller[:company]}
+</content:page>

@@ -1,5 +1,5 @@
-<page>
-	<heading>Edit Customer</heading>
+<content:page>
+	<content:heading>Edit Customer</content:heading>
 	
-	#{partial 'template', customer: controller[:customer]}
-</page>
+	#{partial 'content:template', customer: controller[:customer]}
+</content:page>

@@ -3,13 +3,13 @@
 	
 	f = Financier::ViewFormatter.new
 ?>
-<page>
+<content:page>
 	<div class="toolbar">
 		<a class="button" href="edit?id=#{invoice.id}&amp;_return=#{request.url}"><i class="icon-edit"> Edit</i></a>
 		<a class="button" href="print/full?id=#{invoice.id}"><i class="icon-print"> Print</i></a>
 	</div>
 	
-	<heading>#{f.text invoice.title} #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
+	<content:heading>#{f.text invoice.title} #{f.text invoice.number || '-'}: #{f.text invoice.name}</content:heading>
 	
 	<?r if invoice.description? ?>
 	#{f.markdown invoice.description}
@@ -91,4 +91,4 @@
 	</table>
 	
 	<script type="text/javascript" src="/_static/listing.js"></script>
-</page>
+</content:page>

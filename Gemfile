@@ -1,9 +1,14 @@
 
 source "https://rubygems.org"
 
-gem "utopia", "~> 1.9.10"
-# gem "utopia-tags-gallery"
-# gem "utopia-tags-google-analytics"
+gem "utopia", "~> 2.0.3"
+# gem "utopia-gallery"
+# gem "utopia-google-analytics"
+
+gem "rake"
+gem "bundler"
+
+gem "rack-freeze", "~> 1.2"
 
 gem "relaxo", "~> 1.0"
 gem "relaxo-model", "~> 0.9"
@@ -24,12 +29,11 @@ gem "sanitize"
 gem "kramdown"
 gem "bcrypt", "~> 3.0"
 
-gem "rake"
-gem "bundler"
-
 group :development do
 	# For `rake server`:
 	gem "puma"
+	gem "guard-puma", require: false
+	gem 'guard-rspec', require: false
 	
 	# For `rake console`:
 	gem "pry"

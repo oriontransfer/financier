@@ -9,7 +9,7 @@
 		#{select.item :title => 'No Account'}
 		<?r accounts.each do |account| ?>
 			<?r select.item :value => account do ?>
-				#{partial '/accounts/_account-label', account: account}
+				#{partial 'content:/accounts/_label', account: account}
 			<?r end ?>
 		<?r end ?>
 	<?r end ?>
@@ -18,7 +18,7 @@
 		#{select.item :title => 'No Address'}
 		<?r addresses.each do |address| ?>
 			<?r select.item :value => address do ?>
-				#{partial '/addresses/_label', address: address}
+				#{partial 'content:/addresses/_label', address: address}
 			<?r end ?>
 		<?r end ?>
 	<?r end ?>

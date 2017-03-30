@@ -5,8 +5,8 @@
 	
 	f = Financier::FormFormatter.new
 ?>
-<page>
-	<heading>Import Account Transactions</heading>
+<content:page>
+	<content:heading>Import Account Transactions</content:heading>
 	
 	<form class="basic editor" method="post" enctype="multipart/form-data" action="#">
 		<fieldset><legend>Import Details</legend>
@@ -29,4 +29,4 @@
 			#{f.submit :field => :import}
 		</fieldset>
 	</form>
-</page>
+</content:page>

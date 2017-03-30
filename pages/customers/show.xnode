@@ -3,8 +3,8 @@
 	transactions = attributes[:transactions]
 	
 	f = Financier::ViewFormatter.new
-?><page>
-	<heading>Customer: #{customer.name}</heading>
+?><content:page>
+	<content:heading>Customer: #{customer.name}</content:heading>
 	
 	<table class="listing summary">
 		<thead>
@@ -58,4 +58,4 @@
 			<?r end ?>
 		</tfoot>
 	</table>
-</page>
+</content:page>

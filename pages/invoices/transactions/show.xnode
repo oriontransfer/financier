@@ -3,8 +3,8 @@
 	
 	f = Financier::ViewFormatter.new
 ?>
-<page>
-	<heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}</heading>
+<content:page>
+	<content:heading>Invoice #{f.text invoice.number || '-'}: #{f.text invoice.name}</content:heading>
 	
 	<table class="listing transactions" data-model="Transaction">
 		<thead>
@@ -51,4 +51,4 @@
 	</table>
 	
 	<script type="text/javascript" src="/_static/listing.js"></script>
-</page>
+</content:page>

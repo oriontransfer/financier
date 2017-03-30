@@ -7,8 +7,8 @@
 	
 	f = Financier::FormFormatter.new
 ?>
-<page>
-	<heading>Create Invoice from Services</heading>
+<content:page>
+	<content:heading>Create Invoice from Services</content:heading>
 	
 	<form class="basic editor" method="post" action="#">
 		<?r request[:services].each do |id| ?>
@@ -73,4 +73,4 @@
 			#{f.submit :field => :create}
 		</fieldset>
 	</form>
-</page>
+</content:page>
