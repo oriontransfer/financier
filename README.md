@@ -2,6 +2,8 @@
 
 Financier is a comprehensive business management platform built on top of [Utopia](https://github.com/ioquatix/utopia) and [Relaxo](https://github.com/ioquatix/relaxo).
 
+![Invoices](doc/Invoices.png)
+
 ## Installation
 
 Install the ruby gem as follows:
