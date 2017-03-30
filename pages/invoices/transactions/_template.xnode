@@ -13,13 +13,13 @@
 	<fieldset><legend>Costing</legend>
 		<dl>
 			#{f.input :field => :price, :type => :currency, :required => true}
-			#{f.input :field => :quantity, :type => :number, :required => true}
+			#{f.input :field => :quantity, :type => :number, :step => "0.1", :required => true}
 			#{f.input :field => :unit}
 		</dl>
 		
 		<dl>
 			#{f.input :field => :tax_code}
-			#{f.input :field => :tax_rate, :type => :number}
+			#{f.input :field => :tax_rate, :type => :number, :step => "0.01"}
 		</dl>
 		
 		<dl>
