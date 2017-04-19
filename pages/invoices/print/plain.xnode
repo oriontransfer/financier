@@ -38,7 +38,7 @@
 		<section class="billing_address">
 			<header>Billing Address:</header>
 			
-			#{partial '/addresses/_label', address: invoice.billing_address}
+			#{partial 'content:/addresses/_label', address: invoice.billing_address}
 		</section>
 		<?r end ?>
 		
@@ -46,7 +46,7 @@
 		<section class="shipping_address">
 			<header>Shipping Address:</header>
 			
-			#{partial '/addresses/_label', address: invoice.shipping_address}
+			#{partial 'content:/addresses/_label', address: invoice.shipping_address}
 		</section>
 		<?r end ?>
 	</section>
@@ -118,13 +118,13 @@
 		<section class="contact_us">
 			<header>Contact Us:</header>
 			
-			#{partial('/addresses/_label', address: invoice.company_address) if invoice.company_address}
+			#{partial('content:/addresses/_label', address: invoice.company_address) if invoice.company_address}
 		</section>
 		
 		<section class="shipping_address">
 			<header>Please Pay:</header>
 			
-			#{partial('/accounts/_label', account: invoice.account) if invoice.account}
+			#{partial('content:/accounts/_label', account: invoice.account) if invoice.account}
 		</section>
 	</section>
 </content:page-print>
