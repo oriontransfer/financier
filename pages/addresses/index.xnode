@@ -37,7 +37,7 @@
 			</tr>
 			<tr>
 				<td class="description" colspan="6">
-					#{partial 'label', address: address}
+					#{partial 'content:label', address: address}
 				</td>
 			</tr>
 			<?r end ?>

@@ -2,6 +2,6 @@
 	<div class="shipping">
 		<div class="title">Ship To</div>
 		
-		#{partial 'label', address: attributes[:address], print: true}
+		#{partial 'content:label', address: attributes[:address], print: true}
 	</div>
 </content:page-print>
