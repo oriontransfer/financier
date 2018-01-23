@@ -1,9 +1,9 @@
 
 source "https://rubygems.org"
 
-gem "utopia", "~> 2.0.3"
+gem "utopia", "~> 2.2.0"
 # gem "utopia-gallery"
-# gem "utopia-google-analytics"
+# gem "utopia-analytics"
 
 gem "rake"
 gem "bundler"
@@ -33,8 +33,7 @@ gem "tty-prompt"
 
 group :development do
 	# For `rake server`:
-	gem "puma"
-	gem "guard-puma", require: false
+	gem "guard-falcon", require: false
 	gem 'guard-rspec', require: false
 	
 	# For `rake console`:
