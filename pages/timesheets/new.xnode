@@ -1,0 +1,5 @@
+<content:page>
+	<content:heading>New Timesheet</content:heading>
+
+	#{partial 'content:template', timesheet: controller[:timesheet]}
+</content:page>

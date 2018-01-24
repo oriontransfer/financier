@@ -68,5 +68,38 @@ module Financier
 				"From #{self.billed_until_date} for #{self.domain}. #{self.description}"
 			end.strip
 		end
+		
+		def self.generate_invoice(dataset, services, date, **arguments)
+			today = Date.today
+			
+			invoice = Invoice.insert(dataset, **arguments)
+			
+			services.each do |service|
+				service = service.dup
+				
+				# Round down the number of periods:
+				periods = service.periods_to_date(date)
+				
+				$stderr.puts "Periods for service #{service.name}: #{periods.inspect}"
+				
+				if periods >= 1
+					transaction = Transaction.create(dataset,
+						service: service,
+						name: service.name,
+						price: service.periodic_cost,
+						quantity: periods.to_d,
+						date: today,
+						description: service.billing_description(date),
+						invoice: invoice
+					)
+					
+					transaction.save(dataset)
+					service.bill_until_date(date)
+					service.save(dataset)
+				end
+			end
+			
+			return invoice
+		end
 	end
 end

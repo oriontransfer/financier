@@ -8,14 +8,14 @@
 		<thead>
 			<tr>
 				<th>
-					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+					<a class="button new" href="new"><i class="fa fa-plus-circle"></i></a>
 				</th>
 				<th>For</th>
 				<th></th>
 				<th>Purpose</th>
 				<th>Updated</th>
 				<th>
-					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+					<a class="button delete" href="#"><i class="fa fa-minus-circle"></i></a>
 				</th>
 			</tr>
 		</thead>
@@ -25,10 +25,10 @@
 			?>
 			<tr data-id="#{address.id}">
 				<td class="actions">
-					<a class="button edit" href="edit?id=#{address.id}"><i class="icon-edit"></i></a>
+					<a class="button edit" href="edit?id=#{address.id}"><i class="fa fa-edit"></i></a>
 				</td>
 				<th>#{address.principal&.name}</th>
-				<td class="actions"><a class="button print" href="print?id=#{address.id}"><i class="icon-print"></i></a></td>
+				<td class="actions"><a class="button print" href="print?id=#{address.id}"><i class="fa fa-print"></i></a></td>
 				<td>#{f.text address.purpose}</td>
 				<td>#{f.text address.updated_date}</td>
 				<th class="actions">

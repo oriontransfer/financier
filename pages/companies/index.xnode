@@ -8,12 +8,12 @@
 		<thead>
 			<tr>
 				<th>
-					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+					<a class="button new" href="new"><i class="fa fa-plus-circle"></i></a>
 				</th>
 				<th>Name</th>
 				<th>Role</th>
 				<th>
-					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+					<a class="button delete" href="#"><i class="fa fa-minus-circle"></i></a>
 				</th>
 			</tr>
 		</thead>
@@ -23,7 +23,7 @@
 			?>
 			<tr data-id="#{company.id}">
 				<td class="actions">
-					<a class="button edit" href="edit?id=#{company.id}"><i class="icon-edit"></i></a>
+					<a class="button edit" href="edit?id=#{company.id}"><i class="fa fa-edit"></i></a>
 				</td>
 				<th>#{f.text company.name}</th>
 				<td>#{f.text Strings::to_title(company.role)}</td>

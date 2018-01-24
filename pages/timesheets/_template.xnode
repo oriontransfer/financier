@@ -1,0 +1,33 @@
+<?r
+	f = Financier::FormFormatter.new(:object => attributes[:timesheet])
+
+?><form class="basic editor" method="post" action="#" >
+	<fieldset><legend>Timesheet Details</legend>
+		<dl>
+			#{f.input :field => :name, :required => true}
+			#{f.textarea :field => :description}
+			
+			#{f.input :field => :color}
+		</dl>
+	</fieldset>
+	
+	<fieldset><legend>Costing</legend>
+		<dl>
+			#{f.input :field => :price, :type => :currency, :required => true}
+		</dl>
+		
+		<dl>
+			#{f.input :field => :tax_code}
+			#{f.input :field => :tax_rate, :type => :number, :min => 0, :step => "any"}
+		</dl>
+		
+		<dl>
+			#{f.input :field => :exchange_rate, :type => :number, :min => 0, :step => "any"}
+			#{f.input :field => :exchange_name}
+		</dl>
+	</fieldset>
+	
+	<fieldset class="footer">
+		#{f.submit}
+	</fieldset>
+</form>

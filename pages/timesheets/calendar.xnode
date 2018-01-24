@@ -1,0 +1,55 @@
+<?r
+	entries = attributes[:entries]
+	
+	f = Financier::ViewFormatter.new
+	
+	today = attributes[:today]
+	calendar = attributes[:calendar]
+?>
+<content:page>
+	<div class="toolbar">
+		<a class="button generate-invoice" href="#{Trenni::URI "invoice", calendar.to_hash}"><i class="fa fa-cogs"></i> Generate Invoice</a>
+	</div>
+	
+	<content:heading>Calendar</content:heading>
+	
+	<table class="calendar" data-model="Entry">
+		<thead>
+			<tr>
+				<th colspan="7">
+					<a class="button previous" href="#{Trenni::URI "calendar", calendar.previous.to_hash}"><i class="fa fa-chevron-left"></i></a>
+					From #{calendar.start_date} to #{calendar.end_date}
+					<a class="button next" href="#{Trenni::URI "calendar", calendar.next.to_hash}"><i class="fa fa-chevron-right"></i></a>
+				</th>
+			</tr>
+			<tr>
+			<?r calendar.header do |date| ?>
+				<td>#{date.strftime("%A")}</td>
+			<?r end ?>
+				<th class="total">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?r calendar.each do |week|; total = BigDecimal.new(0) ?>
+			<tr>
+				<?r week.each do |date| ?>
+					<td class="#{"today" if date == today} #{"excluded" unless calendar.include? date}">
+						<div class="day">#{date.strftime("%d %B ")}</div>
+						<?r entries[date]&.each do |entry|
+								total += entry.duration
+							?>
+						<a class="entry" style="background-color: #{entry.timesheet.color}" href="entries/edit?id=#{entry.id}">#{f.text entry.name} (#{f.hours entry.duration} #{f.text entry.timesheet.name})</a>
+						<?r end ?>
+						<div class="actions">
+							<a class="button new" href="entries/new?date=#{date}"><i class="fa fa-plus-circle"></i></a>
+						</div>
+					</td>
+				<?r end ?>
+					<td class="total">
+						#{f.hours total}
+					</td>
+			</tr>
+		<?r end ?>
+		</tbody>
+	</table>
+</content:page>

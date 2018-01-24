@@ -19,6 +19,10 @@ module Financier
 			object.strftime
 		end
 		
+		map(DateTime) do |object, options|
+			object.strftime("%c")
+		end
+		
 		map(BigDecimal) do |object, options|
 			object.to_s('F')
 		end
@@ -28,6 +32,14 @@ module Financier
 				"#{transaction.quantity.to_s('F')} #{transaction.unit}"
 			else
 				transaction.quantity.to_s('F')
+			end
+		end
+
+		def hours(duration)
+			if duration == 1
+				"1 hour"
+			else
+				"#{duration.to_s('F')} hours"
 			end
 		end
 

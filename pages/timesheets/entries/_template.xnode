@@ -1,0 +1,26 @@
+<?r
+	f = Financier::FormFormatter.new(:object => attributes[:entry])
+	
+	timesheets = Financier::Timesheet.all(f.object.dataset)
+?><form class="basic editor" method="post" action="#" >
+	
+	<fieldset><legend>Entry Details</legend>
+		<dl>
+			<?r f.select :field => :timesheet do |select| ?>
+				<?r timesheets.each do |timesheet| ?>
+					#{select.item :title => timesheet.name, :value => timesheet}
+				<?r end ?>
+			<?r end ?>
+			
+			#{f.input :field => :name, :required => true}
+			#{f.textarea :field => :description}
+			
+			#{f.input :field => :duration, :type => :number, :min => 0, :step => "any", :required => true}
+			#{f.input :field => :finished_at, :type => :datetime, :required => true}
+		</dl>
+	</fieldset>
+	
+	<fieldset class="footer">
+		#{f.submit}
+	</fieldset>
+</form>

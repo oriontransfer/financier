@@ -7,3 +7,5 @@ tmp/
 
 # This file should only ever exist on production, and may contain sensitive information:
 config/environment.yaml
+
+db/development

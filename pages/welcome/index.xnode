@@ -1,7 +1,46 @@
 <content:page>
-	<content:heading>Welcome to Utopia</content:heading>
+	<link rel="stylesheet" href="/_components/chartist/chartist.css" type="text/css" media="screen" />
+	<script src="/_components/chartist/chartist.min.js"></script>
 	
-	<p>Utopia is designed to simply your life. It is not an application development framework. It is not a content management system. It does not require a database. It isn't model view controller. It is simply a platform on which websites can be easily developed with a minimum of effort.</p>
+	<style type="text/css">
+		section.panel {
+			margin: 1rem;
+			padding: 1rem;
+			
+			margin-top: 3rem;
+			
+			box-shadow: 0 0.8rem 1.6rem -0.6rem #ccc;
+		}
+		
+		section.panel div {
+			margin-top: -2rem;
+			padding: 1rem;
+			margin-bottom: 1rem;
+			
+			background: linear-gradient(60deg, #ffa726, #fb8c00);
+			border-radius: 0.2rem;
+			box-shadow: 0 0.8rem 1.6rem -0.6rem #ccc;
+		}
+		
+		section.panel heading {
+			font-size: 2rem;
+		}
+	</style>
 	
-	<p><a href="http://www.oriontransfer.co.nz/software/utopia/setup">Utopia Project Page &amp; Documentation</a></p>
+	<section class="panel">
+		<div class="ct-chart"></div>
+		<heading>Timesheets</heading>
+	</section>
+	
+	<script>
+		// <![CDATA[
+		var data = #{Script.json attributes[:statistics][:timesheet]}
+
+		var options = {
+			seriesBarDistance: 10
+		};
+
+		new Chartist.Bar('.ct-chart', data, options);
+		// ]]>
+	</script>
 </content:page>

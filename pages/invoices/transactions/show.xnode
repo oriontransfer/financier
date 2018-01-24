@@ -10,7 +10,7 @@
 		<thead>
 			<tr>
 				<th>
-					<a class="button new" href="new"><i class="icon-plus-sign"></i></a>
+					<a class="button new" href="new"><i class="fa fa-plus-circle"></i></a>
 				</th>
 				<th>When</th>
 				<th>Name</th>
@@ -21,7 +21,7 @@
 				<th>Tax</th>
 				<th>Total</th>
 				<th>
-					<a class="button delete" href="#"><i class="icon-minus-sign"></i></a>
+					<a class="button delete" href="#"><i class="fa fa-minus-circle"></i></a>
 				</th>
 			</tr>
 		</thead>
@@ -32,7 +32,7 @@
 			?>
 			<tr data-id="#{transaction.id}">
 				<td class="actions">
-					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="icon-edit"></i></a>
+					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="fa fa-edit"></i></a>
 				</td>
 				<td>#{f.text transaction.date}</td>
 				<th>#{f.text transaction.name}</th>

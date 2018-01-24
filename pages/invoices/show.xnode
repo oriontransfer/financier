@@ -5,8 +5,8 @@
 ?>
 <content:page>
 	<div class="toolbar">
-		<a class="button" href="edit?id=#{invoice.id}&amp;_return=#{request.url}"><i class="icon-edit"> Edit</i></a>
-		<a class="button" href="print/full?id=#{invoice.id}"><i class="icon-print"> Print</i></a>
+		<a class="button" href="edit?id=#{invoice.id}&amp;_return=#{request.url}"><i class="fa fa-edit"></i> Edit</a>
+		<a class="button" href="print/full?id=#{invoice.id}"><i class="fa fa-print"></i> Print</a>
 	</div>
 	
 	<content:heading>#{f.text invoice.title} #{f.text invoice.number || '-'}: #{f.text invoice.name}</content:heading>
@@ -19,7 +19,7 @@
 		<thead>
 			<tr>
 				<th>
-					<a class="button new" href="transactions/new?invoice_id=#{invoice.id}"><i class="icon-plus-sign"></i></a>
+					<a class="button new" href="transactions/new?invoice_id=#{invoice.id}"><i class="fa fa-plus-circle"></i></a>
 				</th>
 				<th class="name">Name</th>
 				<th class="date">Date</th>
@@ -29,7 +29,7 @@
 				<th class="tax_rate">Tax</th>
 				<th class="total">Total</th>
 				<th class="actions">
-					<a class="button delete" href="transactions/delete"><i class="icon-minus-sign"></i></a>
+					<a class="button delete" href="transactions/delete"><i class="fa fa-minus-circle"></i></a>
 				</th>
 			</tr>
 		</thead>
@@ -52,7 +52,7 @@
 			?>
 			<tr data-id="#{transaction.id}">
 				<td class="actions">
-					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="icon-edit"></i></a>
+					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="fa fa-edit"></i></a>
 				</td>
 				<th class="name">#{f.text transaction.name}</th>
 				<td class="date">#{f.text transaction.date}</td>

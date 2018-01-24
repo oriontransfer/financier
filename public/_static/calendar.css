@@ -1,0 +1,87 @@
+
+table.calendar {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table.calendar td {
+	padding: 0 0.4rem;
+	width: 12.5%;
+}
+
+table.calendar th {
+	padding: 0.4rem;
+}
+
+table.calendar thead .previous {
+	float: left;
+}
+
+table.calendar thead .next {
+	float: right;
+}
+
+table.calendar thead td {
+	background-color: #444;
+	border: 1px solid #444;
+	text-transform: uppercase;
+	
+	color: white;
+	text-align: center;
+	
+	padding: 1rem;
+	width: 12.5%;
+}
+
+table.calendar thead td {
+	padding: 1rem;
+	width: 12.5%;
+}
+
+table.calendar tbody td {
+	position: relative;
+	border: 1px solid #ccc;
+	vertical-align: top;
+}
+
+table.calendar tbody td.today {
+	background-color: rgba(100, 100, 200, 0.1);
+}
+
+table.calendar tbody td > * {
+	margin: 0.4rem 0;
+}
+
+table.calendar tbody td .day {
+	text-align: right;
+	color: #666;
+}
+
+table.calendar tbody td.excluded .day {
+	color: #ddd;
+}
+
+
+table.calendar tbody td .actions {
+	text-align: right;
+}
+
+table.calendar td a.entry {
+	display: block;
+	
+	font-size: 0.8rem;
+	color: black;
+	
+	padding: 0.5rem;
+	
+	list-style-type: none;
+	
+	border-radius: 0.5rem;
+}
+
+table.calendar td.total {
+	text-align: center;
+	vertical-align: bottom;
+	
+	border: none;
+}

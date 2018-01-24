@@ -1,0 +1,70 @@
+<?r
+	customers = Financier::Customer.all(Financier::DB.current)
+	
+	entries = attributes[:entries]
+	billing_customer = attributes[:billing_customer]
+	
+	totals = Hash.new{|h,k| h[k] = 0}
+	
+	f = Financier::FormFormatter.new
+?>
+<content:page>
+	<content:heading>Create Invoice from Timesheet Entries</content:heading>
+	
+	<form class="basic editor" method="post" action="#">
+		<?r entries.each do |id| ?>
+			#{f.hidden :field => :'entries[]', :value => id}
+		<?r end ?>
+		
+		<fieldset><legend>Billing Details</legend>
+			<dl>
+				<?r f.select :field => :billing_customer do |select| ?>
+					<?r customers.each do |customer| ?>
+						#{select.item :title => customer.name, :value => customer}
+					<?r end ?>
+				<?r end ?>
+			</dl>
+		</fieldset>
+		
+		<table class="listing entries" data-model="Entry">
+			<thead>
+				<tr>
+					<th class="timesheet">Timesheet</th>
+					<th class="name">Name</th>
+					<th class="finished_at">Finished At</th>
+					<th class="duration">Duration</th>
+					<th class="total">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?r
+					total = 0
+					entries.sort_by(&:finished_at).each do |entry|
+						total += entry.duration
+						totals[entry.timesheet] += entry.duration
+				?>
+				<tr data-id="#{entry.id}">
+					<td class="timesheet">#{f.text entry.timesheet.name}</td>
+					<th class="name">#{f.text entry.name}</th>
+					<td class="finished_at">#{f.text entry.finished_at}</td>
+					<td class="quantity">#{f.hours entry.duration}</td>
+					<td class="total">#{f.text entry.subtotal}</td>
+				</tr>
+				<?r end ?>
+			</tbody>
+			<tfoot>
+				<?r totals.each do |timesheet, duration| ?>
+					<tr>
+						<td colspan="3">#{f.text timesheet.name}</td>
+						<td>#{f.hours duration}</td>
+						<td>#{f.text timesheet.price * duration}</td>
+					</tr>
+				<?r end ?>
+			</tfoot>
+		</table>
+		
+		<fieldset class="footer">
+			#{f.submit :field => :create}
+		</fieldset>
+	</form>
+</content:page>

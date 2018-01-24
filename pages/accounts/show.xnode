@@ -5,7 +5,7 @@
 ?>
 <content:page>
 	<div class="toolbar">
-		<a class="button" href="edit?id=#{account.id}&amp;_return=#{request.url}"><i class="icon-edit"> Edit</i></a>
+		<a class="button" href="edit?id=#{account.id}&amp;_return=#{request.url}"><i class="fa fa-edit"></i> Edit</a>
 	</div>
 	
 	<content:heading>Account #{f.text account.pseudonym}</content:heading>
@@ -18,14 +18,14 @@
 		<thead>
 			<tr>
 				<th>
-					<a class="button new" href="transactions/new?account_id=#{account.id}"><i class="icon-plus-sign"></i></a>
+					<a class="button new" href="transactions/new?account_id=#{account.id}"><i class="fa fa-plus-circle"></i></a>
 				</th>
 				<th class="name">Name</th>
 				<th class="principal">Principal</th>
 				<th class="date">Date</th>
 				<th class="price">Amount</th>
 				<th class="actions">
-					<a class="button delete" href="transactions/delete"><i class="icon-minus-sign"></i></a>
+					<a class="button delete" href="transactions/delete"><i class="fa fa-minus-circle"></i></a>
 				</th>
 			</tr>
 		</thead>
@@ -39,7 +39,7 @@
 			?>
 			<tr data-id="#{transaction.id}">
 				<td class="actions">
-					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="icon-edit"></i></a>
+					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="fa fa-edit"></i></a>
 				</td>
 				<th class="name">#{f.text transaction.name}</th>
 				<td class="principal">#{transaction.principal&.name}</td>

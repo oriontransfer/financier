@@ -52,8 +52,8 @@ on 'invoice' do |request, path|
 	
 	@billing_end_date = Date.parse(request[:billing_end_date]) rescue Date.today
 	
-	if request[:billing_customer]
-		@billing_customer = Financier::Customer.fetch(Financier::DB.current, request[:billing_customer])
+	if billing_customer = request[:billing_customer]
+		@billing_customer = Financier::Customer.fetch(Financier::DB.current, billing_customer)
 	else
 		@billing_customer = @services.first.customer
 	end
@@ -62,7 +62,7 @@ on 'invoice' do |request, path|
 		invoice = nil
 		
 		Financier::DB.commit(message: "Create Invoice for Services") do |dataset|
-			invoice = Financier::Invoice.generate_invoice_for_services(dataset, @services, @billing_end_date,
+			invoice = Financier::Services.generate_invoice(dataset, @services, @billing_end_date,
 				:name => "Services",
 				:customer => @billing_customer
 			)

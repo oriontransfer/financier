@@ -1,6 +1,8 @@
 
 require 'financier/database'
 
+require_relative 'timesheet'
+
 module Financier
 	def self.generate_invoice_number
 		today = Date.today
@@ -38,8 +40,11 @@ module Financier
 			property :exchange_rate, Optional[Attribute[BigDecimal]]
 			property :exchange_name
 
-			property :service, Optional[BelongsTo[Service]]
 			property :invoice, BelongsTo[Invoice]
+
+			# Transactions may be generated automatically by other parts of the system:
+			property :service, Optional[BelongsTo[Service]]
+			property :timesheet, Optional[BelongsTo[Timesheet]]
 
 			property :tax_code
 			property :tax_rate, Attribute[BigDecimal]
@@ -143,39 +148,5 @@ module Financier
 		
 		view :by_customer, [:type, :customer], index: [[:created_date, :id]]
 		# view :count_by_customer, 'financier/invoice_count_by_customer'
-		
-		def self.generate_invoice_for_services(dataset, services, date, **arguments)
-			today = Date.today
-			
-			invoice = Invoice.insert(dataset, **arguments)
-			
-			services.each do |service|
-				service = service.dup
-				
-				# Round down the number of periods:
-				periods = service.periods_to_date(date)
-				
-				$stderr.puts "Periods for service #{service.name}: #{periods.inspect}"
-				
-				if periods >= 1
-					transaction = Transaction.create(dataset,
-						service: service,
-						name: service.name,
-						price: service.periodic_cost,
-						quantity: periods.to_d,
-						date: today,
-						description: service.billing_description(date),
-						invoice: invoice
-					)
-					
-					transaction.save(dataset)
-					service.bill_until_date(date)
-					service.save(dataset)
-				end
-			end
-			
-			return invoice
-		end
 	end
-
 end

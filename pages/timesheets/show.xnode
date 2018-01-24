@@ -1,0 +1,69 @@
+<?r
+	timesheet = attributes[:timesheet]
+	
+	f = Financier::ViewFormatter.new
+?>
+<content:page>
+	<div class="toolbar">
+		<a class="button" href="edit?id=#{timesheet.id}&amp;_return=#{request.url}"><i class="fa fa-edit"></i> Edit</a>
+	</div>
+	
+	<content:heading>#{f.text timesheet.name}</content:heading>
+	
+	<?r if timesheet.description? ?>
+	#{f.markdown timesheet.description}
+	<?r end ?>
+	
+	<table class="listing entries" data-model="Entry">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="entries/new?timesheet_id=#{timesheet.id}"><i class="fa fa-plus-circle"></i></a>
+				</th>
+				<th class="name">Name</th>
+				<th class="invoice">Invoice</th>
+				<th class="finished_at">Finished At</th>
+				<th class="duration">Duration</th>
+				<th class="actions">
+					<a class="button delete" href="entries/delete"><i class="fa fa-minus-circle"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r
+				total = 0
+				timesheet.entries.sort_by(&:finished_at).each do |entry|
+					total += entry.duration
+			?>
+			<tr data-id="#{entry.id}">
+				<td class="actions">
+					<a class="button edit" href="entries/edit?id=#{entry.id}"><i class="fa fa-edit"></i></a>
+				</td>
+				<th class="name">#{f.text entry.name}</th>
+				<th class="invoice"><?r if entry.invoice? ?>
+					<a href="#{Trenni::URI "/invoices/show", id: entry.invoice.id}">#{entry.invoice.number}</a>
+				<?r end ?></th>
+				<td class="finished_at">#{f.text entry.finished_at}</td>
+				<td class="quantity">#{f.hours entry.duration}</td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+				<?r if entry.description? ?>
+				<tr class="related">
+					<td class="description" colspan="6">#{f.markdown entry.description}</td>
+				</tr>
+				<?r end ?>
+			<?r end ?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">Total Duration:</td>
+				<td>#{f.hours total}</td>
+				<td></td>
+			</tr>
+		</tfoot>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</content:page>

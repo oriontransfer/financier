@@ -6,11 +6,11 @@
 	fields += [:attention, :unit, :street, :suburb]
 	
 	if address.phone?
-		?><div class="phone"><i class="icon-phone"></i> #{address.phone}</div><?r
+		?><div class="phone"><i class="fa fa-phone"></i> #{address.phone}</div><?r
 	end
 
 	if address.email?
-		?><div class="email"><i class="icon-envelope-alt"></i> <a href="mailto:#{address.email}">#{address.email}</a></div><?r
+		?><div class="email"><i class="fa fa-envelope-alt"></i> <a href="mailto:#{address.email}">#{address.email}</a></div><?r
 	end
 	
 	postcode_line = lambda do
