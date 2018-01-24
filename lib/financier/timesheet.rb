@@ -1,6 +1,8 @@
 
 require 'financier/database'
 
+require 'bigdecimal/util'
+
 module Financier
 	class Duration
 		HM = /^(\d+h)?(\d+m)?$/
