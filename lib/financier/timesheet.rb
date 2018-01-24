@@ -13,7 +13,17 @@ module Financier
 
 		def self.convert_from_primative(dataset, value)
 			if match = HM.match(value)
-				match[1].to_d + (match[2].to_d / 60.0)
+				total = BigDecimal.new(0)
+				
+				if string = match[1]
+					total += string.to_d
+				end
+				
+				if string = match[2]
+					total += string.to_d / 60.0
+				end
+				
+				return total
 			else
 				value.to_d
 			end
