@@ -2,6 +2,22 @@
 require 'financier/database'
 
 module Financier
+	class Duration
+		HM = /^(\d+h)?(\d+m)?$/
+		
+		def self.convert_to_primative(value)
+			value.to_s('F')
+		end
+
+		def self.convert_from_primative(dataset, value)
+			if match = HM.match(value)
+				match[1].to_d + (match[2].to_d / 60.0)
+			else
+				value.to_d
+			end
+		end
+	end
+	
 	class Timesheet
 		include Relaxo::Model
 		
@@ -35,7 +51,7 @@ module Financier
 			view :by_timesheet, [:type, 'by_timesheet', :timesheet], index: [[:finished_at, :id]]
 			
 			# The number of hours worked.
-			property :duration, Attribute[BigDecimal]
+			property :duration, Duration
 			
 			# The date the job was done:
 			property :finished_at, Attribute[DateTime]

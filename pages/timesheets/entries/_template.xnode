@@ -15,7 +15,7 @@
 			#{f.input :field => :name, :required => true}
 			#{f.textarea :field => :description}
 			
-			#{f.input :field => :duration, :type => :number, :min => 0, :step => "any", :required => true}
+			#{f.input :field => :duration, :required => true}
 			#{f.input :field => :finished_at, :type => :datetime, :required => true}
 		</dl>
 	</fieldset>

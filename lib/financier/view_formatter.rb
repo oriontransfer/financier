@@ -36,10 +36,19 @@ module Financier
 		end
 
 		def hours(duration)
-			if duration == 1
-				"1 hour"
+			hours = duration.floor
+			minutes = ((duration - hours) * 60).floor
+			
+			if hours != 0
+				if minutes != 0
+					"#{hours}h#{minutes}m"
+				else
+					"#{hours}h"
+				end
+			elsif minutes != 0
+				"#{minutes}m"
 			else
-				"#{duration.to_s('F')} hours"
+				""
 			end
 		end
 
