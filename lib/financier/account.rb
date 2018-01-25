@@ -44,8 +44,6 @@ module Financier
 			view :by_principal, [:type, 'by_principal', :principal], index: [[:date, :id]]
 		end
 		
-		property :id, UUID
-		
 		view :all, [:type], index: [:id]
 		
 		def transactions
