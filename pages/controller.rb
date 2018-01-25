@@ -35,6 +35,8 @@ end
 on '**' do |request, path|
 	if user_id = request.session[:user_id]
 		@user = Financier::User.fetch_all(Financier::DB.current, id: user_id)
+	else
+		@user = nil
 	end
 	
 	unless @user or public_path?(path)

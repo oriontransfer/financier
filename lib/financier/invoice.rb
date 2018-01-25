@@ -140,7 +140,7 @@ module Financier
 		end
 		
 		def before_delete
-			self.transactions.each &:delete
+			self.transactions.each(&:delete)
 		end
 		
 		view :all, [:type], index: [:id]
