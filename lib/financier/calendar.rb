@@ -65,7 +65,7 @@ module Financier
 		# A list of relative dates (e.g. backwards and forwards)
 		def self.today(date = Date.today)
 			# Get the 1st of the month:
-			month = today - (today.day + 1)
+			month = date - (date.day + 1)
 			
 			return Calendar.new(month, month.next_month)
 		end
