@@ -82,9 +82,9 @@ on 'invoice' do |request, path|
 		@billing_customer = Financier::Customer.fetch(Financier::DB.current, billing_customer)
 	end
 	
-	if request.post?
+	if request.post? and entries = request[:entries]
 		invoice = nil
-		@entries = request[:entries].map{|id| Financier::Timesheet::Entry.fetch(Financier::DB.current, id)}
+		@entries = entries.map{|id| Financier::Timesheet::Entry.fetch(Financier::DB.current, id)}
 		
 		Financier::DB.commit(message: "Create Invoice for Timesheet Entries") do |dataset|
 			invoice = Financier::Timesheet.generate_invoice(dataset, @entries,

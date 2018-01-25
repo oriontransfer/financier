@@ -12,10 +12,6 @@
 	<content:heading>Create Invoice from Timesheet Entries</content:heading>
 	
 	<form class="basic editor" method="post" action="#">
-		<?r entries.each do |id| ?>
-			#{f.hidden :field => :'entries[]', :value => id}
-		<?r end ?>
-		
 		<fieldset><legend>Billing Details</legend>
 			<dl>
 				<?r f.select :field => :billing_customer do |select| ?>
@@ -45,7 +41,10 @@
 				?>
 				<tr data-id="#{entry.id}">
 					<td class="timesheet">#{f.text entry.timesheet.name}</td>
-					<th class="name">#{f.text entry.name}</th>
+					<th class="name">
+						<input type="checkbox" name="entries[]" value="#{entry}" checked />
+						#{f.text entry.name}
+					</th>
 					<td class="finished_at">#{f.text entry.finished_at}</td>
 					<td class="quantity">#{f.hours entry.duration}</td>
 					<td class="total">#{f.text entry.subtotal}</td>
