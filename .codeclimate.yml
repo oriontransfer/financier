@@ -1,0 +1,4 @@
+exclude_paths:
+- "doc/**/*"
+- "public/**/*"
+- "lib/components/**/*"
