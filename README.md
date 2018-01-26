@@ -2,6 +2,10 @@
 
 Financier is a comprehensive business management platform built on top of [Utopia](https://github.com/ioquatix/utopia) and [Relaxo](https://github.com/ioquatix/relaxo).
 
+[![Build Status](https://travis-ci.org/ioquatix/financier.svg?branch=master)](https://travis-ci.org/ioquatix/financier)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d32649160bd302327704/maintainability)](https://codeclimate.com/github/ioquatix/financier/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d32649160bd302327704/test_coverage)](https://codeclimate.com/github/ioquatix/financier/test_coverage)
+
 ![Invoices](doc/Invoices.png)
 
 ## Installation
