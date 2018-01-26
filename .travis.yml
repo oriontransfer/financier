@@ -11,12 +11,13 @@ before_install:
   # I don't know why I need to install this on travis in order for tests to function.
   - gem install bundler samovar
 rvm:
-  - 2.2
   - 2.3
   - 2.4
   - jruby-head
   - ruby-head
-env: COVERAGE=true BENCHMARK=true CC_TEST_REPORTER_ID=5ee699ecfc13ca99e60bc3ab134f16e8306c11a359ace1c9e906195995e93731
+script:
+  - bundle exec rake coverage test
+env: CC_TEST_REPORTER_ID=5ee699ecfc13ca99e60bc3ab134f16e8306c11a359ace1c9e906195995e93731
 matrix:
   allow_failures:
     - rvm: ruby-head
