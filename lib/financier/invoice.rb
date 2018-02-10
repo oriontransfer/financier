@@ -22,8 +22,6 @@ module Financier
 			include Relaxo::Model
 			parent_type Invoice
 			
-			@type = "invoice/transaction"
-			
 			view :all, [:type], index: [:id]
 			view :by_invoice, [:type, 'by_invoice', :invoice], index: [[:date, :id]]
 			
