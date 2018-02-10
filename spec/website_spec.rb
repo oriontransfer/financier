@@ -13,4 +13,11 @@ RSpec.describe "my website" do
 		expect(last_response.status).to be == 302
 		expect(last_response.headers["Location"]).to be == "/login"
 	end
+	
+	it "should present login form" do
+		get "/login"
+		
+		expect(last_response.status).to be == 200
+		expect(last_response.body).to include("Login")
+	end
 end
