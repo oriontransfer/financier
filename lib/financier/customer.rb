@@ -39,7 +39,7 @@ module Financier
 			invoices.each{|invoice| sum << -invoice.totals unless invoice.quotation?}
 			account_transactions.each{|transaction| sum << transaction.amount}
 			
-			return sum
+			return sum.compact
 		end
 		
 		# relationship :services, 'financier/service_by_customer', Service
