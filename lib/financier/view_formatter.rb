@@ -15,6 +15,12 @@ module Financier
 			BANK.format(object, options)
 		end
 		
+		map(Latinum::Collection) do |object, options|
+			object.map do |resource|
+				self.text(resource)
+			end.join(", ")
+		end
+		
 		map(Date) do |object, options|
 			object.strftime
 		end

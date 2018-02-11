@@ -33,6 +33,15 @@ module Financier
 			Service::by_customer(@dataset, customer: self)
 		end
 		
+		def balance
+			sum = Latinum::Collection.new
+			
+			invoices.each{|invoice| sum << -invoice.totals unless invoice.quotation?}
+			account_transactions.each{|transaction| sum << transaction.amount}
+			
+			return sum
+		end
+		
 		# relationship :services, 'financier/service_by_customer', Service
 		# 
 		# relationship :invoices, 'financier/invoice_by_customer', Invoice

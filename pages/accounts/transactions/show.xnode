@@ -1,0 +1,18 @@
+<?r
+	f = Financier::ViewFormatter.new
+	transaction = attributes[:transaction]
+?>
+<content:page>
+	<content:heading>Transaction Details</content:heading>
+	
+	<dl>
+		<dt>Name</dt>
+		<dd>#{f.text transaction.name}</dd>
+		<dt>Timestamp</dt>
+		<dd>#{f.text transaction.timestamp}</dd>
+		<dt>Amount</dt>
+		<dd>#{f.text transaction.amount}</dd>
+		<dt>Description</dt>
+		<dd>#{f.text transaction.description}</dd>
+	</dl>
+</content:page>

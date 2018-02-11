@@ -31,6 +31,10 @@ on 'new' do |request, path|
 	end
 end
 
+on 'show' do |request, path|
+	@transaction = Financier::Account::Transaction.fetch_all(Financier::DB.current, id: request[:id])
+end
+
 on 'edit' do |request, path|
 	@transaction = Financier::Account::Transaction.fetch_all(Financier::DB.current, id: request[:id])
 	

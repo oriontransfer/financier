@@ -30,11 +30,13 @@
 				</td>
 				<th><a href="show?id=#{customer.id}">#{f.text customer.name}</a></th>
 				<td>#{f.text customer.invoices.count || 0}</td>
-				<td><?r if invoice = customer.invoices.to_a.last ?>
+				<td><?r if invoice = customer.invoices.last ?>
 					<a href="../invoices/show?id=#{invoice.id}">#{f.text invoice.name}</a>
 					<?r end ?></td>
-				<td></td>
-				<td></td>
+				<td><?r if payment = customer.account_transactions.last ?>
+					<a href="../accounts/transactions/show?id=#{payment.id}">#{f.text payment.amount}</a>
+					<?r end ?></td>
+				<td>#{f.text customer.balance}</td>
 				<th class="actions">
 					<input type="checkbox" class="selected" />
 				</th>

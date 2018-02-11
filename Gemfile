@@ -11,14 +11,14 @@ gem "bundler"
 gem "rack-freeze", "~> 1.2"
 
 gem "relaxo", "~> 1.0"
-gem "relaxo-model", "~> 0.9"
+gem "relaxo-model", "~> 0.11"
 
 gem 'rugged', git: 'git://github.com/libgit2/rugged.git', submodules: true
 
 gem "trenni-formatters", "~> 2.4"
 
 gem "periodical", "~> 1.0"
-gem "latinum", "~> 1.2"
+gem "latinum", "~> 1.3"
 
 gem "facets"
 
@@ -42,7 +42,7 @@ group :development do
 	
 	# For `rspec` testing:
 	gem "rspec"
-	gem "simplecov"
+	gem "simplecov", require: false
 end
 
 group :production do
