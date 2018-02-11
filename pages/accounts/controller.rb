@@ -95,8 +95,10 @@ def import_csv(path)
 			currency = row[:currency] || @default_currency
 			
 			if credit = row[:credit]
+				credit.gsub!(',', '') if credit.is_a? String
 				transaction.amount = Latinum::Resource.new(credit, currency)
 			elsif debit = row[:debit]
+				debit.gsub!(',', '') if debit.is_a? String
 				transaction.amount = -Latinum::Resource.new(debit, currency)
 			end
 			
