@@ -3,7 +3,7 @@
 ?>
 <content:page>
 	<div class="toolbar">
-		<a class="button" href="import"><i class="fa fa-upload-alt"></i> Import</a>
+		<a class="button" href="import"><i class="fa fa-upload"></i> Import</a>
 	</div>
 	
 	<content:heading>Accounts</content:heading>
