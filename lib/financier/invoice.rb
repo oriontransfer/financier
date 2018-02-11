@@ -22,8 +22,8 @@ module Financier
 			include Relaxo::Model
 			parent_type Invoice
 			
-			view :all, [:type], index: [:id]
-			view :by_invoice, [:type, 'by_invoice', :invoice], index: [[:date, :id]]
+			view :all, :type, index: :id
+			view :by_invoice, index: unique(:date, :id)
 			
 			property :id, UUID
 			
@@ -64,7 +64,7 @@ module Financier
 					# We need to round the exchanged total based on the currency, otherwise over time the account may be a few units out.
 					self.total = native_total.exchange(exchange_rate, exchange_name, BANK[exchange_name][:precision])
 				else
-					self.total = native_total
+					self.total = BANK.round(native_total)
 				end
 			end
 		end
@@ -141,10 +141,10 @@ module Financier
 			self.transactions.each(&:delete)
 		end
 		
-		view :all, [:type], index: [:id]
+		view :all, :type, index: :id
 		# relationship :transactions, 'financier/transaction_by_invoice', Transaction
 		
-		view :by_customer, [:type, :customer], index: [[:created_date, :id]]
+		view :by_customer, :type, :customer, index: unique(:created_date, :id)
 		# view :count_by_customer, 'financier/invoice_count_by_customer'
 	end
 end

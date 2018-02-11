@@ -12,7 +12,7 @@ module Financier
 		property :name
 		property :password, Attribute[BCrypt::Password]
 		
-		view :all, [:type], index: [:id]
-		view :by_name, [:type, 'by_name'], index: [:name]
+		view :all, :type, index: :id
+		view :by_name, :type, 'by_name', index: unique(:name)
 	end
 end

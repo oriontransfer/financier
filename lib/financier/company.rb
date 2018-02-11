@@ -26,6 +26,6 @@ module Financier
 			Account.by_company(@dataset, company: self)
 		end
 		
-		view :all, [:type], index: [:id]
+		view :all, :type, index: :id
 	end
 end

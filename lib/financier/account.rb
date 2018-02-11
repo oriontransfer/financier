@@ -38,13 +38,13 @@ module Financier
 			property :principal, Optional[BelongsTo[Customer, Company]]
 			property :account, BelongsTo[Account]
 			
-			view :all, [:type], index: [:id]
+			view :all, :type, index: :id
 			
-			view :by_account, [:type, 'by_account', :account], index: [[:timestamp, :id]]
-			view :by_principal, [:type, 'by_principal', :principal], index: [[:date, :id]]
+			view :by_account, index: unique(:timestamp, :id)
+			view :by_principal, index: unique(:date, :id)
 		end
 		
-		view :all, [:type], index: [:id]
+		view :all, :type, index: :id
 		
 		def transactions
 			Transaction.by_account(@dataset, account: self)
@@ -54,7 +54,7 @@ module Financier
 		
 		property :company, Optional[BelongsTo[Company]]
 		
-		view :by_company, [:type, 'by_company', :company], index: [:id]
+		view :by_company, index: :id
 		
 		property :pseudonym
 		property :description

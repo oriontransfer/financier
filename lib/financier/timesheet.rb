@@ -33,7 +33,7 @@ module Financier
 	class Timesheet
 		include Relaxo::Model
 		
-		view :all, [:type], index: [:id]
+		view :all, :type, index: :id
 		
 		property :id, UUID
 		property :name
@@ -59,8 +59,8 @@ module Financier
 			property :name
 			property :description
 			
-			view :all, [:type], index: [:id]
-			view :by_timesheet, [:type, 'by_timesheet', :timesheet], index: [[:finished_at, :id]]
+			view :all, :type, index: :id
+			view :by_timesheet, index: unique(:finished_at, :id)
 			
 			# The number of hours worked.
 			property :duration, Duration

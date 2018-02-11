@@ -27,8 +27,8 @@ module Financier
 		# An array of dates where billing has occurred
 		property :billed_dates, ArrayOf[Date]
 
-		view :all, [:type], index: [:id]
-		view :by_customer, [:type, 'by_customer', :customer], index: [[:start_date, :id]]
+		view :all, :type, index: :id
+		view :by_customer, index: unique(:start_date, :id)
 		
 		def after_fetch
 			# Fix up old data:

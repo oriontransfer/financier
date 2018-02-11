@@ -14,8 +14,8 @@ module Financier
 		property :name
 		property :email_address
 		
-		view :all, [:type], index: [:id]
-		view :by_name, [:type, 'by_name'], index: [:name]
+		view :all, :type, index: :id
+		view :by_name, :type, 'by_name', index: unique(:name)
 		
 		def invoices
 			Invoice.by_customer(@dataset, customer: self)

@@ -39,7 +39,7 @@ module Financier
 		
 		# relationship :addresses, 'financier/address_by_company', Address
 		
-		view :all, [:type], index: [:id]
-		view :by_principal, [:type, 'by_principal', :principal], index: [[:attention, :id]]
+		view :all, :type, index: :id
+		view :by_principal, index: unique(:attention, :id)
 	end
 end
