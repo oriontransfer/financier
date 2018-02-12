@@ -83,7 +83,7 @@ module Financier
 				$stderr.puts "Periods for service #{service.name}: #{periods.inspect}"
 				
 				if periods >= 1
-					transaction = Transaction.create(dataset,
+					transaction = Invoice::Transaction.create(dataset,
 						service: service,
 						name: service.name,
 						price: service.periodic_cost,
