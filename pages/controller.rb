@@ -14,7 +14,11 @@ on 'login' do |request, path|
 				user.save(dataset)
 			end
 			
-			redirect! "/customers/index"
+			if request.params[:to]
+				redirect request.params[:to]
+			else
+				redirect! "/customers/index"
+			end
 		else
 			$stderr.puts "User authentication failed: #{YAML::dump(request.params)} for user #{YAML::dump(user)}."
 			fail! :unauthorized
@@ -46,6 +50,6 @@ on '**' do |request, path|
 	end
 	
 	unless @user or public_path?(path)
-		redirect! "/login"
+		redirect! Trenni::URI("/login", to: request.url)
 	end
 end
