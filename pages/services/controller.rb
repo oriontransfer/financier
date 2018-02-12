@@ -62,7 +62,7 @@ on 'invoice' do |request, path|
 		invoice = nil
 		
 		Financier::DB.commit(message: "Create Invoice for Services") do |dataset|
-			invoice = Financier::Services.generate_invoice(dataset, @services, @billing_end_date,
+			invoice = Financier::Service.generate_invoice(dataset, @services, @billing_end_date,
 				:name => "Services",
 				:customer => @billing_customer
 			)
