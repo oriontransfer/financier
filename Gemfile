@@ -10,8 +10,8 @@ gem "bundler"
 
 gem "rack-freeze", "~> 1.2"
 
-gem "relaxo", "~> 1.0"
-gem "relaxo-model", "~> 0.13"
+gem "relaxo", "~> 1.3"
+gem "relaxo-model", "~> 0.14"
 
 gem 'rugged', git: 'git://github.com/libgit2/rugged.git', submodules: true
 

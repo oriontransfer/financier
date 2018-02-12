@@ -1,5 +1,5 @@
 
-DATABASE_ENV = (ENV['DATABASE_ENV'] || RACK_ENV || :development).to_s
+DATABASE_ENV ||= (ENV['DATABASE_ENV'] || RACK_ENV || :development).to_s
 
 require 'relaxo'
 

@@ -15,6 +15,7 @@ require_relative 'financier/customer'
 require_relative 'financier/invoice'
 require_relative 'financier/service'
 require_relative 'financier/timesheet'
+require_relative 'financier/billing'
 
 require_relative 'financier/calendar'
 
