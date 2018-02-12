@@ -11,7 +11,7 @@ RSpec.describe "my website" do
 		follow_redirect!
 		
 		expect(last_response.status).to be == 302
-		expect(last_response.headers["Location"]).to be == "/login"
+		expect(last_response.headers["Location"]).to include "/login"
 	end
 	
 	it "should present login form" do
