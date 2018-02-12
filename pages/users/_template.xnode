@@ -1,0 +1,17 @@
+<?r
+	f = Financier::FormFormatter.new(:object => attributes[:user])
+?><form class="basic editor" method="post" action="#" >
+	
+	<fieldset><legend>User Details</legend>
+		<dl>
+			#{f.input :field => :name}
+			#{f.input :field => :password, :type => :password}
+		</dl>
+	</fieldset>
+	
+	<fieldset class="footer">
+		<fieldset class="footer">
+			#{f.submit}
+		</fieldset>
+	</fieldset>
+</form>

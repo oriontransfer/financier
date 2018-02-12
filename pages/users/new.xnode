@@ -1,0 +1,5 @@
+<content:page>
+	<content:heading>New User</content:heading>
+	
+	#{partial 'content:template', user: controller[:user]}
+</content:page>

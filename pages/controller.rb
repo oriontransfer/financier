@@ -8,6 +8,12 @@ on 'login' do |request, path|
 		if user && user.password == request[:password]
 			request.session[:user_id] = user.id
 			
+			Financier::DB.commit(message: "User Login") do |dataset|
+				user.logged_in_at = DateTime.now
+				
+				user.save(dataset)
+			end
+			
 			redirect! "/customers/index"
 		else
 			$stderr.puts "User authentication failed: #{YAML::dump(request.params)} for user #{YAML::dump(user)}."

@@ -1,0 +1,39 @@
+<?r
+	f = Financier::ViewFormatter.new
+?>
+<content:page>
+	<content:heading>Users</content:heading>
+	
+	<table class="listing users" data-model="User">
+		<thead>
+			<tr>
+				<th>
+					<a class="button new" href="new"><i class="fa fa-plus-circle"></i></a>
+				</th>
+				<th>Name</th>
+				<th>Last Login</th>
+				<th>
+					<a class="button delete" href="#"><i class="fa fa-minus-circle"></i></a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?r 
+				Financier::User.all(Financier::DB.current).each do |user|
+			?>
+			<tr data-id="#{user.id}">
+				<td class="actions">
+					<a class="button edit" href="edit?id=#{user.id}"><i class="fa fa-edit"></i></a>
+				</td>
+				<th>#{f.text user.name}</th>
+				<td>#{f.text user.logged_in_at}</td>
+				<th class="actions">
+					<input type="checkbox" class="selected" />
+				</th>
+			</tr>
+			<?r end ?>
+		</tbody>
+	</table>
+	
+	<script type="text/javascript" src="/_static/listing.js"></script>
+</content:page>

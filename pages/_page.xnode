@@ -27,7 +27,11 @@
 		<?r if controller[:user] && !klass.include?("login") ?>
 		<nav id="header">
 			<ul class="menu">
-				<li><a href="/welcome/index"><i class="fa fa-briefcase"></i> Financier</a></li>
+				<li><a href="/welcome/index"><i class="fa fa-briefcase"></i> Financier</a>
+					<ul>
+						<li><a href="/users/index">Users</a></li>
+					</ul>
+				</li>
 				<li><a href="/companies/index">Companies</a></li>
 				<li><a href="/customers/index">Customers</a></li>
 				<li><a href="/addresses/index">Addresses</a></li>
