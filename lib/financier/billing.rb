@@ -45,6 +45,20 @@ module Financier
 			self.invoice_date <= date
 		end
 		
+		def generate_invoice(dataset)
+			self.invoice = Invoice.create(dataset)
+			
+			self.relevant_services.each do |service|
+				service.assign_to_invoice(self.invoice)
+			end
+			
+			self.relevant_timesheet_entries.each do |entry|
+				entry.assign_to_invoice(self.invoice)
+			end
+			
+			return self.invoice
+		end
+		
 		# Generate the next billing cycle and update the current one.
 		def generate_next(dataset)
 			raise ArgumentError.new("Record must be persisted") unless self.persisted?

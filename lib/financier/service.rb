@@ -75,7 +75,7 @@ module Financier
 			invoice = Invoice.insert(dataset, **arguments)
 			
 			services.each do |service|
-				service = service.dup
+				service = service.dup # TODO review relaxo-model's implementation of dup.
 				
 				# Round down the number of periods:
 				periods = service.periods_to_date(date)
