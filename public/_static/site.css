@@ -123,6 +123,11 @@ table.listing .date, table.listing .number {
 	text-align: center;
 }
 
+table.listing .datetime, table.listing .number {
+	width: 200px;
+	text-align: center;
+}
+
 table.listing .principal {
 	text-align: center;
 }
