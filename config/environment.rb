@@ -11,3 +11,5 @@ require_relative '../db/environment'
 
 require 'financier'
 require 'json'
+
+require 'time/zone'
