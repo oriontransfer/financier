@@ -14,6 +14,8 @@ module Financier
 		
 		property :logged_in_at, Optional[Attribute[DateTime]]
 		
+		property :timezone
+		
 		view :all, :type, index: :id
 		view :by_name, :type, 'by_name', index: unique(:name)
 	end

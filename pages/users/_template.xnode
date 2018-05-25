@@ -6,6 +6,8 @@
 		<dl>
 			#{f.input :field => :name}
 			#{f.input :field => :password, :type => :password}
+			
+			#{f.input :field => :timezone}
 		</dl>
 	</fieldset>
 	
