@@ -41,7 +41,14 @@
 						<a class="entry" style="background-color: #{entry.timesheet.color}" href="entries/edit?id=#{entry.id}">#{f.text entry.name} (#{f.hours entry.duration} #{f.text entry.timesheet.name})</a>
 						<?r end ?>
 						<div class="actions">
-							<a class="button new" href="entries/new?date=#{date}"><i class="fa fa-plus-circle"></i></a>
+							<?r
+								if date == today
+									add_uri = Trenni::URI('entries/new')
+								else
+									add_uri = Trenni::URI('entries/new', 'date' => date)
+								end
+							?>
+							<a class="button new" href="#{add_uri}"><i class="fa fa-plus-circle"></i></a>
 						</div>
 					</td>
 				<?r end ?>
