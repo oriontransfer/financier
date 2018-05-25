@@ -12,6 +12,7 @@
 				</th>
 				<th>Name</th>
 				<th>Last Login</th>
+				<th>Current Time</th>
 				<th>
 					<a class="button delete" href="#"><i class="fa fa-minus-circle"></i></a>
 				</th>
@@ -27,6 +28,7 @@
 				</td>
 				<th>#{f.text user.name}</th>
 				<td>#{f.text user.logged_in_at}</td>
+				<td>#{f.text Time::Zone.now(user.timezone)}</td>
 				<th class="actions">
 					<input type="checkbox" class="selected" />
 				</th>

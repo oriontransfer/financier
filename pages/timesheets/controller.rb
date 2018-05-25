@@ -49,7 +49,7 @@ on 'show' do |request, path|
 end
 
 on 'calendar' do |request|
-	@today = Time.parse("12:00 #{@user.timezone}").to_date
+	@today = Time::Zone.now(@user.timezone).to_date
 	
 	if start_date = request[:start_date]
 		@start_date = Date.parse(start_date)

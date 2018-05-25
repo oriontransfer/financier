@@ -15,7 +15,7 @@
 		<?r end ?>
 		
 		<link rel="icon" type="image/png" href="/_static/icon.png" />
-		<link rel="stylesheet" href="/_static/site.css?#{Time.now}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/_static/site.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="/_static/calendar.css" type="text/css" media="screen" />
 		
 		<link rel="stylesheet" href="/_components/font-awesome/css/font-awesome.min.css" type="text/css" media="screen" />
