@@ -26,7 +26,7 @@ module Financier
 		end
 		
 		map(DateTime) do |object, options|
-			object.strftime("%c")
+			object.strftime("%c %Z")
 		end
 		
 		map(BigDecimal) do |object, options|
