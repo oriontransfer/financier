@@ -22,7 +22,7 @@ gem "latinum", "~> 1.3"
 
 gem "facets"
 
-gem "time-zone", "~> 1.0"
+gem "time-zone", "~> 1.1"
 
 gem "ofx", "~> 0.3"
 gem "qif", "~> 1.1"

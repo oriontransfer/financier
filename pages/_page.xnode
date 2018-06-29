@@ -38,6 +38,7 @@
 				<li><a href="/services/index">Services</a></li>
 				<li><a href="/timesheets/index">Timesheets</a>
 					<ul>
+						<li><a href="/timesheets/entries/new">Add Entry</a></li>
 						<li><a href="/timesheets/calendar">Calendar</a></li>
 					</ul>
 				</li>
