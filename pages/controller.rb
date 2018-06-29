@@ -20,7 +20,6 @@ on 'login' do |request, path|
 				redirect! "/customers/index"
 			end
 		else
-			
 			$stderr.puts "User authentication failed: #{YAML::dump(request.params)} for user #{YAML::dump(user)}."
 			fail! :unauthorized
 		end
