@@ -2,6 +2,7 @@
 require 'financier/database'
 
 require 'bigdecimal/util'
+require 'time/zone/timestamp'
 
 module Financier
 	class Duration
@@ -66,7 +67,7 @@ module Financier
 			property :duration, Duration
 			
 			# The date the job was done:
-			property :finished_at, Attribute[DateTime]
+			property :finished_at, Serialized[Time::Zone::Timestamp]
 			
 			# The invoice that this entry is assigned to:
 			property :timesheet, BelongsTo[Timesheet]
@@ -76,9 +77,10 @@ module Financier
 			
 			# The date that this entry would be shown on a calendar:
 			def date
-				days = duration/24.0
+				# Duration is measured in hours
+				seconds = duration*60*60
 				
-				return (finished_at - days).to_date
+				return (finished_at - seconds).to_date
 			end
 			
 			def subtotal

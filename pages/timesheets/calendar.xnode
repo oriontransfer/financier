@@ -30,7 +30,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?r calendar.each do |week|; total = BigDecimal.new(0) ?>
+		<?r calendar.each do |week|; total = BigDecimal(0) ?>
 			<tr>
 				<?r week.each do |date| ?>
 					<td class="#{"today" if date == today} #{"excluded" unless calendar.include? date}">

@@ -1,7 +1,7 @@
 
 source "https://rubygems.org"
 
-gem "utopia", "~> 2.2.0"
+gem "utopia", "~> 2.5.0"
 # gem "utopia-gallery"
 # gem "utopia-analytics"
 
@@ -22,7 +22,7 @@ gem "latinum", "~> 1.3"
 
 gem "facets"
 
-gem "time-zone"
+gem "time-zone", "~> 1.0"
 
 gem "ofx", "~> 0.3"
 gem "qif", "~> 1.1"

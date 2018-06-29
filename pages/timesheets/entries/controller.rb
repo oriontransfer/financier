@@ -17,14 +17,16 @@ on 'delete' do |request, path|
 end
 
 on 'new' do |request, path|
-	@entry = Financier::Timesheet::Entry.create(Financier::DB.current, :finished_at => DateTime.now, :duration => 1)
+	@entry = Financier::Timesheet::Entry.create(Financier::DB.current, :duration => 1)
 	
 	if timesheet_id = request[:timesheet_id]
 		@entry.timesheet = Financier::Timesheet.fetch_all(@entry.dataset, id: request[:timesheet_id])
 	end
 	
 	if date = request[:date]
-		@entry.finished_at = Date.parse(date)
+		@entry.finished_at = Time::Zone::Timestamp.parse(date, @user.timezone)
+	else
+		@entry.finished_at = Time::Zone::Timestamp.now(@user.timezone)
 	end
 	
 	if request.post?

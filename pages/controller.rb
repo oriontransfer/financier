@@ -9,7 +9,7 @@ on 'login' do |request, path|
 			request.session[:user_id] = user.id
 			
 			Financier::DB.commit(message: "User Login") do |dataset|
-				user.logged_in_at = DateTime.now
+				user.logged_in_at = Time.now
 				
 				user.save(dataset)
 			end
@@ -20,6 +20,7 @@ on 'login' do |request, path|
 				redirect! "/customers/index"
 			end
 		else
+			
 			$stderr.puts "User authentication failed: #{YAML::dump(request.params)} for user #{YAML::dump(user)}."
 			fail! :unauthorized
 		end
