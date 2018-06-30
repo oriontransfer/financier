@@ -96,8 +96,6 @@ module Financier
 			invoice = Invoice.insert(dataset, **arguments)
 			
 			entries.each do |entry|
-				entry = entry.dup
-				
 				transaction = Invoice::Transaction.create(dataset,
 					name: "#{entry.name} (#{entry.timesheet.name})",
 					description: entry.description,
