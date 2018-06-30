@@ -36,10 +36,10 @@
 				<li><a href="/customers/index">Customers</a></li>
 				<li><a href="/addresses/index">Addresses</a></li>
 				<li><a href="/services/index">Services</a></li>
-				<li><a href="/timesheets/index">Timesheets</a>
+				<li><a href="/timesheets/calendar">Calendar</a>
 					<ul>
 						<li><a href="/timesheets/entries/new">Add Entry</a></li>
-						<li><a href="/timesheets/calendar">Calendar</a></li>
+						<li><a href="/timesheets/index">Timesheets</a></li>
 					</ul>
 				</li>
 				<li><a href="/invoices/index">Invoices</a></li>
