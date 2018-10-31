@@ -9,25 +9,33 @@
 ?>
 <content:page-print>
 	<section class="header">
-		<content:heading>#{f.text invoice.title}</content:heading>
+		<div class="title">
+			<?r if company = invoice.company ?>
+			<h1>#{company.name}</h1>
+			<?r end ?>
+		</div>
 		
-		<ul>
-			<?r if invoice.number?>
-			<li>Invoice # #{f.text invoice.number}</li>
-			<?r end ?>
+		<div class="summary">
+			<content:heading>#{f.text invoice.title}</content:heading>
 			
-			<?r if invoice.invoiced_date? ?>
-			<li>Issued #{f.text invoice.invoiced_date}</li>
-			<?r end ?>
-			
-			<?r if invoice.due_date? ?>
-			<li>Due #{invoice.due_date}</li>
-			<?r end ?>
-			
-			<?r if invoice.account &&  invoice.account.tax_number ?>
-			<li>#{f.text invoice.account.tax_number}</li>
-			<?r end ?>
-		</ul>
+			<ul>
+				<?r if invoice.number?>
+				<li>Invoice # #{f.text invoice.number}</li>
+				<?r end ?>
+				
+				<?r if invoice.invoiced_date? ?>
+				<li>Issued #{f.text invoice.invoiced_date}</li>
+				<?r end ?>
+				
+				<?r if invoice.due_date? ?>
+				<li>Due #{invoice.due_date}</li>
+				<?r end ?>
+				
+				<?r if invoice.account &&  invoice.account.tax_number ?>
+				<li>#{f.text invoice.account.tax_number}</li>
+				<?r end ?>
+			</ul>
+		</div>
 	</section>
 	
 	<hr />

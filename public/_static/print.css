@@ -54,22 +54,26 @@ h1 {
 }
 
 section.header {
-	position: absolute;
-	right: 0;
-	left: 60%;
-	top: 0;
-	
-	padding: 10pt;
-	text-align: right;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+}
+
+section.header ul {
+	padding: 0;
 }
 
 section.header ul li {
-	margin: 4pt;
+	margin: 0;
 }
 
 hr {
 	border: 2px solid rgb(10, 100, 200);
 	margin: 20pt;
+}
+
+section.header .summary {
+	text-align: right;
 }
 
 section.header ul {
