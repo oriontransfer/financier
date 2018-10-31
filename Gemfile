@@ -1,7 +1,7 @@
 
 source "https://rubygems.org"
 
-gem "utopia", "~> 2.5.0"
+gem "utopia", "~> 2.5.3"
 # gem "utopia-gallery"
 # gem "utopia-analytics"
 
@@ -20,8 +20,6 @@ gem "trenni-formatters", "~> 2.4"
 gem "periodical", "~> 1.0"
 gem "latinum", "~> 1.3"
 
-gem "facets"
-
 gem "time-zone", "~> 1.1"
 
 gem "ofx", "~> 0.3"
@@ -32,6 +30,11 @@ gem "kramdown"
 gem "bcrypt", "~> 3.0"
 
 gem "tty-prompt"
+gem "rainbow"
+
+group :test do
+	gem "covered", require: 'covered/rspec' if RUBY_VERSION >= "2.6"
+end
 
 group :development do
 	# For `rake server`:

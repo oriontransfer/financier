@@ -1,16 +1,4 @@
 
-if ENV['COVERAGE']
-	begin
-		require 'simplecov'
-		
-		SimpleCov.start do
-			add_filter "/spec/"
-		end
-	rescue LoadError
-		warn "Could not load simplecov: #{$!}"
-	end
-end
-
 require 'bundler/setup'
 require 'utopia'
 
@@ -18,6 +6,8 @@ DATABASE_ENV = 'test'
 require_relative '../db/environment'
 
 require 'financier'
+
+Bundler.require(:test)
 
 RSpec.configure do |config|
 	# Enable flags like --only-failures and --next-failure

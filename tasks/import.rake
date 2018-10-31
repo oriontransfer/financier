@@ -2,9 +2,6 @@
 require 'json'
 require 'irb'
 
-require 'facets/hash/slice'
-require 'facets/hash/symbolize_keys'
-
 namespace :import do
 	task :load_documents do
 		dump_path = ENV['DUMP_PATH']
