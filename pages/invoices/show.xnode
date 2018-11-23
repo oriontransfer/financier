@@ -43,7 +43,13 @@
 					:total => Latinum::Collection.new(currencies)
 				}
 				
+				timesheets = Hash.new{|h,k| h[k] = Latinum::Collection.new}
+				
 				invoice.transactions.sort_by(&:date).each do |transaction|
+					if timesheet = transaction.timesheet
+						timesheets[transaction.timesheet] << transaction.subtotal
+					end
+					
 					subtotal = transaction.subtotal
 					summary[:subtotal] << subtotal
 					summary[:tax] << subtotal * transaction.tax_rate.to_d
@@ -89,6 +95,30 @@
 			<?r end ?>
 		</tfoot>
 	</table>
+	
+	<?r if timesheets.any? ?>
+	
+	<h2>Timesheet Summary</h2>
+	
+	<table class="listing transactions" data-model="Transaction">
+		<thead>
+			<tr>
+				<th class="name">Timesheet</th>
+				<th class="total">Sub-total</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?r timesheets.each do |timesheet, collection| ?>
+			<?r collection.each do |subtotal| ?>
+				<tr>
+					<td>#{timesheet.name}</td>
+					<td>#{f.text subtotal}</td>
+				</tr>
+			<?r end ?>
+		<?r end ?>
+		</tbody>
+	</table>
+	<?r end ?>
 	
 	<script type="text/javascript" src="/_static/listing.js"></script>
 </content:page>
