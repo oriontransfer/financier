@@ -63,6 +63,7 @@ module Financier
 		property :number
 		
 		property :bank_name
+		property :bank_number
 		property :bank_branch
 		
 		property :sort_code

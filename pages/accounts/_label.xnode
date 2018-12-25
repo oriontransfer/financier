@@ -8,7 +8,7 @@
 		:tax_number => "",
 		:bank_name => "Bank: ",
 		:bank_branch => "Branch: ",
-		:routing_number => "Routing Number: ",
+		:bank_number => "Routing Number: ",
 	}
 	
 	fields = [:name, :number, :routing_number, :bank_name, :bank_branch, :swift_code, :sort_code, :tax_number, :notes]
