@@ -173,6 +173,10 @@ small {
 	font-size: 80%;
 }
 
+small.exchanged {
+	display: block;
+}
+
 /* Print specific layout */
 
 /* Shipping Label */
