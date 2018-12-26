@@ -9,8 +9,8 @@
 			#{f.input :field => :name, :required => true}
 			#{f.input :field => :number, :required => true}
 			#{f.input :field => :bank_name, :required => true}
-			#{f.input :field => :bank_number, :requird => true}
-			#{f.input :field => :bank_branch, :required => true}
+			#{f.input :field => :bank_number}
+			#{f.input :field => :bank_branch}
 		</dl>
 		
 		<dl>
