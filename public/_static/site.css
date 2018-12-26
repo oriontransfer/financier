@@ -247,18 +247,6 @@ nav li > a:only-child:after { content: ''; }
 	margin: 10px;
 }
 
-.property_list {
-	border: 1px dashed #ccf;
-	padding: 2px;
-	margin: 10px;
-}
-
-.property_list li {
-	display: inline-block;
-	padding: 2px;
-	background-color: #efefef;
-}
-
 td ul, td p {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -266,6 +254,10 @@ td ul, td p {
 
 small {
 	font-size: 8pt;
+}
+
+small.exchanged {
+	display: block;
 }
 
 fieldset {
