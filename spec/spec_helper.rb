@@ -1,13 +1,10 @@
 
-require 'bundler/setup'
-require 'utopia'
+RACK_ENV = :test
 
-DATABASE_ENV = 'test'
-require_relative '../db/environment'
+require 'covered/rspec'
+require_relative '../config/environment'
 
 require 'financier'
-
-Bundler.require(:test)
 
 RSpec.configure do |config|
 	# Enable flags like --only-failures and --next-failure

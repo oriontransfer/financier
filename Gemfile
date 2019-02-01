@@ -1,7 +1,7 @@
 
 source "https://rubygems.org"
 
-gem "utopia", "~> 2.5.3"
+gem "utopia", "~> 2.5"
 # gem "utopia-gallery"
 # gem "utopia-analytics"
 
@@ -33,7 +33,7 @@ gem "tty-prompt"
 gem "rainbow"
 
 group :test do
-	gem "covered", require: 'covered/rspec' if RUBY_VERSION >= "2.6"
+	gem "covered"
 end
 
 group :development do
@@ -47,7 +47,6 @@ group :development do
 	
 	# For `rspec` testing:
 	gem "rspec"
-	gem "simplecov", require: false
 end
 
 group :production do
