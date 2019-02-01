@@ -19,5 +19,5 @@
 		</fieldset>
 	</form>
 	
-	<div class="powered_by">Powered by <a href="http://www.oriontransfer.co.nz/">Orion Transfer</a></div>
+	<div class="powered_by">Powered by <a href="https://github.com/oriontransfer/financier/">Financier</a></div>
 </content:page>
