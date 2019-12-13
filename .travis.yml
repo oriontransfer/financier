@@ -7,6 +7,9 @@ before_install:
   - git config --global user.email "samuel@oriontransfer.net"
   - git config --global user.name "Samuel Williams"
 
+script:
+  - bundle exec rake test
+
 matrix:
   include:
     - rvm: 2.3
