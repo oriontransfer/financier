@@ -2,9 +2,7 @@
 
 Financier is a comprehensive business management platform built on top of [Utopia](https://github.com/ioquatix/utopia) and [Relaxo](https://github.com/ioquatix/relaxo).
 
-[![Build Status](https://travis-ci.org/ioquatix/financier.svg?branch=master)](https://travis-ci.org/ioquatix/financier)
-[![Maintainability](https://api.codeclimate.com/v1/badges/d32649160bd302327704/maintainability)](https://codeclimate.com/github/ioquatix/financier/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/d32649160bd302327704/test_coverage)](https://codeclimate.com/github/ioquatix/financier/test_coverage)
+[![Build Status](https://travis-ci.com/oriontransfer/financier.svg?branch=master)](https://travis-ci.com/oriontransfer/financier)
 
 ![Invoices](doc/Invoices.png)
 
@@ -12,7 +10,7 @@ Financier is a comprehensive business management platform built on top of [Utopi
 
 Install the ruby gem as follows:
 
-	git clone https://github.com/ioquatix/financier.git
+	git clone https://github.com/oriontransfer/financier.git
 	cd financier
 	bundle install
 
@@ -37,7 +35,7 @@ You can now open <http://localhost:9292> in your browser and log in.
 
 ## License
 
-Copyright, 2017, by [Samuel G. D. Williams](http://www.codeotaku.com/samuel-williams).
+Copyright, 2017, by [Samuel G. D. Williams](http://www.codeotaku.com).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

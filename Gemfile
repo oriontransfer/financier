@@ -1,7 +1,7 @@
 
 source "https://rubygems.org"
 
-gem "utopia", "~> 2.5"
+gem "utopia", "~> 2.10"
 # gem "utopia-gallery"
 # gem "utopia-analytics"
 
@@ -30,7 +30,6 @@ gem "kramdown"
 gem "bcrypt", "~> 3.0"
 
 gem "tty-prompt"
-gem "rainbow"
 
 group :test do
 	gem "covered"
@@ -47,9 +46,4 @@ group :development do
 	
 	# For `rspec` testing:
 	gem "rspec"
-end
-
-group :production do
-	# Used for passenger-config to restart server after deployment:
-	gem "passenger"
 end
