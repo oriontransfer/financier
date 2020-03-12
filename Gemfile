@@ -1,13 +1,17 @@
+# frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "utopia", "~> 2.10"
+gem 'utopia', '~> 2.13.2'
 # gem "utopia-gallery"
 # gem "utopia-analytics"
 
-gem "rake"
-gem "bundler"
+gem 'rake'
+gem 'bake'
+gem 'variant'
+gem 'bundler'
 
+gem 'rack-test'
 gem "rack-freeze", "~> 1.2"
 
 gem "relaxo", "~> 1.3"
@@ -31,19 +35,17 @@ gem "bcrypt", "~> 3.0"
 
 gem "tty-prompt"
 
-group :test do
-	gem "covered"
-end
-
 group :development do
-	# For `rake server`:
-	gem "guard-falcon", require: false
+	gem 'guard-falcon', require: false
 	gem 'guard-rspec', require: false
 	
-	# For `rake console`:
-	gem "pry"
-	gem "rack-test"
+	gem 'rspec'
+	gem 'covered'
 	
-	# For `rspec` testing:
-	gem "rspec"
+	gem 'async-rspec'
+	gem 'benchmark-http'
+end
+
+group :production do
+	gem 'falcon'
 end

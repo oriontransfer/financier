@@ -1,10 +1,10 @@
+# frozen_string_literal: true
 
-RACK_ENV = :test
-
+require 'bundler/setup'
 require 'covered/rspec'
-require_relative '../config/environment'
+require 'variant'
 
-require 'financier'
+Variant.force!(:testing)
 
 RSpec.configure do |config|
 	# Enable flags like --only-failures and --next-failure

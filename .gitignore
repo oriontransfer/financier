@@ -1,6 +1,7 @@
 # Development specific:
 .rspec_status
 .tags*
+.bundle
 
 # Temporary data should not be added to the repository:
 tmp/
@@ -9,3 +10,5 @@ tmp/
 config/environment.yaml
 
 db/*/
+# Ignore resized gallery photos:
+public/_gallery/
