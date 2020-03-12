@@ -1,0 +1,54 @@
+name: Development
+
+on: [push]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os:
+          - ubuntu
+        
+        ruby:
+          - 2.5
+          - 2.6
+          - 2.7
+    
+    runs-on: ${{matrix.os}}-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{matrix.ruby}}
+    - uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{runner.os}}-${{matrix.ruby}}-${{hashFiles('**/Gemfile.lock')}}
+        restore-keys: |
+          ${{runner.os}}-${{matrix.ruby}}-
+    - name: Bundle install
+      run: |
+        sudo apt-get install pkg-config
+        gem install bundler:2.1.4
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+    - name: Run tests
+      run: ${{matrix.env}} bundle exec rspec
+  
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Push to remote system
+      env:
+        DEPLOY_KEY: ${{secrets.deploy_key}}
+      run: |
+        eval "$(ssh-agent -s)"
+        ssh-add - <<< $DEPLOY_KEY
+        mkdir ~/.ssh
+        ssh-keyscan -H www.oriontransfer.net >> ~/.ssh/known_hosts
+        git push -f ssh://http@www.oriontransfer.net/srv/http/financier.oriontransfer.co.nz/ HEAD:master
