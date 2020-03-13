@@ -1,5 +1,6 @@
 
-# Learn about best practice specs from http://betterspecs.org
+require 'financier'
+
 RSpec.describe Financier::Billing do
 	let(:today) {Date.today}
 	let(:period) {Periodical::Period.load("1 months")}
