@@ -2,6 +2,7 @@
 .rspec_status
 .tags*
 .bundle
+.covered.db
 
 # Temporary data should not be added to the repository:
 tmp/
