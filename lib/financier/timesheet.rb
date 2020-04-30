@@ -14,7 +14,7 @@ module Financier
 
 		def self.convert_from_primative(dataset, value)
 			if match = HM.match(value)
-				total = BigDecimal.new(0)
+				total = BigDecimal(0)
 				
 				if string = match[1]
 					total += string.to_d
