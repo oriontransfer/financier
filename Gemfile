@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'utopia', '~> 2.13.2'
+gem 'utopia', '~> 2.14.0'
 # gem "utopia-gallery"
 # gem "utopia-analytics"
 
@@ -12,12 +12,11 @@ gem 'variant'
 gem 'bundler'
 
 gem 'rack-test'
-gem "rack-freeze", "~> 1.2"
 
 gem "relaxo", "~> 1.3"
 gem "relaxo-model", "~> 0.15.0"
 
-gem 'rugged', git: 'git://github.com/libgit2/rugged.git', submodules: true
+gem 'rugged' #, git: 'git://github.com/libgit2/rugged.git', submodules: true
 
 gem "trenni-formatters", "~> 2.4"
 
