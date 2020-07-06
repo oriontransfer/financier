@@ -23,6 +23,9 @@ group :preload do
 	gem "sanitize"
 	gem "kramdown"
 	gem "bcrypt", "~> 3.0"
+	
+	gem "trenni-formatters"
+	gem "markly"
 
 	gem "tty-prompt"
 end
