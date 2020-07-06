@@ -63,7 +63,7 @@ on 'download' do |request, path|
 		csv << [transaction.timestamp, transaction.name, transaction.amount.amount, transaction.amount.name, transaction.principal&.name]
 	end
 	
-	succeed content: buffer.string
+	succeed! content: buffer.string
 end
 
 def import_ofx(path)
