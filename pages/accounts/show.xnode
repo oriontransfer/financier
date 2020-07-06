@@ -6,6 +6,7 @@
 <content:page>
 	<div class="toolbar">
 		<a class="button" href="edit?id=#{account.id}&amp;_return=#{request.url}"><i class="fa fa-edit"></i> Edit</a>
+		<a class="button" href="download?id=#{account.id}" download="transactions.csv"><i class="fa fa-download"></i> Download</a>
 	</div>
 	
 	<content:heading>Account #{f.text account.pseudonym}</content:heading>

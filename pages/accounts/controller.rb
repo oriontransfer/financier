@@ -48,6 +48,24 @@ on 'show' do |request, path|
 	@account = Financier::Account.fetch_all(Financier::DB.current, id: request[:id])
 end
 
+on 'download' do |request, path|
+	@account = Financier::Account.fetch_all(Financier::DB.current, id: request[:id])
+	
+	currencies = Set.new
+	balance = Latinum::Collection.new(currencies)
+	
+	buffer = StringIO.new
+	csv = CSV.new(buffer)
+	
+	csv << ["date", "reference", "amount", "currency", "principal"]
+	
+	@account.transactions.sort_by(&:timestamp).each do |transaction|
+		csv << [transaction.timestamp, transaction.name, transaction.amount.name, transaction.amount.currency, transaction.principal&.name]
+	end
+	
+	succeed content: buffer.string
+end
+
 def import_ofx(path)
 	Financier::DB.commit(message: "Import OFX Transactions") do |dataset|
 		OFX(path) do |parser|
