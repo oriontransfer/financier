@@ -27,6 +27,15 @@ require 'ofx'
 require 'qif'
 require 'csv'
 
+require 'bigdecimal'
+
+# A monkey patch to fix ofx:
+class BigDecimal
+	def self.new(*arguments)
+		BigDecimal(*arguments)
+	end
+end
+
 CSV::Converters[:blank_to_nil] = lambda do |field|
 	field && field.empty? ? nil : field
 end
