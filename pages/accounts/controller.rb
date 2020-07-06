@@ -60,7 +60,7 @@ on 'download' do |request, path|
 	csv << ["date", "reference", "amount", "currency", "principal"]
 	
 	@account.transactions.sort_by(&:timestamp).each do |transaction|
-		csv << [transaction.timestamp, transaction.name, transaction.amount.amount, transaction.amount.name, transaction.principal&.name]
+		csv << [transaction.timestamp, transaction.name, transaction.amount.to_s('F'), transaction.amount.name, transaction.principal&.name]
 	end
 	
 	succeed! content: buffer.string

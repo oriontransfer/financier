@@ -1,4 +1,0 @@
-# The path to install the code
-prefix: "dist"
-# Enable minification
-minify: true

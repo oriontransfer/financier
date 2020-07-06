@@ -1,15 +1,17 @@
 # Development specific:
-.rspec_status
-.tags*
-.bundle
-.covered.db
+/.rspec_status
+/.bundle
 
 # Temporary data should not be added to the repository:
-tmp/
+/tmp
+
+# Node modules are 3rd party dependencies which can be fetched easily:
+/node_modules
 
 # This file should only ever exist on production, and may contain sensitive information:
-config/environment.yaml
+/config/environment.yaml
 
-db/*/
 # Ignore resized gallery photos:
-public/_gallery/
+/public/_gallery
+
+/db
