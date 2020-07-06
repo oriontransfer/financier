@@ -17,7 +17,7 @@ group :preload do
 
 	gem "time-zone", "~> 1.1"
 
-	gem "ofx", "~> 0.3"
+	gem "ofx", "~> 0.3", git: "https://github.com/annacruz/ofx"
 	gem "qif", "~> 1.1"
 
 	gem "sanitize"
