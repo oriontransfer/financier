@@ -249,6 +249,7 @@ DEPENDENCIES
   sanitize
   time-zone (~> 1.1)
   trenni-formatters
+  trenni-sanitize
   tty-prompt
   utopia (~> 2.18.0)
   variant
