@@ -37,20 +37,3 @@ jobs:
         git config --global user.email "samuel@oriontransfer.net"
         git config --global user.name "Samuel Williams"
         ${{matrix.env}} bundle exec rspec
-  
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-    
-    steps:
-    - uses: actions/checkout@v1
-    - name: Push to remote system
-      env:
-        DEPLOY_KEY: ${{secrets.deploy_key}}
-      run: |
-        eval "$(ssh-agent -s)"
-        ssh-add - <<< $DEPLOY_KEY
-        mkdir ~/.ssh
-        ssh-keyscan -H www.oriontransfer.net >> ~/.ssh/known_hosts
-        git push -f ssh://http@www.oriontransfer.net/srv/http/financier.oriontransfer.co.nz/ HEAD:master
