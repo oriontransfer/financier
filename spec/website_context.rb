@@ -3,13 +3,12 @@
 require 'rack/test'
 require 'async/rspec/reactor'
 
+require 'financier/middleware'
+
 RSpec.shared_context "website" do
 	include Rack::Test::Methods
 	
-	let(:rackup_path) {File.expand_path('../config.ru', __dir__)}
-	let(:rackup_directory) {File.dirname(rackup_path)}
-	
-	let(:app) {Rack::Builder.parse_file(rackup_path).first}
+	let(:app) {Financier::Middleware.to_app}
 end
 
 RSpec.shared_examples_for "valid page" do |path|
