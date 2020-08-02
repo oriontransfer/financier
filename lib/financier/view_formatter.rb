@@ -32,25 +32,25 @@ module Financier
 	class ViewFormatter < Trenni::Formatters::Formatter
 		include Trenni::Formatters::Markdown, Trenni::Formatters::RelativeTime
 		
-		map(Latinum::Resource) do |object, options|
-			BANK.format(object, options)
+		map(Latinum::Resource) do |object, **options|
+			BANK.format(object, **options)
 		end
 		
-		map(Latinum::Collection) do |object, options|
+		map(Latinum::Collection) do |object, **options|
 			object.map do |resource|
 				self.text(resource)
 			end.join(", ")
 		end
 		
-		map(Date) do |object, options|
+		map(Date) do |object, **options|
 			object.strftime
 		end
 		
-		map(DateTime) do |object, options|
+		map(DateTime) do |object, **options|
 			object.strftime("%c %Z")
 		end
 		
-		map(BigDecimal) do |object, options|
+		map(BigDecimal) do |object, **options|
 			object.to_s('F')
 		end
 		
@@ -80,7 +80,9 @@ module Financier
 		end
 
 		def tax(object)
-			(object.tax_rate * 100.to_d).to_s('F') + '%'
+			if tax_rate = object.tax_rate
+				(object.tax_rate * 100.to_d).to_s('F') + '%'
+			end
 		end
 	end
 end

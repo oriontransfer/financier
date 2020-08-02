@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
+	gem 'rack-test'
+	
 	gem 'guard-falcon', require: false
 	gem 'guard-rspec', require: false
 	

@@ -117,6 +117,10 @@ table.listing tbody .description {
 	border-bottom: 1px solid #ccc;
 }
 
+table.listing tr.invalid {
+	background-color: #fbb;
+}
+
 table.listing thead {
 	background: fixed url(/_static/table_background.png);
 }

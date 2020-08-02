@@ -9,7 +9,7 @@ PATH
       periodical (~> 1.0)
       qif (~> 1.1)
       relaxo (~> 1.3)
-      relaxo-model (~> 0.15.0)
+      relaxo-model (~> 0.19)
       time-zone (~> 1.1)
       trenni-formatters
       trenni-sanitize
@@ -114,7 +114,7 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     mapping (1.1.1)
-    markly (0.5.0)
+    markly (0.5.1)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -151,6 +151,8 @@ GEM
       method_source (~> 1.0)
     qif (1.2.0)
     rack (2.2.3)
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
     rake (13.0.1)
     rake-compiler (1.1.1)
       rake
@@ -160,9 +162,9 @@ GEM
     relaxo (1.6.2)
       console
       rugged
-    relaxo-model (0.15.0)
+    relaxo-model (0.19.0)
       msgpack (~> 1.0)
-      relaxo (~> 1.0)
+      relaxo (~> 1.5)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -207,7 +209,7 @@ GEM
       tty-screen (~> 0.8)
       wisper (~> 2.0)
     tty-screen (0.8.1)
-    utopia (2.18.0)
+    utopia (2.18.2)
       concurrent-ruby (~> 1.0)
       console (~> 1.0)
       http-accept (~> 2.1)
@@ -234,6 +236,7 @@ DEPENDENCIES
   financier!
   guard-falcon
   guard-rspec
+  rack-test
   rspec
 
 BUNDLED WITH

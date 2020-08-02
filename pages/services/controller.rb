@@ -1,7 +1,17 @@
 
 prepend Actions
 
-require 'json'
+PARAMETERS = {
+	name: true,
+	description: true,
+	domain: true,
+	active: true,
+	start_date: true,
+	billed_until_date: true,
+	customer: true,
+	periodic_cost: true,
+	period: true,
+}
 
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
@@ -18,12 +28,11 @@ on 'delete' do |request, path|
 	succeed!
 end
 
-
 on 'new' do |request, path|
 	@service = Financier::Service.create(Financier::DB.current, :start_date => Date.today, :period => 7)
 	
 	if request.post?
-		@service.assign(request.params)
+		@service.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "New Service") do |dataset|
 			@service.save(dataset)
@@ -37,7 +46,7 @@ on 'edit' do |request, path|
 	@service = Financier::Service.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
-		@service.assign(request.params)
+		@service.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "Edit Service") do |dataset|
 			@service.save(dataset)

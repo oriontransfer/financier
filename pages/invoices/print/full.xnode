@@ -3,6 +3,12 @@
 	
 	invoice = attributes[:invoice]
 	
+	columns = 6
+	
+	if invoice.taxable?
+		columns += 1
+	end
+	
 	f = Financier::ViewFormatter.new
 	
 	document.attributes[:title] = "#{invoice.title} #{invoice.number}"
@@ -70,7 +76,9 @@
 				<th class="price">Price</th>
 				<th class="quantity">Quantity</th>
 				<th class="subtotal">Sub-total</th>
-				<th class="tax_rate">Tax</th>
+				<?r if invoice.taxable? ?>
+					<th class="tax_rate">Tax</th>
+				<?r end ?>
 				<th class="total">Total</th>
 			</tr>
 		</thead>
@@ -87,7 +95,9 @@
 				invoice.transactions.sort_by(&:date).each do |transaction|
 					subtotal = transaction.subtotal
 					summary[:subtotal] << subtotal
-					summary[:tax] << subtotal * transaction.tax_rate.to_d
+					if tax_rate = transaction.tax_rate
+						summary[:tax] << subtotal * tax_rate.to_d
+					end
 					summary[:total] << transaction.total
 				
 			?>
@@ -97,7 +107,9 @@
 				<td class="price">#{f.text transaction.price}</td>
 				<td class="quantity">#{f.quantity transaction}</td>
 				<td class="subtotal">#{f.text subtotal}</td>
-				<td class="tax_rate">#{f.tax transaction}</td>
+				<?r if invoice.taxable? ?>
+					<td class="tax_rate">#{f.tax transaction}</td>
+				<?r end ?>
 				<td class="total">
 					#{f.text transaction.total}
 					<?r if transaction.exchange_rate? ?>
@@ -107,7 +119,7 @@
 			</tr>
 			<?r if transaction.description? ?>
 			<tr>
-				<td class="description" colspan="7">#{f.markdown transaction.description}</td>
+				<td class="description" colspan="#{columns}">#{f.markdown transaction.description}</td>
 			</tr>
 			<?r end ?>
 			<?r end ?>
@@ -117,7 +129,9 @@
 			<tr>
 				<td colspan="4">#{currency} Summary:</td>
 				<td class="subtotal">#{f.text summary[:subtotal][currency]}</td>
-				<td class="tax_rate">#{f.text summary[:tax][currency]}</td>
+				<?r if invoice.taxable? ?>
+					<td class="tax_rate">#{f.text summary[:tax][currency]}</td>
+				<?r end ?>
 				<td class="total">#{f.text summary[:total][currency]}</td>
 			</tr>
 			<?r end ?>

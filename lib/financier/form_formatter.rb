@@ -37,11 +37,11 @@ module Financier
 		unmap(Latinum::Resource)
 		
 		def select(options = {}, &block)
-			element(Trenni::Formatters::HTML::OptionSelect, options, &block)
+			element(Trenni::Formatters::HTML::OptionSelect, **options, &block)
 		end
 		
 		def radio_select(**options, &block)
-			element(Trenni::Formatters::HTML::RadioSelect, options, &block)
+			element(Trenni::Formatters::HTML::RadioSelect, **options, &block)
 		end
 	end
 end

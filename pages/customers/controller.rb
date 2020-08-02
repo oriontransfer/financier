@@ -1,6 +1,10 @@
 
 prepend Actions
 
+PARAMETERS = {
+	name: true,
+}
+
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
@@ -20,7 +24,7 @@ on 'new' do |request, path|
 	@customer = Financier::Customer.create(Financier::DB.current)
 	
 	if request.post?
-		@customer.assign(request.params)
+		@customer.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "New Customer") do |dataset|
 			@customer.save(dataset)
@@ -34,7 +38,7 @@ on 'edit' do |request, path|
 	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
-		@customer.assign(request.params)
+		@customer.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "Edit Customer") do |dataset|
 			@customer.save(dataset)

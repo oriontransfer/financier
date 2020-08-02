@@ -12,6 +12,7 @@
 		<dl>
 			#{f.input :field => :name}
 			#{f.input :field => :number}
+			#{f.checkbox :field => :taxable}
 			
 			#{f.textarea :field => :description}
 			

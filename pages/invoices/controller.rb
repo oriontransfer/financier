@@ -1,6 +1,22 @@
 
 prepend Actions
 
+PARAMETERS = {
+	name: true,
+	number: true,
+	taxable: true,
+	description: true,
+	created_date: true,
+	invoiced_date: true,
+	due_date: true,
+	customer: true,
+	billing_address: true,
+	shipping_address: true,
+	company: true,
+	account: true,
+	company_address: true,
+}
+
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
@@ -20,7 +36,7 @@ on 'new' do |request, path|
 	@invoice = Financier::Invoice.create(Financier::DB.current, :created_date => Date.today)
 	
 	if request.post?
-		@invoice.assign(request.params)
+		@invoice.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "Create Invoice") do |dataset|
 			@invoice.save(dataset)
@@ -34,7 +50,7 @@ on 'edit' do |request, path|
 	@invoice = Financier::Invoice.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
-		@invoice.assign(request.params)
+		@invoice.assign(request.params, PARAMETERS)
 		@invoice.updated_date = Date.today
 		
 		Financier::DB.commit(message: "Edit Invoice") do |dataset|

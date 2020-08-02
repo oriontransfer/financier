@@ -1,6 +1,11 @@
 
 prepend Actions
 
+PARAMETERS = {
+	name: true,
+	role: true,
+}
+
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
@@ -20,7 +25,7 @@ on 'new' do |request, path|
 	@company = Financier::Company.create(Financier::DB.current)
 	
 	if request.post?
-		@company.assign(request.params)
+		@company.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "New Company") do |dataset|
 			@company.save(dataset)
@@ -34,7 +39,7 @@ on 'edit' do |request, path|
 	@company = Financier::Company.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
-		@company.assign(request.params)
+		@company.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "Edit Company") do |dataset|
 			@company.save(dataset)

@@ -1,6 +1,27 @@
 
 prepend Actions
 
+PARAMETERS = {
+	name: true,
+	number: true,
+	
+	bank_name: true,
+	bank_number: true,
+	bank_branch: true,
+	
+	notes: true,
+	
+	sort_code: true,
+	swift_code: true,
+	
+	tax_number: true,
+	
+	company: true,
+	pseudonym: true,
+	description: true,
+	active: true,
+}
+
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
@@ -20,7 +41,7 @@ on 'new' do |request, path|
 	@account = Financier::Account.create(Financier::DB.current)
 	
 	if request.post?
-		@account.assign(request.params)
+		@account.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "New Account") do |dataset|
 			@account.save(dataset)
@@ -34,7 +55,7 @@ on 'edit' do |request, path|
 	@account = Financier::Account.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
-		@account.assign(request.params)
+		@account.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "Edit Account") do |dataset|
 			@account.save(dataset)

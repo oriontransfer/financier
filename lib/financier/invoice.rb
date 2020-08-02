@@ -27,12 +27,12 @@ module Financier
 	def self.generate_invoice_number
 		today = Date.today
 		offset = (Time.now - Time.parse("#{today.year}/1/1")) / 600
-
+		
 		year_code = (today.year - 2012).to_s(36)[0..1].upcase
-
+		
 		"X#{year_code}#{offset.to_i.to_s(16).upcase}"
 	end
-
+	
 	class Invoice
 		include Relaxo::Model
 		
@@ -49,36 +49,36 @@ module Financier
 			
 			property :name
 			property :description
-
+			
 			property :date, Attribute[Date]
 			property :price, Attribute[Latinum::Resource]
 			property :quantity, Attribute[BigDecimal]
 			property :unit
-
+			
 			property :exchange_rate, Optional[Attribute[BigDecimal]]
 			property :exchange_name
-
+			
 			property :invoice, BelongsTo[Invoice]
-
+			
 			# Transactions may be generated automatically by other parts of the system:
 			property :service, Optional[BelongsTo[Service]]
 			property :timesheet, Optional[BelongsTo[Timesheet]]
-
+			
 			property :tax_code
-			property :tax_rate, Attribute[BigDecimal]
-
+			property :tax_rate, Optional[Attribute[BigDecimal]]
+			
 			property :total, Attribute[Latinum::Resource]
-
-			def after_create
-				self[:tax_rate] ||= DEFAULT_TAX_RATE
-			end
-
+			
 			def subtotal
 				price * quantity.to_d
 			end
-
-			def before_save
-				native_total = subtotal * (tax_rate + 1).to_d
+			
+			def before_save(changeset)
+				if tax_rate = self.tax_rate
+					native_total = subtotal * (tax_rate + 1).to_d
+				else
+					native_total = subtotal
+				end
 				
 				if exchange_name && exchange_rate
 					# We need to round the exchanged total based on the currency, otherwise over time the account may be a few units out.
@@ -93,6 +93,8 @@ module Financier
 		property :number
 		property :status
 		property :description
+		
+		property :taxable, Optional[Attribute[Boolean]]
 		
 		def detailed_name
 			"#{self.number} - #{title} for #{self.name}"
@@ -111,11 +113,20 @@ module Financier
 			not (self.invoiced_date && self.invoiced_date <= Date.today)
 		end
 		
+		def after_fetch
+			# The previous default was true. So if this field is nil, the invoice is taxable:
+			if self.taxable.nil?
+				self.taxable = true
+			end
+		end
+		
 		def title
 			if quotation?
 				"Quotation"
-			else
+			elsif self.taxable != false
 				"Tax Invoice"
+			else
+				"Invoice"
 			end
 		end
 		
@@ -144,9 +155,16 @@ module Financier
 			return collection
 		end
 		
-		# relationship :totals, 'financier/transaction_total_by_invoice', {:group => true, :startkey => [:self], :endkey => [:self, {}]} do |database, row|
-			# Latinum::Resource.new(row['value'], row['key'][1])
-		# end
+		def before_save(changeset)
+			unless self.taxable?
+				self.transactions.each do |transaction|
+					if transaction.tax_rate?
+						transaction.tax_rate = nil
+						transaction.save!(changeset)
+					end
+				end
+			end
+		end
 		
 		def after_create
 			self.number ||= Financier::generate_invoice_number

@@ -1,6 +1,17 @@
 
 prepend Actions
 
+PARAMETERS = {
+	name: true,
+	description: true,
+	color: true,
+	price: true,
+	exchange_rate: true,
+	exchange_name: true,
+	tax_code: true,
+	tax_rate: true,
+}
+
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
@@ -20,7 +31,7 @@ on 'new' do |request, path|
 	@timesheet = Financier::Timesheet.create(Financier::DB.current)
 	
 	if request.post?
-		@timesheet.assign(request.params)
+		@timesheet.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "New Timesheet") do |dataset|
 			@timesheet.save(dataset)
@@ -34,7 +45,7 @@ on 'edit' do |request, path|
 	@timesheet = Financier::Timesheet.fetch_all(Financier::DB.current, id: request[:id])
 	
 	if request.post?
-		@timesheet.assign(request.params)
+		@timesheet.assign(request.params, PARAMETERS)
 		
 		Financier::DB.commit(message: "Edit Timesheet") do |dataset|
 			@timesheet.save(dataset)

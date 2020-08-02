@@ -10,6 +10,7 @@ RSpec.describe Financier::Billing do
 			Financier::Timesheet.insert(dataset,
 				name: "Life",
 				price: Latinum::Resource.parse("50 NZD"),
+				tax_rate: BigDecimal("0.15")
 			)
 		end
 	end

@@ -54,7 +54,7 @@ module Financier
 			self.created_date = Date.today
 		end
 		
-		def before_save
+		def before_save(changeset)
 			self.updated_date = Date.today
 		end
 		

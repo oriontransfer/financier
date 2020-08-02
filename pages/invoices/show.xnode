@@ -52,11 +52,16 @@
 					
 					subtotal = transaction.subtotal
 					summary[:subtotal] << subtotal
-					summary[:tax] << subtotal * transaction.tax_rate.to_d
+					
+					if tax_rate = transaction.tax_rate
+						summary[:tax] << subtotal * tax_rate.to_d
+					end
+					
 					summary[:total] << transaction.total
-				
+					
+					invalid_tax = invoice.taxable? ^ !transaction.tax_rate.nil?
 			?>
-			<tr data-id="#{transaction.id}">
+			<tr data-id="#{transaction.id}" class="#{invalid_tax ? 'invalid' : 'valid'}">
 				<td class="actions">
 					<a class="button edit" href="transactions/edit?id=#{transaction.id}"><i class="fa fa-edit"></i></a>
 				</td>

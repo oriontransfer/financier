@@ -8,9 +8,6 @@
 		</dl>
 	</fieldset>
 	
-	<fieldset><legend>Addresses</legend>
-	</fieldset>
-	
 	<fieldset class="footer">
 		<fieldset class="footer">
 			#{f.submit}

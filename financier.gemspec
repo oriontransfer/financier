@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 	spec.add_dependency "utopia", "~> 2.18"
 	
 	spec.add_dependency "relaxo", "~> 1.3"
-	spec.add_dependency "relaxo-model", "~> 0.15.0"
+	spec.add_dependency "relaxo-model", "~> 0.19"
 	
 	spec.add_dependency "periodical", "~> 1.0"
 	spec.add_dependency "latinum", "~> 1.3"

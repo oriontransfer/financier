@@ -78,7 +78,9 @@
 				invoice.transactions.sort_by(&:date).each do |transaction|
 					subtotal = transaction.subtotal
 					summary[:subtotal] << subtotal
-					summary[:tax] << subtotal * transaction.tax_rate.to_d
+					if tax_rate = transaction.tax_rate
+						summary[:tax] << subtotal * tax_rate.to_d
+					end
 					summary[:total] << transaction.total
 				
 			?>

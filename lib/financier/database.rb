@@ -34,7 +34,4 @@ require 'bigdecimal/util'
 
 module Financier
 	BANK = Latinum::Bank.new(Latinum::Currencies::Global)
-	
-	# This needs to be refactored into a configuration file!?
-	DEFAULT_TAX_RATE = "0.15".to_d
 end
