@@ -10,7 +10,7 @@
 	<?r f.radio_select :field => :billing_address, :optional => 'No Address' do |select| ?>
 		<?r addresses.each do |address| ?>
 			<?r select.item :value => address do ?>
-				#{partial 'content:/addresses/_label', address: address}
+				#{partial 'content:/addresses/label', address: address}
 			<?r end ?>
 		<?r end ?>
 	<?r end ?>
@@ -18,7 +18,7 @@
 	<?r f.radio_select :field => :shipping_address, :optional => 'No Address' do |select| ?>
 		<?r addresses.each do |address| ?>
 			<?r select.item :value => address do ?>
-				#{partial 'content:/addresses/_label', address: address}
+				#{partial 'content:/addresses/label', address: address}
 			<?r end ?>
 		<?r end ?>
 	<?r end ?>
