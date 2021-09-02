@@ -12,6 +12,7 @@ PARAMETERS = {
 	country: true,
 	phone: true,
 	email: true,
+	principal: true,
 	purpose: true,
 }
 
