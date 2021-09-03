@@ -8,30 +8,24 @@ Financier is a comprehensive business management platform built on top of [Utopi
 
 ## Installation
 
-Install the ruby gem as follows:
-
-	git clone https://github.com/oriontransfer/financier.git
-	cd financier
-	bundle install
+Copy the `example/` directory which contains the bare framework for running the application.
 
 ## Usage
 
-To create a user:
+First, create an admin user:
 
-	$ rake financier:users:create
-	Login name: admin
-	Login password: ••••••
+```
+bundle install
+bake financier:user:create
+```
 
-Then, to start the development server:
+Then start the site:
 
-	$ rake
-	* Version 3.8.2 (ruby 2.4.0-p0), codename: Sassy Salamander
-	* Min threads: 0, max threads: 16
-	* Environment: development
-	* Listening on tcp://0.0.0.0:9292
-	* Starting control server on tcp://0.0.0.0:9293
+```
+falcon serve
+```
 
-You can now open <http://localhost:9292> in your browser and log in.
+Visit <https://localhost:9292> to log in.
 
 ## License
 
