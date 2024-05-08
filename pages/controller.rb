@@ -50,6 +50,6 @@ on '**' do |request, path|
 	end
 	
 	unless @user or public_path?(path)
-		redirect! Trenni::URI("/login", to: request.url)
+		redirect! XRB::URI("/login", to: request.url)
 	end
 end

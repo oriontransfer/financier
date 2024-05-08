@@ -22,8 +22,8 @@
 
 require 'utopia'
 
-require 'trenni'
-require 'trenni/uri'
+require 'xrb'
+require 'xrb/uri'
 
 require 'yaml'
 

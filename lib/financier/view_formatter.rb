@@ -20,17 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'trenni/formatters'
-require 'trenni/formatters/markdown'
-require 'trenni/formatters/relative_time'
+require 'xrb/formatters'
+require 'xrb/formatters/markdown'
+require 'xrb/formatters/relative_time'
 
 require "date"
 
 require_relative "database"
 
 module Financier
-	class ViewFormatter < Trenni::Formatters::Formatter
-		include Trenni::Formatters::Markdown, Trenni::Formatters::RelativeTime
+	class ViewFormatter < XRB::Formatters::Formatter
+		include XRB::Formatters::Markdown, XRB::Formatters::RelativeTime
 		
 		map(Latinum::Resource) do |object, **options|
 			BANK.format(object, **options)

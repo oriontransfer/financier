@@ -41,7 +41,7 @@
 				</td>
 				<th class="name">#{f.text entry.name}</th>
 				<th class="invoice"><?r if entry.invoice? ?>
-					<a href="#{Trenni::URI "/invoices/show", id: entry.invoice.id}">#{entry.invoice.number}</a>
+					<a href="#{XRB::URI "/invoices/show", id: entry.invoice.id}">#{entry.invoice.number}</a>
 				<?r end ?></th>
 				<td class="finished_at">#{f.text entry.finished_at}</td>
 				<td class="quantity">#{f.hours entry.duration}</td>

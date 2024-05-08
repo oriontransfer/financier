@@ -8,7 +8,7 @@
 ?>
 <content:page>
 	<div class="toolbar">
-		<a class="button generate-invoice" href="#{Trenni::URI "invoice", calendar.to_hash}"><i class="fa fa-cogs"></i> Generate Invoice</a>
+		<a class="button generate-invoice" href="#{XRB::URI "invoice", calendar.to_hash}"><i class="fa fa-cogs"></i> Generate Invoice</a>
 	</div>
 	
 	<content:heading>Calendar</content:heading>
@@ -17,9 +17,9 @@
 		<thead>
 			<tr>
 				<th colspan="7">
-					<a class="button previous" href="#{Trenni::URI "calendar", calendar.previous.to_hash}"><i class="fa fa-chevron-left"></i></a>
+					<a class="button previous" href="#{XRB::URI "calendar", calendar.previous.to_hash}"><i class="fa fa-chevron-left"></i></a>
 					From #{calendar.start_date} to #{calendar.end_date}
-					<a class="button next" href="#{Trenni::URI "calendar", calendar.next.to_hash}"><i class="fa fa-chevron-right"></i></a>
+					<a class="button next" href="#{XRB::URI "calendar", calendar.next.to_hash}"><i class="fa fa-chevron-right"></i></a>
 				</th>
 			</tr>
 			<tr>
@@ -43,9 +43,9 @@
 						<div class="actions">
 							<?r
 								if date == today
-									add_uri = Trenni::URI('entries/new')
+									add_uri = XRB::URI('entries/new')
 								else
-									add_uri = Trenni::URI('entries/new', 'date' => date)
+									add_uri = XRB::URI('entries/new', 'date' => date)
 								end
 							?>
 							<a class="button new" href="#{add_uri}"><i class="fa fa-plus-circle"></i></a>

@@ -5,8 +5,8 @@ source 'https://rubygems.org'
 group :preload do
 	gem "bake"
 	
-	gem "financier", git: "https://github.com/oriontransfer/financier"
-	# gem "financier", path: "../"
+	# gem "financier", git: "https://github.com/oriontransfer/financier"
+	gem "financier", path: "../"
 end
 
 group :production do

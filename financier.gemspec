@@ -35,8 +35,8 @@ Gem::Specification.new do |spec|
 	
 	spec.add_dependency "bcrypt", "~> 3.0"
 	
-	spec.add_dependency "trenni-formatters"
-	spec.add_dependency "trenni-sanitize"
+	spec.add_dependency "xrb-formatters"
+	spec.add_dependency "xrb-sanitize"
 	spec.add_dependency "markly"
 	
 	spec.add_dependency "tty-prompt"
