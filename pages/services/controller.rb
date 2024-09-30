@@ -20,7 +20,7 @@ PARAMETERS = {
 on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request.params[:rows].values
+	documents = request.params["rows"].values
 	
 	Financier::DB.commit(message: "Delete Services") do |dataset|
 		documents.each do |document|
@@ -47,7 +47,7 @@ on "new" do |request, path|
 end
 
 on "edit" do |request, path|
-	@service = Financier::Service.fetch_all(Financier::DB.current, id: request.params[:id])
+	@service = Financier::Service.fetch_all(Financier::DB.current, id: request.params["id"])
 	
 	if request.post?
 		@service.assign(request.params, PARAMETERS)
@@ -61,17 +61,17 @@ on "edit" do |request, path|
 end
 
 on "invoice" do |request, path|
-	@services = request.params[:services].map{|id| Financier::Service.fetch(Financier::DB.current, id)}
+	@services = request.params["services"].map{|id| Financier::Service.fetch(Financier::DB.current, id)}
 	
-	@billing_end_date = Date.parse(request.params[:billing_end_date]) rescue Date.today
+	@billing_end_date = Date.parse(request.params["billing_end_date"]) rescue Date.today
 	
-	if billing_customer = request.params[:billing_customer]
+	if billing_customer = request.params["billing_customer"]
 		@billing_customer = Financier::Customer.fetch(Financier::DB.current, billing_customer)
 	else
 		@billing_customer = @services.first.customer
 	end
 	
-	if request.post? && request.params[:create]
+	if request.post? && request.params["create"]
 		invoice = nil
 		
 		Financier::DB.commit(message: "Create Invoice for Services") do |dataset|

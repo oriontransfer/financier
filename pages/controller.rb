@@ -7,9 +7,9 @@ prepend Actions
 
 on "login" do |request, path|
 	if request.post?
-		user = Financier::User.fetch_by_name(Financier::DB.current, name: request.params[:name])
+		user = Financier::User.fetch_by_name(Financier::DB.current, name: request.params["name"])
 		
-		if user && user.password == request.params[:password]
+		if user && user.password == request.params["password"]
 			request.session[:user_id] = user.id
 			
 			Financier::DB.commit(message: "User Login") do |dataset|
@@ -18,8 +18,8 @@ on "login" do |request, path|
 				user.save(dataset)
 			end
 			
-			if request.params[:to]
-				redirect request.params[:to]
+			if request.params["to"]
+				redirect request.params["to"]
 			else
 				redirect! "/customers/index"
 			end

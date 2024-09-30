@@ -29,7 +29,7 @@ PARAMETERS = {
 on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request.params[:rows].values
+	documents = request.params["rows"].values
 	
 	Financier::DB.commit(message: "Delete Companies") do |dataset|
 		documents.each do |document|
@@ -56,7 +56,7 @@ on "new" do |request, path|
 end
 
 on "edit" do |request, path|
-	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params[:id])
+	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params["id"])
 	
 	if request.post?
 		@account.assign(request.params, PARAMETERS)
@@ -70,11 +70,11 @@ on "edit" do |request, path|
 end
 
 on "show" do |request, path|
-	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params[:id])
+	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params["id"])
 end
 
 on "download" do |request, path|
-	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params[:id])
+	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params["id"])
 	
 	currencies = Set.new
 	balance = Latinum::Collection.new(currencies)
@@ -155,16 +155,16 @@ def import_csv(path)
 end
 
 on "import" do |request, path|
-	if request.params[:account]
-		@account = Financier::Account.fetch(Financier::DB.current, request.params[:account])
+	if request.params["account"]
+		@account = Financier::Account.fetch(Financier::DB.current, request.params["account"])
 	else
 		@account = nil
 	end
 	
-	@default_currency = request.params[:default_currency] || "NZD"
+	@default_currency = request.params["default_currency"] || "NZD"
 	
 	if request.post? and @account
-		upload = request.params[:data]
+		upload = request.params["data"]
 		
 		case upload[:filename]
 		when /\.ofx/i

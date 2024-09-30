@@ -11,7 +11,7 @@
 	<content:heading>Create Invoice from Services</content:heading>
 	
 	<form class="basic editor" method="post" action="#">
-		<?r request.params[:services].each do |id| ?>
+		<?r request.params["services"].each do |id| ?>
 			#{f.hidden :field => :'services[]', :value => id}
 		<?r end ?>
 		

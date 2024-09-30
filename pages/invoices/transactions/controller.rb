@@ -24,7 +24,7 @@ PARAMETERS = {
 on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request.params[:rows].values
+	documents = request.params["rows"].values
 	
 	Financier::DB.commit(message: "Delete Invoice Transactions") do |dataset|
 		documents.each do |document|
@@ -39,7 +39,7 @@ end
 on "new" do |request, path|
 	@transaction = Financier::Invoice::Transaction.create(Financier::DB.current, :date => Date.today, :quantity => 1)
 	
-	@transaction.invoice = Financier::Invoice.fetch_all(@transaction.dataset, id: request.params[:invoice_id])
+	@transaction.invoice = Financier::Invoice.fetch_all(@transaction.dataset, id: request.params["invoice_id"])
 	
 	if request.post?
 		@transaction.assign(request.params, PARAMETERS)
@@ -53,7 +53,7 @@ on "new" do |request, path|
 end
 
 on "edit" do |request, path|
-	@transaction = Financier::Invoice::Transaction.fetch_all(Financier::DB.current, id: request.params[:id])
+	@transaction = Financier::Invoice::Transaction.fetch_all(Financier::DB.current, id: request.params["id"])
 	
 	if request.post?
 		@transaction.assign(request.params, PARAMETERS)
@@ -67,7 +67,7 @@ on "edit" do |request, path|
 end
 
 on "move" do |request, path|
-	@transaction = Financier::Invoice::Transaction.fetch_all(Financier::DB.current, id: request.params[:id])
+	@transaction = Financier::Invoice::Transaction.fetch_all(Financier::DB.current, id: request.params["id"])
 	
 	if request.post?
 		@transaction.assign(request.params)

@@ -19,7 +19,7 @@ PARAMETERS = {
 on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request.params[:rows].values
+	documents = request.params["rows"].values
 	
 	Financier::DB.commit(message: "Delete Timesheets") do |dataset|
 		documents.each do |document|
@@ -46,7 +46,7 @@ on "new" do |request, path|
 end
 
 on "edit" do |request, path|
-	@timesheet = Financier::Timesheet.fetch_all(Financier::DB.current, id: request.params[:id])
+	@timesheet = Financier::Timesheet.fetch_all(Financier::DB.current, id: request.params["id"])
 	
 	if request.post?
 		@timesheet.assign(request.params, PARAMETERS)
@@ -60,22 +60,22 @@ on "edit" do |request, path|
 end
 
 on "show" do |request, path|
-	@timesheet = Financier::Timesheet.fetch_all(Financier::DB.current, id: request.params[:id])
+	@timesheet = Financier::Timesheet.fetch_all(Financier::DB.current, id: request.params["id"])
 end
 
 on "calendar" do |request|
 	@today = Time::Zone.now(@user.timezone).to_date
 	
-	if start_date = request.params[:start_date]
+	if start_date = request.params["start_date"]
 		@start_date = Date.parse(start_date)
 	else
 		today = Date.today
 		@start_date = today - today.day + 1
 	end
 	
-	if end_date = request.params[:end_date]
+	if end_date = request.params["end_date"]
 		@end_date = Date.parse(end_date)
-	elsif days = request.params[:days]
+	elsif days = request.params["days"]
 		@end_date = @start_date + Integer(days)
 	else
 		@end_date = @start_date.next_month
@@ -88,16 +88,16 @@ on "calendar" do |request|
 end
 
 on "invoice" do |request, path|
-	@start_date = Date.parse(request.params[:start_date])
-	@end_date = Date.parse(request.params[:end_date])
+	@start_date = Date.parse(request.params["start_date"])
+	@end_date = Date.parse(request.params["end_date"])
 	
 	@calendar = Financier::Calendar.new(@start_date, @end_date)
 	
-	if billing_customer = request.params[:billing_customer]
+	if billing_customer = request.params["billing_customer"]
 		@billing_customer = Financier::Customer.fetch(Financier::DB.current, billing_customer)
 	end
 	
-	if request.post? and entries = request.params[:entries]
+	if request.post? and entries = request.params["entries"]
 		invoice = nil
 		@entries = entries.map{|id| Financier::Timesheet::Entry.fetch(Financier::DB.current, id)}
 		
