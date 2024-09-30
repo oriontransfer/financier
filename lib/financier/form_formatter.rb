@@ -13,13 +13,13 @@ module Financier
 	class FormFormatter < ViewFormatter
 		include XRB::Formatters::HTML::DefinitionListForm
 		
-		def format_unspecified(object, options)
+		def format_unspecified(object, **options)
 			object.to_s
 		end
 		
 		unmap(Latinum::Resource)
 		
-		def select(options = {}, &block)
+		def select(**options, &block)
 			element(XRB::Formatters::HTML::OptionSelect, **options, &block)
 		end
 		
