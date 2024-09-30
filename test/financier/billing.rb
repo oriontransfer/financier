@@ -1,19 +1,22 @@
 
 require 'financier'
 
-RSpec.describe Financier::Billing do
+
+describe Financier::Billing do
 	let(:today) {Date.today}
 	let(:period) {Periodical::Period.load("1 months")}
 	
-	before(:each) {Financier::DB.clear!}
+	before do
+		Financier::DB.clear!
+	end
 	
-	let!(:customer) do
+	let(:customer) do
 		Financier::DB.commit(message: "Test Customer") do |dataset|
 			Financier::Customer.insert(dataset, name: "Bob Marly")
 		end
 	end
 	
-	let!(:billing) do
+	let(:billing) do
 		Financier::DB.commit(message: "Initial Billing") do |dataset|
 			Financier::Billing.insert(dataset,
 				active: true,
@@ -26,11 +29,14 @@ RSpec.describe Financier::Billing do
 	end
 	
 	it "should generate the next billing" do
+		self.customer
+		self.billing
+		
 		next_billing = Financier::DB.commit(message: "Generate Next Billing") do |dataset|
 			billing.generate_next(dataset)
 		end
 		
-		expect(billing).to be_due
-		expect(next_billing).to_not be_due
+		expect(billing).to be(:due?)
+		expect(next_billing).not.to be(:due?)
 	end
 end

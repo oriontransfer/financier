@@ -114,7 +114,7 @@ module Financier
 		end
 		
 		def self.generate_invoice(dataset, entries, **arguments)
-			invoice = Invoice.insert(dataset, **arguments)
+			invoice = Invoice.insert(dataset, arguments)
 			
 			entries.each do |entry|
 				transaction = Invoice::Transaction.create(dataset,

@@ -4,12 +4,16 @@ source 'https://rubygems.org'
 
 gemspec
 
-group :development do
+group :test do
+	gem 'sus'
+	gem 'covered'
+	
+	gem "falcon"
 	gem 'rack-test'
+	gem 'sus-fixtures-async-http'
 	
-	gem 'guard-falcon', require: false
-	gem 'guard-rspec', require: false
-	
-	gem 'async-rspec'
 	gem 'benchmark-http'
+	gem 'io-watch'
+	
+	gem 'bake-test'
 end

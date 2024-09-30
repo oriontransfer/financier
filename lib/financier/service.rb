@@ -93,7 +93,7 @@ module Financier
 		def self.generate_invoice(dataset, services, date, **arguments)
 			today = Date.today
 			
-			invoice = Invoice.insert(dataset, **arguments)
+			invoice = Invoice.insert(dataset, arguments)
 			
 			services.each do |service|
 				# Round down the number of periods:

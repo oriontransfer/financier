@@ -22,16 +22,17 @@ Gem::Specification.new do |spec|
 	
 	spec.add_dependency "utopia", "~> 2.18"
 	
-	spec.add_dependency "relaxo", "~> 1.3"
+	spec.add_dependency "relaxo", "~> 1.7"
 	spec.add_dependency "relaxo-model", "~> 0.19"
 	
-	spec.add_dependency "periodical", "~> 1.0"
-	spec.add_dependency "latinum", "~> 1.3"
+	spec.add_dependency "periodical", "~> 1.2"
+	spec.add_dependency "latinum", "~> 1.8"
 	
 	spec.add_dependency "time-zone", "~> 1.1"
 	
 	spec.add_dependency "ofx", "~> 0.3"
 	spec.add_dependency "qif", "~> 1.1"
+	spec.add_dependency "csv", "~> 3.0"
 	
 	spec.add_dependency "bcrypt", "~> 3.0"
 	
@@ -40,9 +41,4 @@ Gem::Specification.new do |spec|
 	spec.add_dependency "markly"
 	
 	spec.add_dependency "tty-prompt"
-	
-	spec.add_development_dependency 'covered'
-	spec.add_development_dependency 'bundler'
-	spec.add_development_dependency 'rspec'
-	spec.add_development_dependency 'bake-bundler'
 end

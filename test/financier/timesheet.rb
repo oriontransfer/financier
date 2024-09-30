@@ -1,11 +1,14 @@
 
 require 'financier'
 
-RSpec.describe Financier::Billing do
+describe Financier::Billing do
 	let(:today) {Date.today}
-	before(:each) {Financier::DB.clear! rescue nil}
 	
-	let!(:timesheet) do
+	before do
+		Financier::DB.clear!
+	end
+	
+	let(:timesheet) do
 		Financier::DB.commit(message: "Test Timesheet") do |dataset|
 			Financier::Timesheet.insert(dataset,
 				name: "Life",
@@ -15,7 +18,7 @@ RSpec.describe Financier::Billing do
 		end
 	end
 	
-	let!(:entry) do
+	let(:entry) do
 		Financier::DB.commit(message: "Test Timesheet Entry") do |dataset|
 			Financier::Timesheet::Entry.insert(dataset,
 				timesheet: timesheet,
@@ -26,9 +29,12 @@ RSpec.describe Financier::Billing do
 	end
 	
 	it "can generate invoice" do
+		self.timesheet
+		self.entry
+		
 		Financier::DB.commit(message: "Timesheet Invoice") do |dataset|
 			local_timesheet = timesheet.dup(dataset)
-			expect(local_timesheet.entries).to_not be_empty
+			expect(local_timesheet.entries).not.to be(:empty?)
 			
 			invoice = Financier::Timesheet.generate_invoice(
 				dataset, local_timesheet.entries

@@ -3,9 +3,9 @@ prepend Actions
 
 on 'login' do |request, path|
 	if request.post?
-		user = Financier::User.fetch_by_name(Financier::DB.current, name: request[:name])
+		user = Financier::User.fetch_by_name(Financier::DB.current, name: request.params[:name])
 		
-		if user && user.password == request[:password]
+		if user && user.password == request.params[:password]
 			request.session[:user_id] = user.id
 			
 			Financier::DB.commit(message: "User Login") do |dataset|

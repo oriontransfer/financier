@@ -8,7 +8,7 @@ PARAMETERS = {
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request[:rows].values
+	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Customers") do |dataset|
 		documents.each do |document|
@@ -35,7 +35,7 @@ on 'new' do |request, path|
 end
 
 on 'edit' do |request, path|
-	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request[:id])
+	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?
 		@customer.assign(request.params, PARAMETERS)
@@ -49,7 +49,7 @@ on 'edit' do |request, path|
 end
 
 on 'show' do |request, path|
-	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request[:id])
+	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	@transactions = []
 	@transactions += @customer.invoices.to_a

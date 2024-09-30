@@ -12,7 +12,7 @@ PARAMETERS = {
 on 'delete' do |request, path|
 	fail!(:forbidden) unless request.post?
 	
-	documents = request[:rows].values
+	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Account Transactions") do |dataset|
 		documents.each do |document|
@@ -27,7 +27,7 @@ end
 on 'new' do |request, path|
 	@transaction = Financier::Account::Transaction.create(Financier::DB.current, timestamp: Time.now)
 	
-	@transaction.account = Financier::Account.fetch_all(@transaction.dataset, id: request[:account_id])
+	@transaction.account = Financier::Account.fetch_all(@transaction.dataset, id: request.params[:account_id])
 	
 	if request.post?
 		@transaction.assign(request.params, PARAMETERS)
@@ -36,16 +36,16 @@ on 'new' do |request, path|
 			@transaction.save(dataset)
 		end
 		
-		redirect! request[:_return] || "../show?id=#{@transaction.account.id}"
+		redirect! request.params[:_return] || "../show?id=#{@transaction.account.id}"
 	end
 end
 
 on 'show' do |request, path|
-	@transaction = Financier::Account::Transaction.fetch_all(Financier::DB.current, id: request[:id])
+	@transaction = Financier::Account::Transaction.fetch_all(Financier::DB.current, id: request.params[:id])
 end
 
 on 'edit' do |request, path|
-	@transaction = Financier::Account::Transaction.fetch_all(Financier::DB.current, id: request[:id])
+	@transaction = Financier::Account::Transaction.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?
 		@transaction.assign(request.params, PARAMETERS)
@@ -54,6 +54,6 @@ on 'edit' do |request, path|
 			@transaction.save(dataset)
 		end
 		
-		redirect! request[:_return] || "../show?id=#{@transaction.account.id}"
+		redirect! request.params[:_return] || "../show?id=#{@transaction.account.id}"
 	end
 end
