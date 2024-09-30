@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2012-2024, by Samuel Williams.
 
 prepend Actions
 
@@ -13,14 +17,14 @@ PARAMETERS = {
 	period: true,
 }
 
-on 'delete' do |request, path|
+on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Services") do |dataset|
 		documents.each do |document|
-			service = Financier::Service.fetch_all(dataset, id: document['id'])
+			service = Financier::Service.fetch_all(dataset, id: document["id"])
 			service.delete(dataset)
 		end
 	end
@@ -28,7 +32,7 @@ on 'delete' do |request, path|
 	succeed!
 end
 
-on 'new' do |request, path|
+on "new" do |request, path|
 	@service = Financier::Service.create(Financier::DB.current, :start_date => Date.today, :period => 7)
 	
 	if request.post?
@@ -42,7 +46,7 @@ on 'new' do |request, path|
 	end
 end
 
-on 'edit' do |request, path|
+on "edit" do |request, path|
 	@service = Financier::Service.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?
@@ -56,7 +60,7 @@ on 'edit' do |request, path|
 	end
 end
 
-on 'invoice' do |request, path|
+on "invoice" do |request, path|
 	@services = request.params[:services].map{|id| Financier::Service.fetch(Financier::DB.current, id)}
 	
 	@billing_end_date = Date.parse(request.params[:billing_end_date]) rescue Date.today

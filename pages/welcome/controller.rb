@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2018-2024, by Samuel Williams.
 
 prepend Actions
 
@@ -23,7 +27,7 @@ def timesheet_statistics(dataset)
 	}
 end
 
-on 'index' do
+on "index" do
 	@today = Date.today
 	@calendar = Financier::Calendar.new(@today << 12, @today)
 	

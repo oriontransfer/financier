@@ -1,14 +1,18 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2018-2024, by Samuel Williams.
 
 prepend Actions
 
-on 'delete' do |request, path|
+on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Timesheet Entries") do |dataset|
 		documents.each do |document|
-			company = Financier::Timesheet::Entry.fetch_all(dataset, id: document['id'])
+			company = Financier::Timesheet::Entry.fetch_all(dataset, id: document["id"])
 			company.delete(dataset)
 		end
 	end
@@ -16,7 +20,7 @@ on 'delete' do |request, path|
 	succeed!
 end
 
-on 'new' do |request, path|
+on "new" do |request, path|
 	@entry = Financier::Timesheet::Entry.create(Financier::DB.current, :duration => 1)
 	
 	if timesheet_id = request.params[:timesheet_id]
@@ -40,7 +44,7 @@ on 'new' do |request, path|
 	end
 end
 
-on 'edit' do |request, path|
+on "edit" do |request, path|
 	@entry = Financier::Timesheet::Entry.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?

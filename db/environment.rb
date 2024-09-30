@@ -1,7 +1,11 @@
+# frozen_string_literal: true
 
-require 'variant'
-require 'relaxo'
-require 'console'
+# Released under the MIT License.
+# Copyright, 2017-2024, by Samuel Williams.
+
+require "variant"
+require "relaxo"
+require "console"
 
 module Financier
 	DATABASE_PATH = File.join(__dir__, Variant.for(:database).to_s)

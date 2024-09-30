@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
-require 'bundler/setup'
+# Released under the MIT License.
+# Copyright, 2021-2024, by Samuel Williams.
+
+require "bundler/setup"
 Bundler.setup
 
-require 'utopia/setup'
+require "utopia/setup"
 UTOPIA ||= Utopia.setup
 
-require_relative '../db/environment'
+require_relative "../db/environment"
 
-require 'financier'
-require 'json'
+require "financier"
+require "json"
 
-require 'time/zone'
+require "time/zone"

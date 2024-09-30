@@ -1,6 +1,8 @@
-# Development specific:
-/.rspec_status
-/.bundle
+/.bundle/
+/pkg/
+/gems.locked
+/.covered.db
+/external
 
 # Temporary data should not be added to the repository:
 /tmp

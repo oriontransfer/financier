@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2012-2024, by Samuel Williams.
 
 prepend Actions
 
-on 'login' do |request, path|
+on "login" do |request, path|
 	if request.post?
 		user = Financier::User.fetch_by_name(Financier::DB.current, name: request.params[:name])
 		
@@ -26,23 +30,23 @@ on 'login' do |request, path|
 	end
 end
 
-on 'logout' do |request, path|
+on "logout" do |request, path|
 	request.session[:user_id] = nil
 	
 	redirect! "/login"
 end
 
 PUBLIC = Set.new [
-	'_static',
-	'login',
-	'errors',
+	"_static",
+	"login",
+	"errors",
 ]
 
 def public_path? path
 	PUBLIC.include? path[0]
 end
 
-on '**' do |request, path|
+on "**" do |request, path|
 	if user_id = request.session[:user_id]
 		@user = Financier::User.fetch_all(Financier::DB.current, id: user_id)
 	else

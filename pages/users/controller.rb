@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2018-2024, by Samuel Williams.
 
 prepend Actions
 
@@ -7,14 +11,14 @@ PARAMETERS = {
 	timezone: true,
 }
 
-on 'delete' do |request, path|
+on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Users") do |dataset|
 		documents.each do |document|
-			user = Financier::User.fetch_all(dataset, id: document['id'])
+			user = Financier::User.fetch_all(dataset, id: document["id"])
 			user.delete(dataset)
 		end
 	end
@@ -22,7 +26,7 @@ on 'delete' do |request, path|
 	succeed!
 end
 
-on 'new' do |request, path|
+on "new" do |request, path|
 	@user = Financier::User.create(Financier::DB.current)
 	
 	if request.post?
@@ -36,7 +40,7 @@ on 'new' do |request, path|
 	end
 end
 
-on 'edit' do |request, path|
+on "edit" do |request, path|
 	@user = Financier::User.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?

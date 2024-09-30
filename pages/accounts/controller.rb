@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2012-2024, by Samuel Williams.
 
 prepend Actions
 
@@ -22,14 +26,14 @@ PARAMETERS = {
 	active: true,
 }
 
-on 'delete' do |request, path|
+on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Companies") do |dataset|
 		documents.each do |document|
-			account = Financier::Account.fetch_all(dataset, id: document['id'])
+			account = Financier::Account.fetch_all(dataset, id: document["id"])
 			account.delete(dataset)
 		end
 	end
@@ -37,7 +41,7 @@ on 'delete' do |request, path|
 	succeed!
 end
 
-on 'new' do |request, path|
+on "new" do |request, path|
 	@account = Financier::Account.create(Financier::DB.current)
 	
 	if request.post?
@@ -51,7 +55,7 @@ on 'new' do |request, path|
 	end
 end
 
-on 'edit' do |request, path|
+on "edit" do |request, path|
 	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?
@@ -65,11 +69,11 @@ on 'edit' do |request, path|
 	end
 end
 
-on 'show' do |request, path|
+on "show" do |request, path|
 	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params[:id])
 end
 
-on 'download' do |request, path|
+on "download" do |request, path|
 	@account = Financier::Account.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	currencies = Set.new
@@ -134,10 +138,10 @@ def import_csv(path)
 			currency = row[:currency] || @default_currency
 			
 			if credit = row[:credit]
-				credit.gsub!(',', '') if credit.is_a? String
+				credit.gsub!(",", "") if credit.is_a? String
 				transaction.amount = Latinum::Resource.new(credit, currency)
 			elsif debit = row[:debit]
-				debit.gsub!(',', '') if debit.is_a? String
+				debit.gsub!(",", "") if debit.is_a? String
 				transaction.amount = -Latinum::Resource.new(debit, currency)
 			end
 			
@@ -150,7 +154,7 @@ def import_csv(path)
 	end
 end
 
-on 'import' do |request, path|
+on "import" do |request, path|
 	if request.params[:account]
 		@account = Financier::Account.fetch(Financier::DB.current, request.params[:account])
 	else

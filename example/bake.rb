@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+# Released under the MIT License.
+# Copyright, 2021-2024, by Samuel Williams.
+
 def environment
-	require_relative 'config/environment'
+	require_relative "config/environment"
 end
 
 # Prepare the application for start/restart.
@@ -11,10 +14,10 @@ end
 
 # Restart the application server.
 def restart
-	call 'falcon:supervisor:restart'
+	call "falcon:supervisor:restart"
 end
 
 # Start the development server.
 def default
-	call 'utopia:development'
+	call "utopia:development"
 end

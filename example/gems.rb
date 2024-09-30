@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+# Released under the MIT License.
+# Copyright, 2021-2024, by Samuel Williams.
+
+source "https://rubygems.org"
 
 group :preload do
 	gem "bake"
@@ -10,10 +13,10 @@ group :preload do
 end
 
 group :production do
-	gem 'falcon'
+	gem "falcon"
 end
 
 group :development do
-	gem 'guard'
-	gem 'guard-falcon'
+	gem "guard"
+	gem "guard-falcon"
 end

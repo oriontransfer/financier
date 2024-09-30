@@ -1,5 +1,9 @@
+# frozen_string_literal: true
 
-require 'financier'
+# Released under the MIT License.
+# Copyright, 2018-2024, by Samuel Williams.
+
+require "financier"
 
 
 describe Financier::Billing do

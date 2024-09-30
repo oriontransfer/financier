@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2012-2024, by Samuel Williams.
 
 prepend Actions
 
@@ -5,14 +9,14 @@ PARAMETERS = {
 	name: true,
 }
 
-on 'delete' do |request, path|
+on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Customers") do |dataset|
 		documents.each do |document|
-			customer = Financier::Customer.fetch_all(dataset, id: document['id'])
+			customer = Financier::Customer.fetch_all(dataset, id: document["id"])
 			customer.delete(dataset)
 		end
 	end
@@ -20,7 +24,7 @@ on 'delete' do |request, path|
 	succeed!
 end
 
-on 'new' do |request, path|
+on "new" do |request, path|
 	@customer = Financier::Customer.create(Financier::DB.current)
 	
 	if request.post?
@@ -34,7 +38,7 @@ on 'new' do |request, path|
 	end
 end
 
-on 'edit' do |request, path|
+on "edit" do |request, path|
 	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?
@@ -48,7 +52,7 @@ on 'edit' do |request, path|
 	end
 end
 
-on 'show' do |request, path|
+on "show" do |request, path|
 	@customer = Financier::Customer.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	@transactions = []

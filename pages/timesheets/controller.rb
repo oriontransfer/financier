@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Released under the MIT License.
+# Copyright, 2018-2024, by Samuel Williams.
 
 prepend Actions
 
@@ -12,14 +16,14 @@ PARAMETERS = {
 	tax_rate: true,
 }
 
-on 'delete' do |request, path|
+on "delete" do |request, path|
 	fail!(:forbidden) unless request.post?
 	
 	documents = request.params[:rows].values
 	
 	Financier::DB.commit(message: "Delete Timesheets") do |dataset|
 		documents.each do |document|
-			timesheet = Financier::Timesheet.fetch_all(dataset, id: document['id'])
+			timesheet = Financier::Timesheet.fetch_all(dataset, id: document["id"])
 			timesheet.delete(dataset)
 		end
 	end
@@ -27,7 +31,7 @@ on 'delete' do |request, path|
 	succeed!
 end
 
-on 'new' do |request, path|
+on "new" do |request, path|
 	@timesheet = Financier::Timesheet.create(Financier::DB.current)
 	
 	if request.post?
@@ -41,7 +45,7 @@ on 'new' do |request, path|
 	end
 end
 
-on 'edit' do |request, path|
+on "edit" do |request, path|
 	@timesheet = Financier::Timesheet.fetch_all(Financier::DB.current, id: request.params[:id])
 	
 	if request.post?
@@ -55,11 +59,11 @@ on 'edit' do |request, path|
 	end
 end
 
-on 'show' do |request, path|
+on "show" do |request, path|
 	@timesheet = Financier::Timesheet.fetch_all(Financier::DB.current, id: request.params[:id])
 end
 
-on 'calendar' do |request|
+on "calendar" do |request|
 	@today = Time::Zone.now(@user.timezone).to_date
 	
 	if start_date = request.params[:start_date]
@@ -83,7 +87,7 @@ on 'calendar' do |request|
 	@calendar = Financier::Calendar.new(@start_date, @end_date)
 end
 
-on 'invoice' do |request, path|
+on "invoice" do |request, path|
 	@start_date = Date.parse(request.params[:start_date])
 	@end_date = Date.parse(request.params[:end_date])
 	
