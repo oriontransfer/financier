@@ -19,7 +19,7 @@ on "login" do |request, path|
 			end
 			
 			if request.params["to"]
-				redirect request.params["to"]
+				redirect! request.params["to"]
 			else
 				redirect! "/customers/index"
 			end
